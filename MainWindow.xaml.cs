@@ -701,7 +701,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                 Rect faceTextRect = new Rect(faceTextLayout.X, faceTextLayout.Y, 250, 50);
                 drawingContext.DrawRectangle(faceTextRectShading, null, faceTextRect);
                 
-                // 顯示說明文字
+                // 顯示人臉偵測結果，說明文字
                 drawingContext.DrawText(
                         new FormattedText(
                             faceText,
