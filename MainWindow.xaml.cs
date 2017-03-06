@@ -697,7 +697,9 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             if (this.GetFaceTextPositionInColorSpace(faceIndex, out faceTextLayout))
             {
                 // 畫文字網底
+                // 網底顏色FromArgb
                 SolidColorBrush faceTextRectShading = new SolidColorBrush(Color.FromArgb(100, 0, 0, 0));
+                // 網底位置
                 Rect faceTextRect = new Rect(faceTextLayout.X, faceTextLayout.Y, 250, 50);
                 drawingContext.DrawRectangle(faceTextRectShading, null, faceTextRect);
                 
