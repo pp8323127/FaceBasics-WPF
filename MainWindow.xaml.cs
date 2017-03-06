@@ -557,13 +557,13 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                     using (DrawingContext dc = this.drawingGroup.Open())
                     {
                         // draw the dark background
-                        dc.DrawRectangle(Brushes.Black, null, this.displayRect);
+                        //dc.DrawRectangle(Brushes.Black, null, this.displayRect);
 
 
 
                         //---------ColorFrame----------//
                         //背景用ColorImage呈現
-                        //dc.DrawImage(this.colorBitmap, new Rect(0, 0, this.colorBitmap.PixelWidth, this.colorBitmap.PixelHeight));
+                        dc.DrawImage(this.colorBitmap, new Rect(0, 0, this.colorBitmap.PixelWidth, this.colorBitmap.PixelHeight));
 
 
 
@@ -697,7 +697,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             if (this.GetFaceTextPositionInColorSpace(faceIndex, out faceTextLayout))
             {
                 // 畫文字網底
-                SolidColorBrush faceTextRectShading = new SolidColorBrush(Color.FromArgb(100, 255, 255, 255));
+                SolidColorBrush faceTextRectShading = new SolidColorBrush(Color.FromArgb(100, 0, 0, 0));
                 Rect faceTextRect = new Rect(faceTextLayout.X, faceTextLayout.Y, 250, 50);
                 drawingContext.DrawRectangle(faceTextRectShading, null, faceTextRect);
                 
