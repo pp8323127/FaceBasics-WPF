@@ -152,7 +152,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
 
 
-    //---------ColorFrame----------//
+        //---------ColorFrame----------//
 
         /// <summary>
         /// Reader for color frames
@@ -557,11 +557,16 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                     using (DrawingContext dc = this.drawingGroup.Open())
                     {
                         // draw the dark background
-                        //dc.DrawRectangle(Brushes.Black, null, this.displayRect);
+                        dc.DrawRectangle(Brushes.Black, null, this.displayRect);
+
+
 
                         //---------ColorFrame----------//
                         //背景用ColorImage呈現
-                        dc.DrawImage(this.colorBitmap, new Rect(0, 0, this.colorBitmap.PixelWidth, this.colorBitmap.PixelHeight));
+                        //dc.DrawImage(this.colorBitmap, new Rect(0, 0, this.colorBitmap.PixelWidth, this.colorBitmap.PixelHeight));
+
+
+
 
                         bool drawFaceResult = false;
 
@@ -619,11 +624,12 @@ namespace Microsoft.Samples.Kinect.FaceBasics
         /// <param name="drawingContext">drawing context to render to</param>
         private void DrawFaceFrameResults(int faceIndex, FaceFrameResult faceResult, DrawingContext drawingContext)
         {
+            
             // choose the brush based on the face index
             Brush drawingBrush = this.faceBrush[0];
             if (faceIndex < this.bodyCount)
             {
-                drawingBrush = this.faceBrush[3];
+                drawingBrush = this.faceBrush[faceIndex];
             }
 
             Pen drawingPen = new Pen(drawingBrush, DrawFaceShapeThickness);
@@ -633,11 +639,17 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             Rect faceBox = new Rect(faceBoxSource.Left, faceBoxSource.Top, faceBoxSource.Right - faceBoxSource.Left, faceBoxSource.Bottom - faceBoxSource.Top);
             drawingContext.DrawRectangle(null, drawingPen, faceBox);
 
+
+                // Rect faceBox2 = new Rect(faceBoxSource.Left, faceBoxSource.Top + 500, faceBoxSource.Right - faceBoxSource.Left, faceBoxSource.Bottom - faceBoxSource.Top);
+                // dc2.DrawRectangle(Brushes.White, null, faceBox2);
+                // DrawingContext drawingContext2 = new DrawingContext;
+
             if (faceResult.FacePointsInColorSpace != null)
             {
                 // draw each face point
                 foreach (PointF pointF in faceResult.FacePointsInColorSpace.Values)
                 {
+                    // 臉部五官焦點標示
                     //drawingContext.DrawEllipse(null, drawingPen, new Point(pointF.X, pointF.Y), FacePointRadius, FacePointRadius);
                 }
             }
@@ -651,37 +663,45 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                 int faceIndexShow = faceIndex + 1;
                 faceText += "faceIndex：" + faceIndexShow + "\n\n";
 
-                foreach (var item in faceResult.FaceProperties)
-                {
-                    faceText += item.Key.ToString() + " : ";
+                // 臉部表情狀態
+                //foreach (var item in faceResult.FaceProperties)
+                //{
+                //    faceText += item.Key.ToString() + " : ";
 
-                    // consider a "maybe" as a "no" to restrict 
-                    // the detection result refresh rate
-                    if (item.Value == DetectionResult.Maybe)
-                    {
-                        faceText += DetectionResult.No + "\n";
-                    }
-                    else
-                    {
-                        faceText += item.Value.ToString() + "\n";
-                    }
-                }
+                //    // consider a "maybe" as a "no" to restrict 
+                //    // the detection result refresh rate
+                //    if (item.Value == DetectionResult.Maybe)
+                //    {
+                //        faceText += DetectionResult.No + "\n";
+                //    }
+                //    else
+                //    {
+                //        faceText += item.Value.ToString() + "\n";
+                //    }
+                //}
             }
 
+            // 頭部擺動角度
             // extract face rotation in degrees as Euler angles
-            if (faceResult.FaceRotationQuaternion != null)
-            {
-                int pitch, yaw, roll;
-                ExtractFaceRotationInDegrees(faceResult.FaceRotationQuaternion, out pitch, out yaw, out roll);
-                faceText += "FaceYaw : " + yaw + "\n" +
-                            "FacePitch : " + pitch + "\n" +
-                            "FacenRoll : " + roll + "\n";
-            }
+            //if (faceResult.FaceRotationQuaternion != null)
+            //{
+            //    int pitch, yaw, roll;
+            //    ExtractFaceRotationInDegrees(faceResult.FaceRotationQuaternion, out pitch, out yaw, out roll);
+            //    faceText += "FaceYaw : " + yaw + "\n" +
+            //                "FacePitch : " + pitch + "\n" +
+            //                "FacenRoll : " + roll + "\n";
+            //}
 
             // render the face property and face rotation information
             Point faceTextLayout;
             if (this.GetFaceTextPositionInColorSpace(faceIndex, out faceTextLayout))
             {
+                // 畫文字網底
+                SolidColorBrush faceTextRectShading = new SolidColorBrush(Color.FromArgb(100, 255, 255, 255));
+                Rect faceTextRect = new Rect(faceTextLayout.X, faceTextLayout.Y, 250, 50);
+                drawingContext.DrawRectangle(faceTextRectShading, null, faceTextRect);
+                
+                // 顯示說明文字
                 drawingContext.DrawText(
                         new FormattedText(
                             faceText,
