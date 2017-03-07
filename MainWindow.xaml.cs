@@ -650,7 +650,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                 foreach (PointF pointF in faceResult.FacePointsInColorSpace.Values)
                 {
                     // 臉部五官焦點標示
-                    //drawingContext.DrawEllipse(null, drawingPen, new Point(pointF.X, pointF.Y), FacePointRadius, FacePointRadius);
+                    drawingContext.DrawEllipse(null, drawingPen, new Point(pointF.X, pointF.Y), FacePointRadius, FacePointRadius);
                 }
             }
 
