@@ -233,7 +233,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             {
                 Brushes.White, 
                 Brushes.Orange,
-                Brushes.Green,
+                Brushes.LightGreen,
                 Brushes.Red,
                 Brushes.LightBlue,
                 Brushes.Yellow
