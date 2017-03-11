@@ -50,7 +50,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
         /// Text layout offset in Y axis
         /// </summary>
         /// -0.15f
-        private const float TextLayoutOffsetY = -0.18f;
+        private const float TextLayoutOffsetY = 0.13f;
 
         /// <summary>
         /// Face rotation display angle increment in degrees
@@ -172,18 +172,18 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
         /// <summary>
         /// Radius of drawn hand circles 手部大小
-        /// </summary>
-        private const double HandSize = 30;
+        /// </summary> 30
+        private const double HandSize = 100;
 
         /// <summary>
         /// Thickness of drawn joint lines 關節點大小
-        /// </summary>
-        private const double JointThickness = 3;
+        /// </summary> 3
+        private const double JointThickness = 15;
 
         /// <summary>
         /// Thickness of clip edge rectangles 邊界
-        /// </summary>
-        private const double ClipBoundsThickness = 10;
+        /// </summary> 10
+        private const double ClipBoundsThickness = 20;
 
         /// <summary>
         /// Constant for clamping Z values of camera space points from being negative
@@ -386,15 +386,19 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             // populate body colors, one for each BodyIndex
             this.bodyColors = new List<Pen>();
 
-            this.bodyColors.Add(new Pen(Brushes.Red, 6));
-            this.bodyColors.Add(new Pen(Brushes.Orange, 6));
-            this.bodyColors.Add(new Pen(Brushes.Green, 6));
-            this.bodyColors.Add(new Pen(Brushes.Blue, 6));
-            this.bodyColors.Add(new Pen(Brushes.Indigo, 6));
-            this.bodyColors.Add(new Pen(Brushes.Violet, 6));
+            //this.bodyColors.Add(new Pen(Brushes.Red, 15));
+            //this.bodyColors.Add(new Pen(Brushes.Orange, 15));
+            //this.bodyColors.Add(new Pen(Brushes.Green, 15));
+            //this.bodyColors.Add(new Pen(Brushes.Blue, 15));
+            //this.bodyColors.Add(new Pen(Brushes.Indigo, 15));
+            //this.bodyColors.Add(new Pen(Brushes.Violet, 15));
 
-
-
+            this.bodyColors.Add(new Pen(Brushes.White, 12));
+            this.bodyColors.Add(new Pen(Brushes.Orange, 12));
+            this.bodyColors.Add(new Pen(Brushes.Indigo, 12));
+            this.bodyColors.Add(new Pen(Brushes.Red, 12));
+            this.bodyColors.Add(new Pen(Brushes.LightBlue, 12));
+            this.bodyColors.Add(new Pen(Brushes.Yellow, 12));
 
 
 
@@ -765,7 +769,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                             if (body.IsTracked)
                             {
                                 // 畫邊界
-                                this.DrawClippedEdges(body, dc);
+                                //this.DrawClippedEdges(body, dc);
 
                                 IReadOnlyDictionary<JointType, Joint> joints = body.Joints;
 
