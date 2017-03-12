@@ -21,6 +21,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
     using Microsoft.ProjectOxford.Face;
     using Microsoft.ProjectOxford.Face.Contract;
+    using System.Linq;
 
     /// <summary>
     /// Interaction logic for MainWindow
@@ -1038,6 +1039,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
                         nowBody = numFace;
                     }
+                    DetectAgeGender(fileName);
                 }
 
                 numFace = 0;
@@ -1214,6 +1216,72 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
             return isFaceValid;
         }
+
+
+
+
+
+        private async void DetectAgeGender(object sender)
+        {
+            //如果讓位指定欲偵測人臉圖檔，則甚麼都不做
+            if (sender == null)
+                return;
+
+            //指定傳回诶個人臉之年齡、性別、微笑值三個屬性
+            var requiredFaceAttributes = new FaceAttributeType[]
+            {
+                FaceAttributeType.Age,
+                FaceAttributeType.Gender,
+                FaceAttributeType.Smile
+            };
+            //FaceRectangle[] faceRects;
+            FaceAttributes[] attributes;
+
+            using (Stream imageFileStream = File.OpenRead(sender.ToString()))
+            {
+                var faces = await faceServiceClent.DetectAsync(
+                    imageFileStream,
+                    returnFaceAttributes: requiredFaceAttributes);
+                //faceRects = faces.Select(Face => Face.FaceRectangle).ToArray();
+                attributes = faces.Select(Face => Face.FaceAttributes).ToArray();
+            }
+            //MessageBox.Show(attributes.ToString(), "1", MessageBoxButton.OK);
+
+            //接收傳回資料後，加工處理年齡、性別、微笑值資料
+            int female = 0, male = 0, adult = 0, child = 0;
+            double youngest = 120, oldest = 0, smilest = 0;
+            foreach (var attribute in attributes)
+            {
+                var gender = attribute.Gender;
+                if (gender == "male")
+                    male++;
+                else if (gender == "female")
+                    female++;
+                else
+                    MessageBox.Show("Unknown Gender!");
+                MessageBox.Show(gender);
+                // 工作進度到這邊
+
+                var age = attribute.Age;
+                if (age >= 20)
+                    adult++;
+                else
+                    child++;
+                if (age < youngest)
+                    youngest = age;
+                if (age > oldest)
+                    oldest = age;
+                var smile = attribute.Smile;
+                if (smile > smilest)
+                    smilest = smile;
+            }
+
+        }
+
+
+
+
+
 
         /// <summary>
         /// Handles the event which the sensor becomes unavailable (E.g. paused, closed, unplugged).
