@@ -19,6 +19,9 @@ namespace Microsoft.Samples.Kinect.FaceBasics
     using Microsoft.Kinect;
     using Microsoft.Kinect.Face;
 
+    using Microsoft.ProjectOxford.Face;
+    using Microsoft.ProjectOxford.Face.Contract;
+
     /// <summary>
     /// Interaction logic for MainWindow
     /// </summary>
@@ -241,6 +244,15 @@ namespace Microsoft.Samples.Kinect.FaceBasics
         /// </summary>
         private List<Pen> bodyColors;
 
+
+
+
+        //使用 subscription key，Microsoft Face API Key
+        private readonly IFaceServiceClient faceServiceClent =
+            new FaceServiceClient("4b84a43021ee4799bb07ef07a1fe91f5");
+
+        private int numFace = 0;
+        private int nowBody = 0;
 
 
 
@@ -802,13 +814,12 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                             }
                         }
 
-
-
+                        
 
 
 
                     }
-                }
+                    }
             }
         }
 
@@ -969,10 +980,73 @@ namespace Microsoft.Samples.Kinect.FaceBasics
         {
             
             // choose the brush based on the face index
-            Brush drawingBrush = this.faceBrush[0];
+            Brush drawingBrush = this.faceBrush[faceIndex];
             if (faceIndex < this.bodyCount)
             {
                 drawingBrush = this.faceBrush[faceIndex];
+
+
+
+
+
+                for(int i = 0; i <this.bodyCount; i++)
+                {
+                    if(this.faceFrameSources[i].TrackingId != 0)
+                    {
+                        numFace += 1;
+                    }
+                }
+
+                //numFace = 6 - numFace;
+                
+
+                //string strr = this.faceFrameSources[faceIndex].TrackingId.ToString();
+                string strr = numFace.ToString();
+                FormattedText ft = new FormattedText(
+                    strr,
+                    CultureInfo.GetCultureInfo("en-us"),
+                            FlowDirection.LeftToRight,
+                            new Typeface("Georgia"),
+                            DrawTextFontSize,
+                            Brushes.Red);
+
+                drawingContext.DrawText(ft, this.textLayoutFaceNotTracked);
+
+
+
+
+
+        //---------Microsoft Face Api----------// 
+                //MessageBox.Show(this.bodyCount.ToString(), "1", MessageBoxButton.OK);
+                if (nowBody != numFace)
+                {
+                    string fileName = "tmp.jpg";
+                    using (FileStream saveImage = new FileStream(fileName, FileMode.Open, FileAccess.Write))
+                    {
+                        //從ColorImage.Source處取出一張影像，轉為BitmapSource格式
+                        //儲存到imageSource
+                        BitmapSource imageSourceAPI = (BitmapSource)colorBitmap;
+                        //挑選Joint Photographic Experts Group(JPEG)影像編碼器
+                        JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+                        //將取出的影像加到編碼器的影像集
+                        encoder.Frames.Add(BitmapFrame.Create(imageSourceAPI));
+                        //儲存影像與後續影像清除工作
+                        encoder.Save(saveImage);
+                        saveImage.Flush();
+                        saveImage.Close();
+                        saveImage.Dispose();
+
+                        nowBody = numFace;
+                    }
+                }
+
+                numFace = 0;
+
+
+
+
+
+
             }
 
             Pen drawingPen = new Pen(drawingBrush, DrawFaceShapeThickness);
