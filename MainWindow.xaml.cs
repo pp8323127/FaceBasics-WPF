@@ -254,6 +254,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
         private int numFace = 0;
         private int nowBody = 0;
+        private ulong[] saveTrackingID = null;
 
 
 
@@ -289,6 +290,9 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
             // allocate storage to store body objects
             this.bodies = new Body[this.bodyCount];
+
+            // 建立儲存TrackingID的地方
+            this.saveTrackingID = new ulong[this.bodyCount];
 
             // specify the required face frame results
             FaceFrameFeatures faceFrameFeatures =
@@ -751,6 +755,9 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                                 {
                                     // update the face frame source to track this body
                                     this.faceFrameSources[i].TrackingId = this.bodies[i].TrackingId;
+                                    //saveTrackingID[i] = this.bodies[i].TrackingId;
+                                    //textBox.Text = textBox.Text + "\n" + saveTrackingID[i].ToString();
+                                    //這裡
                                 }
                             }
                         }
@@ -986,20 +993,45 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             {
                 drawingBrush = this.faceBrush[faceIndex];
 
+                //textBox.Text = this.faceFrameSources[faceIndex].TrackingId.ToString() + "\n" + saveTrackingID[faceIndex].ToString();
 
-
-
-
-                for(int i = 0; i <this.bodyCount; i++)
+                
+                if(this.bodies[faceIndex].TrackingId != saveTrackingID[faceIndex])
                 {
-                    if(this.faceFrameSources[i].TrackingId != 0)
+                    saveTrackingID[faceIndex] = this.bodies[faceIndex].TrackingId;
+                    textBox.Text = this.faceFrameSources[faceIndex].TrackingId.ToString() + "\n" + saveTrackingID[faceIndex].ToString();
+
+                    string fileName = "tmp.jpg";
+                    using (FileStream saveImage = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.Write))
                     {
-                        numFace += 1;
+                        //從ColorImage.Source處取出一張影像，轉為BitmapSource格式
+                        //儲存到imageSource
+                        BitmapSource imageSourceAPI = (BitmapSource)colorBitmap;
+                        //挑選Joint Photographic Experts Group(JPEG)影像編碼器
+                        JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+                        //將取出的影像加到編碼器的影像集
+                        encoder.Frames.Add(BitmapFrame.Create(imageSourceAPI));
+                        //儲存影像與後續影像清除工作
+                        encoder.Save(saveImage);
+                        saveImage.Flush();
+                        saveImage.Close();
+                        saveImage.Dispose();
+
+                        DetectAgeGender(fileName);
                     }
+
                 }
+
+
+
+
+
 
                 //numFace = 6 - numFace;
                 
+
+
+
 
                 //string strr = this.faceFrameSources[faceIndex].TrackingId.ToString();
                 string strr = numFace.ToString();
@@ -1021,6 +1053,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                 //MessageBox.Show(this.bodyCount.ToString(), "1", MessageBoxButton.OK);
                 if (nowBody != numFace)
                 {
+                    /*
                     string fileName = "tmp.jpg";
                     using (FileStream saveImage = new FileStream(fileName, FileMode.Open, FileAccess.Write))
                     {
@@ -1038,8 +1071,9 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                         saveImage.Dispose();
 
                         nowBody = numFace;
-                    }
-                    DetectAgeGender(fileName);
+                    }*/
+                    ////辨識
+                    ////DetectAgeGender(fileName);
                 }
 
                 numFace = 0;
@@ -1083,7 +1117,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                 int faceIndexShow = faceIndex;
 
                 //增加顯示tracking id
-                faceText += "faceIndex：" + faceIndexShow + "\n" + "TrackingID=" + this.faceFrameSources[faceIndex].TrackingId + "\n\n" ;
+                faceText += "faceIndex：" + faceIndexShow + "\n" + "TrackingID=" + this.bodies[faceIndex].TrackingId + "\n\n" ;
 
                 // 臉部表情狀態(happy, engery)
                 //foreach (var item in faceResult.FaceProperties)
