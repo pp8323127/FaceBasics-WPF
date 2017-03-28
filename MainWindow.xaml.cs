@@ -1345,8 +1345,6 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                     female++;
                 else
                     MessageBox.Show("Unknown Gender!");
-                MessageBox.Show(gender);
-                // 工作進度到這邊
 
                 var age = attribute.Age;
                 if (age >= 20)
@@ -1360,6 +1358,12 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                 var smile = attribute.Smile;
                 if (smile > smilest)
                     smilest = smile;
+
+
+
+                MessageBox.Show(attribute.Gender + "  " + attribute.Age);
+                // 工作進度到這邊
+
             }
 
         }
