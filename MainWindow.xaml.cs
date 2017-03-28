@@ -1079,10 +1079,13 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             if (faceResult.FaceProperties != null)
             {
                 //額外顯示faceIndex
-                int faceIndexShow = faceIndex + 1;
-                faceText += "faceIndex：" + faceIndexShow + "\n\n";
+                //int faceIndexShow = faceIndex + 1;
+                int faceIndexShow = faceIndex;
 
-                // 臉部表情狀態
+                //增加顯示tracking id
+                faceText += "faceIndex：" + faceIndexShow + "\n" + "TrackingID=" + this.faceFrameSources[faceIndex].TrackingId + "\n\n" ;
+
+                // 臉部表情狀態(happy, engery)
                 //foreach (var item in faceResult.FaceProperties)
                 //{
                 //    faceText += item.Key.ToString() + " : ";
@@ -1223,7 +1226,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
         private async void DetectAgeGender(object sender)
         {
-            //如果讓位指定欲偵測人臉圖檔，則甚麼都不做
+            //如果尚未指定欲偵測人臉圖檔，則甚麼都不做
             if (sender == null)
                 return;
 
