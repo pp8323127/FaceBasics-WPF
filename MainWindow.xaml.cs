@@ -54,7 +54,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
         /// Text layout offset in Y axis
         /// </summary>
         /// -0.15f
-        private const float TextLayoutOffsetY = 0.13f;
+        private const float TextLayoutOffsetY = 0.16f;
 
         /// <summary>
         /// Face rotation display angle increment in degrees
@@ -255,6 +255,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
         private int numFace = 0;
         private int nowBody = 0;
         private ulong[] saveTrackingID = null;
+        private string DetectAgeGenderResult;
 
 
 
@@ -1166,7 +1167,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                 int faceIndexShow = faceIndex;
 
                 //增加顯示tracking id
-                faceText += "faceIndex：" + faceIndexShow + "\n" + "TrackingID=" + this.bodies[faceIndex].TrackingId + "\n\n" ;
+                faceText += "faceIndex：" + faceIndexShow + "\n" + "TrackingID=" + this.bodies[faceIndex].TrackingId + "\n" + DetectAgeGenderResult + "\n\n" ;
 
                 // 臉部表情狀態(happy, engery)
                 //foreach (var item in faceResult.FaceProperties)
@@ -1205,7 +1206,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                 // 網底顏色FromArgb
                 SolidColorBrush faceTextRectShading = new SolidColorBrush(Color.FromArgb(100, 0, 0, 0));
                 // 網底位置
-                Rect faceTextRect = new Rect(faceTextLayout.X, faceTextLayout.Y, 250, 50);
+                Rect faceTextRect = new Rect(faceTextLayout.X, faceTextLayout.Y, 250, 150);
                 drawingContext.DrawRectangle(faceTextRectShading, null, faceTextRect);
                 
                 // 顯示人臉偵測結果，說明文字
@@ -1363,14 +1364,19 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
                 MessageBox.Show(attribute.Gender + "  " + attribute.Age);
                 // 工作進度到這邊
-
+                DetectAgeGenderResult = attribute.Gender + "  " + attribute.Age;
+                textBox.Text = textBox.Text + "\n" + DetectAgeGenderResult;
             }
 
         }
 
 
 
+        private string DetectAgeGenderResult1(object sender, object faceIndex)
+        {
 
+            return("");
+        }
 
 
         /// <summary>
