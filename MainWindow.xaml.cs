@@ -995,32 +995,34 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
                 //textBox.Text = this.faceFrameSources[faceIndex].TrackingId.ToString() + "\n" + saveTrackingID[faceIndex].ToString();
 
-                
-                if(this.bodies[faceIndex].TrackingId != saveTrackingID[faceIndex])
-                {
-                    saveTrackingID[faceIndex] = this.bodies[faceIndex].TrackingId;
-                    textBox.Text = this.faceFrameSources[faceIndex].TrackingId.ToString() + "\n" + saveTrackingID[faceIndex].ToString();
 
-                    string fileName = "tmp.jpg";
-                    using (FileStream saveImage = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.Write))
-                    {
-                        //從ColorImage.Source處取出一張影像，轉為BitmapSource格式
-                        //儲存到imageSource
-                        BitmapSource imageSourceAPI = (BitmapSource)colorBitmap;
-                        //挑選Joint Photographic Experts Group(JPEG)影像編碼器
-                        JpegBitmapEncoder encoder = new JpegBitmapEncoder();
-                        //將取出的影像加到編碼器的影像集
-                        encoder.Frames.Add(BitmapFrame.Create(imageSourceAPI));
-                        //儲存影像與後續影像清除工作
-                        encoder.Save(saveImage);
-                        saveImage.Flush();
-                        saveImage.Close();
-                        saveImage.Dispose();
 
-                        DetectAgeGender(fileName);
-                    }
+             //---------Microsoft Face Api----------// 
+                //if(this.bodies[faceIndex].TrackingId != saveTrackingID[faceIndex])
+                //{
+                //    saveTrackingID[faceIndex] = this.bodies[faceIndex].TrackingId;
+                //    textBox.Text = this.faceFrameSources[faceIndex].TrackingId.ToString() + "\n" + saveTrackingID[faceIndex].ToString();
 
-                }
+                //    string fileName = "tmp.jpg";
+                //    using (FileStream saveImage = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.Write))
+                //    {
+                //        //從ColorImage.Source處取出一張影像，轉為BitmapSource格式
+                //        //儲存到imageSource
+                //        BitmapSource imageSourceAPI = (BitmapSource)colorBitmap;
+                //        //挑選Joint Photographic Experts Group(JPEG)影像編碼器
+                //        JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+                //        //將取出的影像加到編碼器的影像集
+                //        encoder.Frames.Add(BitmapFrame.Create(imageSourceAPI.CopyPixels(faceBox,));
+                //        //儲存影像與後續影像清除工作
+                //        encoder.Save(saveImage);
+                //        saveImage.Flush();
+                //        saveImage.Close();
+                //        saveImage.Dispose();
+
+                //        DetectAgeGender(fileName);
+                //    }
+
+                //}
 
 
 
@@ -1028,7 +1030,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
 
                 //numFace = 6 - numFace;
-                
+
 
 
 
@@ -1049,7 +1051,6 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
 
 
-        //---------Microsoft Face Api----------// 
                 //MessageBox.Show(this.bodyCount.ToString(), "1", MessageBoxButton.OK);
                 if (nowBody != numFace)
                 {
@@ -1092,10 +1093,58 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             Rect faceBox = new Rect(faceBoxSource.Left, faceBoxSource.Top, faceBoxSource.Right - faceBoxSource.Left, faceBoxSource.Bottom - faceBoxSource.Top);
             drawingContext.DrawRectangle(null, drawingPen, faceBox);
 
+            //建立臉部box的Int32Rect
+            //Int32Converter int32faceBox = new Int32Converter();
+            //int32faceBox.ConvertFrom(faceBox);
+            Int32Rect int32faceBox = new Int32Rect(faceBoxSource.Left, faceBoxSource.Top, faceBoxSource.Right - faceBoxSource.Left, faceBoxSource.Bottom - faceBoxSource.Top);
 
-                // Rect faceBox2 = new Rect(faceBoxSource.Left, faceBoxSource.Top + 500, faceBoxSource.Right - faceBoxSource.Left, faceBoxSource.Bottom - faceBoxSource.Top);
-                // dc2.DrawRectangle(Brushes.White, null, faceBox2);
-                // DrawingContext drawingContext2 = new DrawingContext;
+
+
+
+
+            //---------Microsoft Face Api----------// 
+            if (this.bodies[faceIndex].TrackingId != saveTrackingID[faceIndex])
+            {
+                saveTrackingID[faceIndex] = this.bodies[faceIndex].TrackingId;
+                textBox.Text = this.faceFrameSources[faceIndex].TrackingId.ToString() + "\n" + saveTrackingID[faceIndex].ToString();
+
+                string fileName = "tmp.jpg";
+                using (FileStream saveImage = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.Write))
+                {
+
+                    //從ColorImage.Source處取出一張影像，轉為BitmapSource格式
+                    //儲存到imageSource
+                    BitmapSource imageSourceAPI = (BitmapSource)colorBitmap;
+                    //挑選Joint Photographic Experts Group(JPEG)影像編碼器
+                    JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+                    //將取出的影像加到編碼器的影像集
+                    //encoder.Frames.Add(BitmapFrame.Create(imageSourceAPI));
+
+                    //將BitmapSource裁切成臉部大小，並add frames
+                    CroppedBitmap crop = new CroppedBitmap(this.colorBitmap, int32faceBox);
+                    encoder.Frames.Add(BitmapFrame.Create(crop));
+
+                    //CroppedBitmap chainedBitMap = new CroppedBitmap(imageSourceAPI, faceBox);
+                    //儲存影像與後續影像清除工作
+                    encoder.Save(saveImage);
+                    saveImage.Flush();
+                    saveImage.Close();
+                    saveImage.Dispose();
+
+                    DetectAgeGender(fileName);
+                }
+
+            }
+
+
+
+
+
+
+
+            // Rect faceBox2 = new Rect(faceBoxSource.Left, faceBoxSource.Top + 500, faceBoxSource.Right - faceBoxSource.Left, faceBoxSource.Bottom - faceBoxSource.Top);
+            // dc2.DrawRectangle(Brushes.White, null, faceBox2);
+            // DrawingContext drawingContext2 = new DrawingContext;
 
             if (faceResult.FacePointsInColorSpace != null)
             {
