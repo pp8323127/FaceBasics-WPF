@@ -295,6 +295,9 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             // 建立儲存TrackingID的地方
             this.saveTrackingID = new ulong[this.bodyCount];
 
+            // 建立儲存辨識結果的地方(依faceIndex)
+            //this.saveTrackingID = new ulong[this.bodyCount];
+
             // specify the required face frame results
             FaceFrameFeatures faceFrameFeatures =
                 FaceFrameFeatures.BoundingBoxInColorSpace
@@ -1109,7 +1112,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                 saveTrackingID[faceIndex] = this.bodies[faceIndex].TrackingId;
                 textBox.Text = this.faceFrameSources[faceIndex].TrackingId.ToString() + "\n" + saveTrackingID[faceIndex].ToString();
 
-                string fileName = "tmp.jpg";
+                string fileName = "faceIndex"+faceIndex+".jpg";
                 using (FileStream saveImage = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.Write))
                 {
 
