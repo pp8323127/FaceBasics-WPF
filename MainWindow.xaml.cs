@@ -255,7 +255,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
         private int numFace = 0;
         private int nowBody = 0;
         private ulong[] saveTrackingID = null;
-        private string DetectAgeGenderResult;
+        public string[] DetectAgeGenderResult;
 
 
 
@@ -296,7 +296,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             this.saveTrackingID = new ulong[this.bodyCount];
 
             // 建立儲存辨識結果的地方(依faceIndex)
-            //this.saveTrackingID = new ulong[this.bodyCount];
+            this.DetectAgeGenderResult = new string[this.bodyCount];
 
             // specify the required face frame results
             FaceFrameFeatures faceFrameFeatures =
@@ -1110,7 +1110,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             if (this.bodies[faceIndex].TrackingId != saveTrackingID[faceIndex])
             {
                 saveTrackingID[faceIndex] = this.bodies[faceIndex].TrackingId;
-                textBox.Text = this.faceFrameSources[faceIndex].TrackingId.ToString() + "\n" + saveTrackingID[faceIndex].ToString();
+                //textBox.Text = this.faceFrameSources[faceIndex].TrackingId.ToString() + "\n" + saveTrackingID[faceIndex].ToString();
 
                 string fileName = "faceIndex"+faceIndex+".jpg";
                 using (FileStream saveImage = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.Write))
@@ -1135,7 +1135,8 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                     saveImage.Close();
                     saveImage.Dispose();
 
-                    DetectAgeGender(fileName);
+                    DetectAgeGender(fileName, faceIndex);
+
                 }
 
             }
@@ -1170,7 +1171,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                 int faceIndexShow = faceIndex;
 
                 //增加顯示tracking id
-                faceText += "faceIndex：" + faceIndexShow + "\n" + "TrackingID=" + this.bodies[faceIndex].TrackingId + "\n" + DetectAgeGenderResult + "\n\n" ;
+                faceText += "faceIndex：" + faceIndexShow + "\n" + "TrackingID=" + this.bodies[faceIndex].TrackingId + "\n" + DetectAgeGenderResult[faceIndex] + "\n\n" ;
 
                 // 臉部表情狀態(happy, engery)
                 //foreach (var item in faceResult.FaceProperties)
@@ -1311,7 +1312,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
 
 
-        private async void DetectAgeGender(object sender)
+        private async void DetectAgeGender(object sender, int faceIndex)
         {
             //如果尚未指定欲偵測人臉圖檔，則甚麼都不做
             if (sender == null)
@@ -1365,10 +1366,17 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
 
 
-                MessageBox.Show(attribute.Gender + "  " + attribute.Age);
+                //MessageBox.Show(attribute.Gender + "  " + attribute.Age);
                 // 工作進度到這邊
-                DetectAgeGenderResult = attribute.Gender + "  " + attribute.Age;
-                textBox.Text = textBox.Text + "\n" + DetectAgeGenderResult;
+                DetectAgeGenderResult[faceIndex] = attribute.Gender + "  " + attribute.Age;
+                MessageBox.Show(DetectAgeGenderResult[faceIndex]);
+                //textBox.Text = textBox.Text + "\n" + DetectAgeGenderResult;
+
+
+                //textBox顯示
+                textBox.Text = textBox.Text + "\nFaceIndex: " + faceIndex + "\nTrackingID: " + saveTrackingID[faceIndex].ToString() + "\n" + DetectAgeGenderResult[faceIndex];
+
+
             }
 
         }
