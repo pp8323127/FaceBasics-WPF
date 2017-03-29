@@ -1112,6 +1112,34 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                 saveTrackingID[faceIndex] = this.bodies[faceIndex].TrackingId;
                 //textBox.Text = this.faceFrameSources[faceIndex].TrackingId.ToString() + "\n" + saveTrackingID[faceIndex].ToString();
 
+
+                // 另外儲存完整沒有裁切的影像
+                string fileName2 = "faceIndexALL-" + faceIndex + ".jpg";
+                using (FileStream saveImage = new FileStream(fileName2, FileMode.OpenOrCreate, FileAccess.Write))
+                {
+
+                    //從ColorImage.Source處取出一張影像，轉為BitmapSource格式
+                    //儲存到imageSource
+                    BitmapSource imageSourceAPI = (BitmapSource)colorBitmap;
+                    //挑選Joint Photographic Experts Group(JPEG)影像編碼器
+                    JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+                    //將取出的影像加到編碼器的影像集
+                    encoder.Frames.Add(BitmapFrame.Create(imageSourceAPI));
+
+                    //將BitmapSource裁切成臉部大小，並add frames
+                    //CroppedBitmap crop = new CroppedBitmap(this.colorBitmap, int32faceBox);
+                    //encoder.Frames.Add(BitmapFrame.Create(crop));
+
+                    //CroppedBitmap chainedBitMap = new CroppedBitmap(imageSourceAPI, faceBox);
+                    //儲存影像與後續影像清除工作
+                    encoder.Save(saveImage);
+                    saveImage.Flush();
+                    saveImage.Close();
+                    saveImage.Dispose();
+                }
+
+
+
                 string fileName = "faceIndex"+faceIndex+".jpg";
                 using (FileStream saveImage = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.Write))
                 {
