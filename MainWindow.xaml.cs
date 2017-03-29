@@ -255,7 +255,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
         private int numFace = 0;
         private int nowBody = 0;
         private ulong[] saveTrackingID = null;
-        public string[] DetectAgeGenderResult;
+        private string[] DetectAgeGenderResult;
 
 
 
