@@ -1386,9 +1386,8 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
 
                 //MessageBox.Show(attribute.Gender + "  " + attribute.Age);
-                // 工作進度到這邊
                 DetectAgeGenderResult[faceIndex] = attribute.Gender + ", " + attribute.Age;
-                MessageBox.Show(DetectAgeGenderResult[faceIndex]);
+                //MessageBox.Show(DetectAgeGenderResult[faceIndex]);
                 //textBox.Text = textBox.Text + "\n" + DetectAgeGenderResult;
 
 
