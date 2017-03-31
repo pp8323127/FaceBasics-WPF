@@ -1114,7 +1114,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
 
                 // 另外儲存完整沒有裁切的影像
-                string fileName2 = "faceIndexALL-" + faceIndex + ".jpg";
+                string fileName2 = saveTrackingID[faceIndex].ToString()+"-ALL-" + faceIndex + ".jpg";
                 using (FileStream saveImage = new FileStream(fileName2, FileMode.OpenOrCreate, FileAccess.Write))
                 {
                     //從ColorImage.Source處取出一張影像，轉為BitmapSource格式
@@ -1132,7 +1132,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                 }
                 
 
-                string fileName = "faceIndex"+faceIndex+".jpg";
+                string fileName = saveTrackingID[faceIndex].ToString()+ "-" +faceIndex+".jpg";
                 using (FileStream saveImage = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.Write))
                 {
                     //從ColorImage.Source處取出一張影像，轉為BitmapSource格式
