@@ -1,1 +1,3 @@
-2017-03-31 12:35:58, FaceIndex: 2, TrackingID: 72057594037939039, male, 13.3
+2017-03-31 12:37:52, FaceIndex: 0, TrackingID: 72057594037939427, male, 17.5
+2017-03-31 13:06:26, FaceIndex: 4, TrackingID: 72057594037946127, male, 17.5
+2017-03-31 13:41:14, FaceIndex: 0, TrackingID: 72057594037948403, male, 14.3

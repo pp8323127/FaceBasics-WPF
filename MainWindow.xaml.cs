@@ -1397,7 +1397,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                 // 把辨識結果儲存到tmp.txt
                 DateTime mNow = DateTime.Now;
                 string path = @"tmp.txt";
-                File.AppendAllText(path, mNow.ToString("yyyy-MM-dd HH:mm:ss") + ", FaceIndex: " + faceIndex + ", TrackingID: " + saveTrackingID[faceIndex].ToString() + ", " + DetectAgeGenderResult[faceIndex] + "\n");
+                File.AppendAllText(path, mNow.ToString("yyyy-MM-dd HH:mm:ss") + ", FaceIndex: " + faceIndex + ", TrackingID: " + saveTrackingID[faceIndex].ToString() + ", " + DetectAgeGenderResult[faceIndex] + Environment.NewLine);
 
 
             }
