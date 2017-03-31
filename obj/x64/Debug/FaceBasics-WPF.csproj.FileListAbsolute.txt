@@ -35,3 +35,23 @@ D:\Documents\Visual Studio 2015\Projects\KinectFace\obj\x64\Debug\FaceBasics-WPF
 D:\Documents\Visual Studio 2015\Projects\KinectFace\bin\x64\Debug\Microsoft.ProjectOxford.Face.dll
 D:\Documents\Visual Studio 2015\Projects\KinectFace\bin\x64\Debug\Newtonsoft.Json.dll
 D:\Documents\Visual Studio 2015\Projects\KinectFace\bin\x64\Debug\Newtonsoft.Json.xml
+C:\MO\KinectFace\bin\x64\Debug\FaceBasics-WPF.exe.config
+C:\MO\KinectFace\bin\x64\Debug\FaceBasics-WPF.exe
+C:\MO\KinectFace\bin\x64\Debug\FaceBasics-WPF.pdb
+C:\MO\KinectFace\bin\x64\Debug\Microsoft.Kinect.dll
+C:\MO\KinectFace\bin\x64\Debug\Microsoft.Kinect.Face.dll
+C:\MO\KinectFace\bin\x64\Debug\Microsoft.ProjectOxford.Face.dll
+C:\MO\KinectFace\bin\x64\Debug\Newtonsoft.Json.dll
+C:\MO\KinectFace\bin\x64\Debug\Microsoft.Kinect.xml
+C:\MO\KinectFace\bin\x64\Debug\Microsoft.Kinect.Face.xml
+C:\MO\KinectFace\bin\x64\Debug\Newtonsoft.Json.xml
+C:\MO\KinectFace\obj\x64\Debug\FaceBasics-WPF.csprojResolveAssemblyReference.cache
+C:\MO\KinectFace\obj\x64\Debug\MainWindow.baml
+C:\MO\KinectFace\obj\x64\Debug\MainWindow.g.cs
+C:\MO\KinectFace\obj\x64\Debug\App.g.cs
+C:\MO\KinectFace\obj\x64\Debug\FaceBasics-WPF_MarkupCompile.cache
+C:\MO\KinectFace\obj\x64\Debug\FaceBasics-WPF.g.resources
+C:\MO\KinectFace\obj\x64\Debug\Microsoft.Samples.Kinect.FaceBasics.Properties.Resources.resources
+C:\MO\KinectFace\obj\x64\Debug\FaceBasics-WPF.csproj.GenerateResource.Cache
+C:\MO\KinectFace\obj\x64\Debug\FaceBasics-WPF.exe
+C:\MO\KinectFace\obj\x64\Debug\FaceBasics-WPF.pdb

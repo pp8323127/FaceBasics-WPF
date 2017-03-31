@@ -1387,13 +1387,18 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
                 //MessageBox.Show(attribute.Gender + "  " + attribute.Age);
                 // 工作進度到這邊
-                DetectAgeGenderResult[faceIndex] = attribute.Gender + "  " + attribute.Age;
+                DetectAgeGenderResult[faceIndex] = attribute.Gender + ", " + attribute.Age;
                 MessageBox.Show(DetectAgeGenderResult[faceIndex]);
                 //textBox.Text = textBox.Text + "\n" + DetectAgeGenderResult;
 
 
-                //textBox顯示
+                // textBox顯示
                 textBox.Text = textBox.Text + "\nFaceIndex: " + faceIndex + "\nTrackingID: " + saveTrackingID[faceIndex].ToString() + "\n" + DetectAgeGenderResult[faceIndex];
+
+                // 把辨識結果儲存到tmp.txt
+                DateTime mNow = DateTime.Now;
+                string path = @"tmp.txt";
+                File.AppendAllText(path, mNow.ToString("yyyy-MM-dd HH:mm:ss") + ", FaceIndex: " + faceIndex + ", TrackingID: " + saveTrackingID[faceIndex].ToString() + ", " + DetectAgeGenderResult[faceIndex] + "\n");
 
 
             }
