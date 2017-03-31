@@ -6,4 +6,4 @@ log/*.log
 tmp/*.tmp
 *.sublime*
 sftp-config.json
-faceIndex*
+bin/x64/Debug/*.jpg
