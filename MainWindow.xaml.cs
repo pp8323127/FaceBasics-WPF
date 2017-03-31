@@ -1347,14 +1347,17 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             //FaceRectangle[] faceRects;
             FaceAttributes[] attributes;
 
-            using (Stream imageFileStream = File.OpenRead(sender.ToString()))
+            try
             {
-                var faces = await faceServiceClent.DetectAsync(
-                    imageFileStream,
-                    returnFaceAttributes: requiredFaceAttributes);
-                //faceRects = faces.Select(Face => Face.FaceRectangle).ToArray();
-                attributes = faces.Select(Face => Face.FaceAttributes).ToArray();
-            }
+                using (Stream imageFileStream = File.OpenRead(sender.ToString()))
+                {
+                    var faces = await faceServiceClent.DetectAsync(
+                        imageFileStream,
+                        returnFaceAttributes: requiredFaceAttributes);
+                    //faceRects = faces.Select(Face => Face.FaceRectangle).ToArray();
+                    attributes = faces.Select(Face => Face.FaceAttributes).ToArray();
+                }
+
             //MessageBox.Show(attributes.ToString(), "1", MessageBoxButton.OK);
 
             //接收傳回資料後，加工處理年齡、性別、微笑值資料
@@ -1401,6 +1404,16 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
 
             }
+
+
+
+
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+
 
         }
 
