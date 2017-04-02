@@ -1160,7 +1160,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
                     string faceRotate = "pitch: " + pitch2.ToString() + ", yaw: " + yaw2.ToString() + ", roll: " + roll2;
                     // 進行辨識
-                    //DetectAgeGender(fileName, faceIndex, faceRotate);
+                    DetectAgeGender(fileName, faceIndex, faceRotate);
 
                 }
                 
