@@ -1109,6 +1109,16 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             //---------Microsoft Face Api----------// 
             if (this.bodies[faceIndex].TrackingId != saveTrackingID[faceIndex])
             {
+                // 取得頭部旋轉資料
+                int pitch, yaw, roll;
+                ExtractFaceRotationInDegrees(faceResult.FaceRotationQuaternion, out pitch, out yaw, out roll);
+
+                if (yaw <-30)
+                {
+                    //MessageBox.Show(yaw.ToString());
+                }
+
+
                 saveTrackingID[faceIndex] = this.bodies[faceIndex].TrackingId;
                 //textBox.Text = this.faceFrameSources[faceIndex].TrackingId.ToString() + "\n" + saveTrackingID[faceIndex].ToString();
 
@@ -1153,8 +1163,9 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                     saveImage.Close();
                     saveImage.Dispose();
 
+                    string faceRotate = "pitch: " + pitch.ToString() + ", yaw: " + yaw.ToString() + ", roll: " + roll;
                     // 進行辨識
-                    DetectAgeGender(fileName, faceIndex);
+                    //DetectAgeGender(fileName, faceIndex, faceRotate);
 
                 }
 
@@ -1212,14 +1223,15 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
             // 頭部擺動角度
             // extract face rotation in degrees as Euler angles
-            //if (faceResult.FaceRotationQuaternion != null)
-            //{
-            //    int pitch, yaw, roll;
-            //    ExtractFaceRotationInDegrees(faceResult.FaceRotationQuaternion, out pitch, out yaw, out roll);
-            //    faceText += "FaceYaw : " + yaw + "\n" +
-            //                "FacePitch : " + pitch + "\n" +
-            //                "FacenRoll : " + roll + "\n";
-            //}
+            if (faceResult.FaceRotationQuaternion != null)
+            {
+                int pitch, yaw, roll;
+                ExtractFaceRotationInDegrees(faceResult.FaceRotationQuaternion, out pitch, out yaw, out roll);
+                faceText += "FaceYaw : " + yaw + "\n" +
+                            "FacePitch : " + pitch + "\n" +
+                            "FacenRoll : " + roll + "\n";
+                //MessageBox.Show(yaw + "," + pitch + "," + roll);
+            }
 
             // render the face property and face rotation information
             Point faceTextLayout;
@@ -1331,7 +1343,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
 
 
-        private async void DetectAgeGender(object sender, int faceIndex)
+        private async void DetectAgeGender(object sender, int faceIndex, string faceRotate)
         {
             //如果尚未指定欲偵測人臉圖檔，則甚麼都不做
             if (sender == null)
@@ -1395,12 +1407,12 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
 
                 // textBox顯示
-                textBox.Text = textBox.Text + "\nFaceIndex: " + faceIndex + "\nTrackingID: " + saveTrackingID[faceIndex].ToString() + "\n" + DetectAgeGenderResult[faceIndex];
+                textBox.Text = textBox.Text + "\nFaceIndex: " + faceIndex + "\nTrackingID: " + saveTrackingID[faceIndex].ToString() + "\n" + DetectAgeGenderResult[faceIndex] + ", " + faceRotate;
 
                 // 把辨識結果儲存到tmp.txt
                 DateTime mNow = DateTime.Now;
                 string path = @"tmp.txt";
-                File.AppendAllText(path, mNow.ToString("yyyy-MM-dd HH:mm:ss") + ", FaceIndex: " + faceIndex + ", TrackingID: " + saveTrackingID[faceIndex].ToString() + ", " + DetectAgeGenderResult[faceIndex] + Environment.NewLine);
+                File.AppendAllText(path, mNow.ToString("yyyy-MM-dd HH:mm:ss") + ", FaceIndex: " + faceIndex + ", TrackingID: " + saveTrackingID[faceIndex].ToString() + ", " + DetectAgeGenderResult[faceIndex] + ", " + faceRotate + Environment.NewLine);
 
 
             }
