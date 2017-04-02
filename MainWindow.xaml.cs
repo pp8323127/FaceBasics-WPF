@@ -1104,27 +1104,22 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
 
 
+            // 取得頭部旋轉資料，當faceYaw介於-30~30之間才做辨識
+            int pitch2, yaw2, roll2;
+            ExtractFaceRotationInDegrees(faceResult.FaceRotationQuaternion, out pitch2, out yaw2, out roll2);
 
 
             //---------Microsoft Face Api----------// 
-            if (this.bodies[faceIndex].TrackingId != saveTrackingID[faceIndex])
+            if (this.bodies[faceIndex].TrackingId != saveTrackingID[faceIndex] && yaw2 > -30 && yaw2 < 30)
             {
-                // 取得頭部旋轉資料
-                int pitch, yaw, roll;
-                ExtractFaceRotationInDegrees(faceResult.FaceRotationQuaternion, out pitch, out yaw, out roll);
-
-                if (yaw <-30)
-                {
-                    //MessageBox.Show(yaw.ToString());
-                }
-
+                textBox.Text = textBox.Text + yaw2.ToString();
 
                 saveTrackingID[faceIndex] = this.bodies[faceIndex].TrackingId;
                 //textBox.Text = this.faceFrameSources[faceIndex].TrackingId.ToString() + "\n" + saveTrackingID[faceIndex].ToString();
 
 
                 // 另外儲存完整沒有裁切的影像
-                string fileName2 = saveTrackingID[faceIndex].ToString()+"-ALL-" + faceIndex + ".jpg";
+                string fileName2 = saveTrackingID[faceIndex].ToString() + "-ALL-" + faceIndex + ".jpg";
                 using (FileStream saveImage = new FileStream(fileName2, FileMode.OpenOrCreate, FileAccess.Write))
                 {
                     //從ColorImage.Source處取出一張影像，轉為BitmapSource格式
@@ -1140,9 +1135,9 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                     saveImage.Close();
                     saveImage.Dispose();
                 }
-                
 
-                string fileName = saveTrackingID[faceIndex].ToString()+ "-" +faceIndex+".jpg";
+
+                string fileName = saveTrackingID[faceIndex].ToString() + "-" + faceIndex + ".jpg";
                 using (FileStream saveImage = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.Write))
                 {
                     //從ColorImage.Source處取出一張影像，轉為BitmapSource格式
@@ -1163,12 +1158,12 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                     saveImage.Close();
                     saveImage.Dispose();
 
-                    string faceRotate = "pitch: " + pitch.ToString() + ", yaw: " + yaw.ToString() + ", roll: " + roll;
+                    string faceRotate = "pitch: " + pitch2.ToString() + ", yaw: " + yaw2.ToString() + ", roll: " + roll2;
                     // 進行辨識
                     //DetectAgeGender(fileName, faceIndex, faceRotate);
 
                 }
-
+                
             }
 
 
@@ -1230,7 +1225,6 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                 faceText += "FaceYaw : " + yaw + "\n" +
                             "FacePitch : " + pitch + "\n" +
                             "FacenRoll : " + roll + "\n";
-                //MessageBox.Show(yaw + "," + pitch + "," + roll);
             }
 
             // render the face property and face rotation information
