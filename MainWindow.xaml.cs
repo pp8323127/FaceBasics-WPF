@@ -849,11 +849,11 @@ namespace Microsoft.Samples.Kinect.FaceBasics
         /// <param name="drawingPen">specifies color to draw a specific body</param>
         private void DrawBody(IReadOnlyDictionary<JointType, Joint> joints, IDictionary<JointType, Point> jointPoints, DrawingContext drawingContext, Pen drawingPen)
         {
-            // Draw the bones
-            foreach (var bone in this.bones)
-            {
-                this.DrawBone(joints, jointPoints, bone.Item1, bone.Item2, drawingContext, drawingPen);
-            }
+            //// Draw the bones
+            //foreach (var bone in this.bones)
+            //{
+            //    this.DrawBone(joints, jointPoints, bone.Item1, bone.Item2, drawingContext, drawingPen);
+            //}
 
             // Draw the joints
             foreach (JointType jointType in joints.Keys)
@@ -1160,7 +1160,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
                     string faceRotate = "pitch: " + pitch2.ToString() + ", yaw: " + yaw2.ToString() + ", roll: " + roll2;
                     // 進行辨識
-                    DetectAgeGender(fileName, faceIndex, faceRotate);
+                    //DetectAgeGender(fileName, faceIndex, faceRotate);
 
                 }
                 
@@ -1178,11 +1178,34 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
             if (faceResult.FacePointsInColorSpace != null)
             {
+                textBox.Text = "";
+                int i = 0;
+
                 // draw each face point
                 foreach (PointF pointF in faceResult.FacePointsInColorSpace.Values)
                 {
                     // 臉部五官焦點標示
+                    // The five points are the left eye, right eye, nose and, right and left mouth corners.
                     drawingContext.DrawEllipse(null, drawingPen, new Point(pointF.X, pointF.Y), FacePointRadius, FacePointRadius);
+                    //textBox.Text =  textBox.Text + pointF.X + " " + pointF.Y + " ";
+
+                    if (i < 2)
+                    {
+                        if (i == 0)
+                        {
+                            PointF LeftEye = new PointF();
+                            LeftEye.X = pointF.X;
+                            LeftEye.Y = pointF.Y;
+                            textBox.Text = textBox.Text + LeftEye.X + " " + LeftEye.Y + " ";
+
+                        }
+                        else
+                        {
+                            Point RightEye = new Point(pointF.X, pointF.Y);
+                            textBox.Text = textBox.Text + RightEye.X + " " + RightEye.Y + " ";
+                        }
+                        i++;
+                    }
                 }
             }
 
@@ -1198,7 +1221,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                 //增加顯示tracking id
                 faceText += "faceIndex：" + faceIndexShow + "\n" + "TrackingID=" + this.bodies[faceIndex].TrackingId + "\n" + DetectAgeGenderResult[faceIndex] + "\n\n" ;
 
-                // 臉部表情狀態(happy, engery)
+                //// 臉部表情狀態(happy, engery)
                 //foreach (var item in faceResult.FaceProperties)
                 //{
                 //    faceText += item.Key.ToString() + " : ";
