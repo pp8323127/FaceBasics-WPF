@@ -1184,7 +1184,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                 // draw each face point
                 foreach (PointF pointF in faceResult.FacePointsInColorSpace.Values)
                 {
-                    // 臉部五官焦點標示
+                    // 臉部五點焦點標示
                     // The five points are the left eye, right eye, nose and, right and left mouth corners.
                     drawingContext.DrawEllipse(null, drawingPen, new Point(pointF.X, pointF.Y), FacePointRadius, FacePointRadius);
                     //textBox.Text =  textBox.Text + pointF.X + " " + pointF.Y + " ";
