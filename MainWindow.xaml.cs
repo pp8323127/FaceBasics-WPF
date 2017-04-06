@@ -326,7 +326,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
             // set the maximum number of bodies that would be tracked by Kinect
             this.bodyCount = this.kinectSensor.BodyFrameSource.BodyCount;
-            //this.bodyCount = 6;
+            //this.bodyCount = 2;
 
             // allocate storage to store body objects
             this.bodies = new Body[this.bodyCount];
@@ -976,61 +976,57 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
             // 利用骨架切割上衣圖片
             if (doClothes)
-            {                
-                Point clothesOrigin = jointPoints[JointType.ShoulderLeft];
-                int clothes_width = (int)Math.Abs(jointPoints[JointType.ShoulderLeft].X - jointPoints[JointType.ShoulderRight].X);
-                int clothes_height = (int)Math.Abs(jointPoints[JointType.ShoulderLeft].Y - jointPoints[JointType.HipLeft].Y);
-                clothes(clothesOrigin, clothes_width, clothes_height);
+            {
+                ColorSpacePoint ShoulderLeft_ColorSpacePoint = this.coordinateMapper.MapCameraPointToColorSpace(joints[JointType.ShoulderLeft].Position);
+                ColorSpacePoint ShoulderRight_ColorSpacePoint = this.coordinateMapper.MapCameraPointToColorSpace(joints[JointType.ShoulderRight].Position);
+                ColorSpacePoint HipLeft_ColorSpacePoint = this.coordinateMapper.MapCameraPointToColorSpace(joints[JointType.HipLeft].Position);
+
+                int clothes_width = (int)Math.Abs(ShoulderLeft_ColorSpacePoint.X - ShoulderRight_ColorSpacePoint.X);
+                int clothes_height = (int)Math.Abs(ShoulderLeft_ColorSpacePoint.Y - HipLeft_ColorSpacePoint.Y);
+                clothes(ShoulderLeft_ColorSpacePoint, clothes_width, clothes_height);
                 doClothes = false;
             }
             
         }
 
 
-        private void clothes(Point clothesOrigin, int clothes_width, int clothes_height)
+        private void clothes(ColorSpacePoint clothesOrigin, int clothes_width, int clothes_height)
         {
-            try
+            
+            string fileName = "00000.jpg";
+            using (FileStream saveImage = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.Write))
             {
-                string fileName = "00000.jpg";
-                using (FileStream saveImage = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.Write))
-                {
-                    //從ColorImage.Source處取出一張影像，轉為BitmapSource格式
-                    //儲存到imageSource
-                    BitmapSource imageSourceAPI = (BitmapSource)colorBitmap;
-                    //挑選Joint Photographic Experts Group(JPEG)影像編碼器
-                    JpegBitmapEncoder encoder = new JpegBitmapEncoder();
-                    //將取出的影像加到編碼器的影像集
-                    //encoder.Frames.Add(BitmapFrame.Create(imageSourceAPI));
+                //從ColorImage.Source處取出一張影像，轉為BitmapSource格式
+                //儲存到imageSource
+                BitmapSource imageSourceAPI = (BitmapSource)colorBitmap;
+                //挑選Joint Photographic Experts Group(JPEG)影像編碼器
+                JpegBitmapEncoder encoder = new JpegBitmapEncoder();
 
-                    Int32Rect int32faceBox2 = new Int32Rect((int)clothesOrigin.X, (int)clothesOrigin.Y, clothes_width, clothes_height);
+                //將BitmapSource裁切成衣服大小，並add frames
+                Int32Rect int32faceBox2 = new Int32Rect((int)clothesOrigin.X, (int)clothesOrigin.Y, clothes_width, clothes_height);
+                CroppedBitmap crop = new CroppedBitmap(this.colorBitmap, int32faceBox2);
+                encoder.Frames.Add(BitmapFrame.Create(crop));
 
-                    //將BitmapSource裁切成臉部大小，並add frames
-                    CroppedBitmap crop = new CroppedBitmap(this.colorBitmap, int32faceBox2);
-                    encoder.Frames.Add(BitmapFrame.Create(crop));
-
-                    //儲存影像與後續影像清除工作
-                    encoder.Save(saveImage);
-                    saveImage.Flush();
-                    saveImage.Close();
-                    saveImage.Dispose();
+                //儲存影像與後續影像清除工作
+                encoder.Save(saveImage);
+                saveImage.Flush();
+                saveImage.Close();
+                saveImage.Dispose();
 
 
-                    //顯示衣服圖檔
-                    string currentpath = Directory.GetCurrentDirectory() + "\\00000.jpg";
-                    //MessageBox.Show(currentpath);
-                    BitmapImage bitmapSource2;
-                    Uri fileUri = new Uri(currentpath);
-                    bitmapSource2 = new BitmapImage();
-                    bitmapSource2.BeginInit();
-                    bitmapSource2.UriSource = fileUri;
-                    bitmapSource2.EndInit();
-                    clothesIMG.Source = bitmapSource2;
-                }
+                //顯示衣服圖檔
+                string currentpath = Directory.GetCurrentDirectory() + "\\00000.jpg";
+                //MessageBox.Show(currentpath);
+                BitmapImage bitmapSource2;
+                Uri fileUri = new Uri(currentpath);
+                bitmapSource2 = new BitmapImage();
+                bitmapSource2.BeginInit();
+                bitmapSource2.UriSource = fileUri;
+                bitmapSource2.EndInit();
+                clothesIMG.Source = bitmapSource2;
             }
-            catch (Exception e)
-            {
-                //MessageBox.Show(e.Message);
-            }
+            
+
         }
 
 
