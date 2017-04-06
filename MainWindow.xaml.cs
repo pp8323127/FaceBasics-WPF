@@ -293,6 +293,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
         private int nowBody = 0;
         private ulong[] saveTrackingID = null;
         private string[] DetectAgeGenderResult;
+        private bool doClothes = true;
 
 
 
@@ -550,8 +551,6 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                 return this.bitmap;
             }
         }
-
-
 
 
         /// <summary>
@@ -972,7 +971,60 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                     drawingContext.DrawEllipse(drawBrush, null, jointPoints[jointType], JointThickness, JointThickness);
                 }
             }
+
+
+            // 利用骨架切割上衣圖片
+            if (doClothes)
+            {                
+                Point clothesOrigin = jointPoints[JointType.ShoulderLeft];
+                int clothes_width = (int)Math.Abs(jointPoints[JointType.ShoulderLeft].X - jointPoints[JointType.ShoulderRight].X);
+                int clothes_height = (int)Math.Abs(jointPoints[JointType.ShoulderLeft].Y - jointPoints[JointType.HipLeft].Y);
+                clothes(clothesOrigin, clothes_width, clothes_height);
+                doClothes = false;
+            }
+            
         }
+
+
+        private void clothes(Point clothesOrigin, int clothes_width, int clothes_height)
+        {
+            string fileName = "00000.jpg";
+            using (FileStream saveImage = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.Write))
+            {
+                //從ColorImage.Source處取出一張影像，轉為BitmapSource格式
+                //儲存到imageSource
+                BitmapSource imageSourceAPI = (BitmapSource)colorBitmap;
+                //挑選Joint Photographic Experts Group(JPEG)影像編碼器
+                JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+                //將取出的影像加到編碼器的影像集
+                //encoder.Frames.Add(BitmapFrame.Create(imageSourceAPI));
+
+                Int32Rect int32faceBox2 = new Int32Rect((int)clothesOrigin.X, (int)clothesOrigin.Y, clothes_width, clothes_height);
+
+                //將BitmapSource裁切成臉部大小，並add frames
+                CroppedBitmap crop = new CroppedBitmap(this.colorBitmap, int32faceBox2);
+                encoder.Frames.Add(BitmapFrame.Create(crop));
+
+                //儲存影像與後續影像清除工作
+                encoder.Save(saveImage);
+                saveImage.Flush();
+                saveImage.Close();
+                saveImage.Dispose();
+
+
+                ////顯示衣服圖檔
+                //BitmapImage bitmapSource;
+                //Uri fileUri = new Uri("00000.jpg");
+                //bitmapSource = new BitmapImage();
+                //bitmapSource.BeginInit();
+                //bitmapSource.UriSource = fileUri;
+                //bitmapSource.EndInit();
+
+                //clothesIMG.Source = bitmapSource;
+            }
+
+        }
+
 
         /// <summary>
         /// Draws one bone of a body (joint to joint)
@@ -1263,8 +1315,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             }
 
 
-
-
+            textBox.Text = JointType.ShoulderRight.ToString();
 
 
 
