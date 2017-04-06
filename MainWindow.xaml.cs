@@ -325,8 +325,8 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             this.bodyFrameReader.FrameArrived += this.Reader_BodyFrameArrived;
 
             // set the maximum number of bodies that would be tracked by Kinect
-            //this.bodyCount = this.kinectSensor.BodyFrameSource.BodyCount;
-            this.bodyCount = 0;
+            this.bodyCount = this.kinectSensor.BodyFrameSource.BodyCount;
+            //this.bodyCount = 6;
 
             // allocate storage to store body objects
             this.bodies = new Body[this.bodyCount];
