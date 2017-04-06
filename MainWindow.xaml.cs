@@ -325,7 +325,8 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             this.bodyFrameReader.FrameArrived += this.Reader_BodyFrameArrived;
 
             // set the maximum number of bodies that would be tracked by Kinect
-            this.bodyCount = this.kinectSensor.BodyFrameSource.BodyCount;
+            //this.bodyCount = this.kinectSensor.BodyFrameSource.BodyCount;
+            this.bodyCount = 0;
 
             // allocate storage to store body objects
             this.bodies = new Body[this.bodyCount];
@@ -988,41 +989,48 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
         private void clothes(Point clothesOrigin, int clothes_width, int clothes_height)
         {
-            string fileName = "00000.jpg";
-            using (FileStream saveImage = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.Write))
+            try
             {
-                //從ColorImage.Source處取出一張影像，轉為BitmapSource格式
-                //儲存到imageSource
-                BitmapSource imageSourceAPI = (BitmapSource)colorBitmap;
-                //挑選Joint Photographic Experts Group(JPEG)影像編碼器
-                JpegBitmapEncoder encoder = new JpegBitmapEncoder();
-                //將取出的影像加到編碼器的影像集
-                //encoder.Frames.Add(BitmapFrame.Create(imageSourceAPI));
+                string fileName = "00000.jpg";
+                using (FileStream saveImage = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.Write))
+                {
+                    //從ColorImage.Source處取出一張影像，轉為BitmapSource格式
+                    //儲存到imageSource
+                    BitmapSource imageSourceAPI = (BitmapSource)colorBitmap;
+                    //挑選Joint Photographic Experts Group(JPEG)影像編碼器
+                    JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+                    //將取出的影像加到編碼器的影像集
+                    //encoder.Frames.Add(BitmapFrame.Create(imageSourceAPI));
 
-                Int32Rect int32faceBox2 = new Int32Rect((int)clothesOrigin.X, (int)clothesOrigin.Y, clothes_width, clothes_height);
+                    Int32Rect int32faceBox2 = new Int32Rect((int)clothesOrigin.X, (int)clothesOrigin.Y, clothes_width, clothes_height);
 
-                //將BitmapSource裁切成臉部大小，並add frames
-                CroppedBitmap crop = new CroppedBitmap(this.colorBitmap, int32faceBox2);
-                encoder.Frames.Add(BitmapFrame.Create(crop));
+                    //將BitmapSource裁切成臉部大小，並add frames
+                    CroppedBitmap crop = new CroppedBitmap(this.colorBitmap, int32faceBox2);
+                    encoder.Frames.Add(BitmapFrame.Create(crop));
 
-                //儲存影像與後續影像清除工作
-                encoder.Save(saveImage);
-                saveImage.Flush();
-                saveImage.Close();
-                saveImage.Dispose();
+                    //儲存影像與後續影像清除工作
+                    encoder.Save(saveImage);
+                    saveImage.Flush();
+                    saveImage.Close();
+                    saveImage.Dispose();
 
 
-                ////顯示衣服圖檔
-                //BitmapImage bitmapSource;
-                //Uri fileUri = new Uri("00000.jpg");
-                //bitmapSource = new BitmapImage();
-                //bitmapSource.BeginInit();
-                //bitmapSource.UriSource = fileUri;
-                //bitmapSource.EndInit();
-
-                //clothesIMG.Source = bitmapSource;
+                    //顯示衣服圖檔
+                    string currentpath = Directory.GetCurrentDirectory() + "\\00000.jpg";
+                    //MessageBox.Show(currentpath);
+                    BitmapImage bitmapSource2;
+                    Uri fileUri = new Uri(currentpath);
+                    bitmapSource2 = new BitmapImage();
+                    bitmapSource2.BeginInit();
+                    bitmapSource2.UriSource = fileUri;
+                    bitmapSource2.EndInit();
+                    clothesIMG.Source = bitmapSource2;
+                }
             }
-
+            catch (Exception e)
+            {
+                //MessageBox.Show(e.Message);
+            }
         }
 
 
@@ -1210,14 +1218,14 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                     string fileName = "tmp.jpg";
                     using (FileStream saveImage = new FileStream(fileName, FileMode.Open, FileAccess.Write))
                     {
-                        //從ColorImage.Source處取出一張影像，轉為BitmapSource格式
-                        //儲存到imageSource
+                        從ColorImage.Source處取出一張影像，轉為BitmapSource格式
+                        儲存到imageSource
                         BitmapSource imageSourceAPI = (BitmapSource)colorBitmap;
-                        //挑選Joint Photographic Experts Group(JPEG)影像編碼器
+                        挑選Joint Photographic Experts Group(JPEG)影像編碼器
                         JpegBitmapEncoder encoder = new JpegBitmapEncoder();
-                        //將取出的影像加到編碼器的影像集
+                        將取出的影像加到編碼器的影像集
                         encoder.Frames.Add(BitmapFrame.Create(imageSourceAPI));
-                        //儲存影像與後續影像清除工作
+                        儲存影像與後續影像清除工作
                         encoder.Save(saveImage);
                         saveImage.Flush();
                         saveImage.Close();
@@ -1225,8 +1233,8 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
                         nowBody = numFace;
                     }*/
-                    ////辨識
-                    ////DetectAgeGender(fileName);
+                    //辨識
+                    //DetectAgeGender(fileName);
                 }
 
                 numFace = 0;
@@ -1311,7 +1319,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                     DetectAgeGender(fileName, faceIndex, faceRotate);
 
                 }
-                
+
             }
 
 
