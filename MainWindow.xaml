@@ -25,7 +25,7 @@
             <Grid Name="CompositeImage" Width="1024">
                 <Image Source="{Binding ImageSource_coor}" Stretch="UniformToFill" Margin="-1554,-177,1554,177"  />
                 <Image Source="{Binding ImageSource}" Stretch="Uniform" />
-                <Label x:Name="label" Content="Label" HorizontalAlignment="Left" Margin="1029,0,-200,0" VerticalAlignment="Top" Height="674" Width="195" RenderTransformOrigin="0.471,0.439"/>
+                <Label x:Name="label" Content="Label" HorizontalAlignment="Left" Margin="1029,0,-216,0" VerticalAlignment="Top" Height="674" Width="211" RenderTransformOrigin="0.471,0.439"/>
             </Grid>
         </Viewbox>
 

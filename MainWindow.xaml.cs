@@ -1272,6 +1272,8 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             // dc2.DrawRectangle(Brushes.White, null, faceBox2);
             // DrawingContext drawingContext2 = new DrawingContext;
 
+            string EyePosition = string.Empty;
+            
             if (faceResult.FacePointsInColorSpace != null)
             {
                 textBox.Text = "";
@@ -1289,16 +1291,16 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                     {
                         if (i == 0)
                         {
-                            PointF LeftEye = new PointF();
-                            LeftEye.X = pointF.X;
-                            LeftEye.Y = pointF.Y;
-                            textBox.Text = textBox.Text + LeftEye.X + " " + LeftEye.Y + " ";
+                            Point LeftEye = new Point(pointF.X, pointF.Y);
+                            EyePosition += "LeftEye1:\n" + pointF.X + "\n" + pointF.Y + "\n\n";
+                            //textBox.Text = textBox.Text + LeftEye.X.ToString() + " " + LeftEye.Y + " ";
 
                         }
                         else
                         {
                             Point RightEye = new Point(pointF.X, pointF.Y);
-                            textBox.Text = textBox.Text + RightEye.X + " " + RightEye.Y + " ";
+                            EyePosition += "RightEye:\n" + pointF.X + "\n" + pointF.Y + "\n\n";
+                            //textBox.Text = textBox.Text + RightEye.X + " " + RightEye.Y + " ";
                         }
                         i++;
                     }
@@ -1315,7 +1317,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                 int faceIndexShow = faceIndex;
 
                 //增加顯示tracking id
-                faceText += "faceIndex：" + faceIndexShow + "\n" + "TrackingID=" + this.bodies[faceIndex].TrackingId + "\n" + DetectAgeGenderResult[faceIndex] + "\n\n" ;
+                faceText += "faceIndex：" + faceIndexShow + "\n" + "TrackingID=" + this.bodies[faceIndex].TrackingId + "\n" + DetectAgeGenderResult[faceIndex] + "\n\n" + EyePosition;
 
                 //// 臉部表情狀態(happy, engery)
                 //foreach (var item in faceResult.FaceProperties)
@@ -1357,16 +1359,18 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                 Rect faceTextRect = new Rect(faceTextLayout.X, faceTextLayout.Y, 250, 150);
                 drawingContext.DrawRectangle(faceTextRectShading, null, faceTextRect);
                 
-                // 顯示人臉偵測結果，說明文字
-                drawingContext.DrawText(
-                        new FormattedText(
-                            faceText,
-                            CultureInfo.GetCultureInfo("en-us"),
-                            FlowDirection.LeftToRight,
-                            new Typeface("Georgia"),
-                            DrawTextFontSize,
-                            drawingBrush),
-                        faceTextLayout);
+                //// 顯示人臉偵測結果，說明文字
+                //drawingContext.DrawText(
+                //        new FormattedText(
+                //            faceText,
+                //            CultureInfo.GetCultureInfo("en-us"),
+                //            FlowDirection.LeftToRight,
+                //            new Typeface("Georgia"),
+                //            DrawTextFontSize,
+                //            drawingBrush),
+                //        faceTextLayout);
+
+                //於label顯示
                 label.Content = faceText;
             }
         }
