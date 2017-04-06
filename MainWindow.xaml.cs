@@ -969,7 +969,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
                 if (drawBrush != null)
                 {
-                    drawingContext.DrawEllipse(drawBrush, null, jointPoints[jointType], JointThickness, JointThickness);
+                    //drawingContext.DrawEllipse(drawBrush, null, jointPoints[jointType], JointThickness, JointThickness);
                 }
             }
 
@@ -992,40 +992,45 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
         private void clothes(ColorSpacePoint clothesOrigin, int clothes_width, int clothes_height)
         {
-            
-            string fileName = "00000.jpg";
-            using (FileStream saveImage = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.Write))
+            try
             {
-                //從ColorImage.Source處取出一張影像，轉為BitmapSource格式
-                //儲存到imageSource
-                BitmapSource imageSourceAPI = (BitmapSource)colorBitmap;
-                //挑選Joint Photographic Experts Group(JPEG)影像編碼器
-                JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+                string fileName = "00000.jpg";
+                using (FileStream saveImage = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.Write))
+                {
+                    //從ColorImage.Source處取出一張影像，轉為BitmapSource格式
+                    //儲存到imageSource
+                    BitmapSource imageSourceAPI = (BitmapSource)colorBitmap;
+                    //挑選Joint Photographic Experts Group(JPEG)影像編碼器
+                    JpegBitmapEncoder encoder = new JpegBitmapEncoder();
 
-                //將BitmapSource裁切成衣服大小，並add frames
-                Int32Rect int32faceBox2 = new Int32Rect((int)clothesOrigin.X, (int)clothesOrigin.Y, clothes_width, clothes_height);
-                CroppedBitmap crop = new CroppedBitmap(this.colorBitmap, int32faceBox2);
-                encoder.Frames.Add(BitmapFrame.Create(crop));
+                    //將BitmapSource裁切成衣服大小，並add frames
+                    Int32Rect int32faceBox2 = new Int32Rect((int)clothesOrigin.X, (int)clothesOrigin.Y, clothes_width, clothes_height);
+                    CroppedBitmap crop = new CroppedBitmap(this.colorBitmap, int32faceBox2);
+                    encoder.Frames.Add(BitmapFrame.Create(crop));
 
-                //儲存影像與後續影像清除工作
-                encoder.Save(saveImage);
-                saveImage.Flush();
-                saveImage.Close();
-                saveImage.Dispose();
+                    //儲存影像與後續影像清除工作
+                    encoder.Save(saveImage);
+                    saveImage.Flush();
+                    saveImage.Close();
+                    saveImage.Dispose();
 
 
-                //顯示衣服圖檔
-                string currentpath = Directory.GetCurrentDirectory() + "\\00000.jpg";
-                //MessageBox.Show(currentpath);
-                BitmapImage bitmapSource2;
-                Uri fileUri = new Uri(currentpath);
-                bitmapSource2 = new BitmapImage();
-                bitmapSource2.BeginInit();
-                bitmapSource2.UriSource = fileUri;
-                bitmapSource2.EndInit();
-                clothesIMG.Source = bitmapSource2;
+                    //顯示衣服圖檔
+                    string currentpath = Directory.GetCurrentDirectory() + "\\00000.jpg";
+                    //MessageBox.Show(currentpath);
+                    BitmapImage bitmapSource2;
+                    Uri fileUri = new Uri(currentpath);
+                    bitmapSource2 = new BitmapImage();
+                    bitmapSource2.BeginInit();
+                    bitmapSource2.UriSource = fileUri;
+                    bitmapSource2.EndInit();
+                    clothesIMG.Source = bitmapSource2;
+                }
             }
-            
+            catch
+            {
+
+            }
 
         }
 
@@ -1363,6 +1368,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             }
 
             string faceText = string.Empty;
+            string labelText = string.Empty;
 
             // extract each face property information and store it in faceText
             if (faceResult.FaceProperties != null)
@@ -1372,7 +1378,9 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                 int faceIndexShow = faceIndex;
 
                 //增加顯示tracking id
-                faceText += "faceIndex：" + faceIndexShow + "\n" + "TrackingID=" + this.bodies[faceIndex].TrackingId + "\n" + DetectAgeGenderResult[faceIndex] + "\n\n" + EyePosition;
+                //faceText += "faceIndex：" + faceIndexShow + "\n" + "TrackingID=" + this.bodies[faceIndex].TrackingId + "\n" + DetectAgeGenderResult[faceIndex] + "\n\n" + EyePosition;
+                faceText += "faceIndex：" + faceIndexShow + "\n" + "TrackingID=" + this.bodies[faceIndex].TrackingId + "\n" + DetectAgeGenderResult[faceIndex] ;
+                labelText += faceText + "\n\n" + EyePosition;
 
                 //// 臉部表情狀態(happy, engery)
                 //foreach (var item in faceResult.FaceProperties)
@@ -1398,7 +1406,11 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             {
                 int pitch, yaw, roll;
                 ExtractFaceRotationInDegrees(faceResult.FaceRotationQuaternion, out pitch, out yaw, out roll);
-                faceText += "FaceYaw : " + yaw + "\n" +
+                //faceText += "FaceYaw : " + yaw + "\n" +
+                //            "FacePitch : " + pitch + "\n" +
+                //            "FacenRoll : " + roll + "\n";
+
+                labelText += "FaceYaw : " + yaw + "\n" +
                             "FacePitch : " + pitch + "\n" +
                             "FacenRoll : " + roll + "\n";
             }
@@ -1413,20 +1425,20 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                 // 網底位置
                 Rect faceTextRect = new Rect(faceTextLayout.X, faceTextLayout.Y, 250, 150);
                 drawingContext.DrawRectangle(faceTextRectShading, null, faceTextRect);
-                
-                //// 顯示人臉偵測結果，說明文字
-                //drawingContext.DrawText(
-                //        new FormattedText(
-                //            faceText,
-                //            CultureInfo.GetCultureInfo("en-us"),
-                //            FlowDirection.LeftToRight,
-                //            new Typeface("Georgia"),
-                //            DrawTextFontSize,
-                //            drawingBrush),
-                //        faceTextLayout);
+
+                // 顯示人臉偵測結果，說明文字
+                drawingContext.DrawText(
+                        new FormattedText(
+                            faceText,
+                            CultureInfo.GetCultureInfo("en-us"),
+                            FlowDirection.LeftToRight,
+                            new Typeface("Georgia"),
+                            DrawTextFontSize,
+                            drawingBrush),
+                        faceTextLayout);
 
                 //於label顯示
-                label.Content = faceText;
+                label.Content = labelText;
             }
         }
 
@@ -1580,8 +1592,8 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
 
                 // textBox顯示
-                textBox.Text = textBox.Text + "\nFaceIndex: " + faceIndex + "\nTrackingID: " + saveTrackingID[faceIndex].ToString() + "\n" + DetectAgeGenderResult[faceIndex] + ", " + faceRotate;
-
+                //textBox.Text = textBox.Text + "\nFaceIndex: " + faceIndex + "\nTrackingID: " + saveTrackingID[faceIndex].ToString() + "\n" + DetectAgeGenderResult[faceIndex] + ", " + faceRotate;
+                
                 // 把辨識結果儲存到tmp.txt
                 DateTime mNow = DateTime.Now;
                 string path = @"tmp.txt";
