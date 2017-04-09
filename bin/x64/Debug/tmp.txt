@@ -91,3 +91,5 @@
 2017-04-09 19:49:12, FaceIndex: 5, TrackingID: 72057594037953352, male, 18.7, pitch: 20, yaw: -5, roll: -10
 2017-04-09 19:49:52, FaceIndex: 3, TrackingID: 72057594037953428, male, 20.9, pitch: 15, yaw: -10, roll: -20
 2017-04-09 19:50:22, FaceIndex: 3, TrackingID: 0, male, 20.2, pitch: 20, yaw: -15, roll: -10
+2017-04-09 19:58:33, FaceIndex: 1, TrackingID: 72057594037953708, male, 19.6, pitch: 0, yaw: -5, roll: 0
+2017-04-09 19:59:39, FaceIndex: 0, TrackingID: 72057594037953851, male, 19.2, pitch: 5, yaw: 0, roll: 0
