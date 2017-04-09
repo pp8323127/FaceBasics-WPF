@@ -289,11 +289,17 @@ namespace Microsoft.Samples.Kinect.FaceBasics
         private readonly IFaceServiceClient faceServiceClent =
             new FaceServiceClient("4b84a43021ee4799bb07ef07a1fe91f5");
 
+
+        // custome
         private int numFace = 0;
         private int nowBody = 0;
         private ulong[] saveTrackingID = null;
         private string[] DetectAgeGenderResult;
         private bool doClothes = true;
+        private bool trackID = false;
+        int trackidno = 0;
+        ulong? TrackID2 = null;
+
 
 
 
@@ -810,7 +816,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             using (var bodyFrame = e.FrameReference.AcquireFrame())
             {
                 if (bodyFrame != null)
-                {
+                {                    
                     // update body data
                     bodyFrame.GetAndRefreshBodyData(this.bodies);
 
@@ -826,8 +832,6 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                         dc.DrawImage(this.colorBitmap, new Rect(0, 0, this.colorBitmap.PixelWidth, this.colorBitmap.PixelHeight));
 
 
-
-
                         bool drawFaceResult = false;
 
                         // iterate through each face source
@@ -835,12 +839,21 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                         {
                             // check if a valid face is tracked in this face source
                             if (this.faceFrameSources[i].IsTrackingIdValid)
-                            {
+                            {                                    
                                 // check if we have valid face frame results
                                 if (this.faceFrameResults[i] != null)
                                 {
-                                    // draw face frame results
-                                    this.DrawFaceFrameResults(i, this.faceFrameResults[i], dc);
+                                    //只追蹤一人
+                                    if (TrackID2 == null)
+                                    {
+                                        TrackID2 = faceFrameResults[i].TrackingId;
+                                    }
+                                    else if (TrackID2 == faceFrameResults[i].TrackingId)
+                                    {
+
+                                        // draw face frame results
+                                        this.DrawFaceFrameResults(i, this.faceFrameResults[i], dc);
+                                    }
 
                                     if (!drawFaceResult)
                                     {
@@ -853,11 +866,9 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                                 // check if the corresponding body is tracked 
                                 if (this.bodies[i].IsTracked)
                                 {
+                                    trackidno = i;
                                     // update the face frame source to track this body
                                     this.faceFrameSources[i].TrackingId = this.bodies[i].TrackingId;
-                                    //saveTrackingID[i] = this.bodies[i].TrackingId;
-                                    //textBox.Text = textBox.Text + "\n" + saveTrackingID[i].ToString();
-                                    //這裡
                                 }
                             }
                         }
@@ -1794,6 +1805,13 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                 this.StatusText = this.kinectSensor.IsAvailable ? Properties.Resources.RunningStatusText
                                                                 : Properties.Resources.SensorNotAvailableStatusText;
             }
+        }
+
+        private void resetID_Click(object sender, RoutedEventArgs e)
+        {
+            trackID = false;
+            trackidno = 0;
+            TrackID2 = null;
         }
     }
 }

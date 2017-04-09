@@ -27,12 +27,13 @@
                 <Image Source="{Binding ImageSource}" Stretch="Uniform" />
                 <Label x:Name="label" Content="Label" HorizontalAlignment="Left" Margin="1029,0,-216,0" VerticalAlignment="Top" Height="674" Width="211" RenderTransformOrigin="0.471,0.439" FontSize="16"/>
                 <Image x:Name="clothesIMG"  Stretch="Uniform" Width="200" Height="200" Margin="1029,474,-205,0" />
+                <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="102" Margin="10,619,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="976"/>
+                <Button x:Name="resetID" Content="ResetTrackID" HorizontalAlignment="Left" Margin="843,670,0,0" VerticalAlignment="Top" Width="108" Height="28" Click="resetID_Click" />
             </Grid>
         </Viewbox>
 
         <StatusBar Grid.Row="2" HorizontalAlignment="Stretch" Name="statusBar" VerticalAlignment="Bottom" Background="White" Foreground="{StaticResource MediumGreyBrush}">
             <StatusBarItem Content="{Binding StatusText}" />
         </StatusBar>
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="102" Margin="10,619,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="976"/>
     </Grid>
 </Window>
