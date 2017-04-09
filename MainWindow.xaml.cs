@@ -49,7 +49,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
         /// </summary>
         /// -0.1f
         private const float TextLayoutOffsetX = -0.08f;
-        
+
         /// <summary>
         /// Text layout offset in Y axis
         /// </summary>
@@ -250,7 +250,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
 
 
-     //---------CoordinateMappingBasics-WPF----------//
+        //---------CoordinateMappingBasics-WPF----------//
 
         /// <summary>
         /// Size of the RGB pixel in the bitmap
@@ -375,7 +375,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             // populate face result colors - one for each face index
             this.faceBrush = new List<Brush>()
             {
-                Brushes.White, 
+                Brushes.White,
                 Brushes.Orange,
                 Brushes.LightGreen,
                 Brushes.Red,
@@ -386,7 +386,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
 
 
-    //---------ColorFrame----------//
+            //---------ColorFrame----------//
 
             // open the reader for the color frames
             this.colorFrameReader = this.kinectSensor.ColorFrameSource.OpenReader();
@@ -403,7 +403,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
 
 
-    //---------SkeletonFrame----------//
+            //---------SkeletonFrame----------//
 
 
             // get the depth (display) extents
@@ -494,7 +494,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
 
 
-        //---------CoordinateMappingBasics-WPF----------//
+            //---------CoordinateMappingBasics-WPF----------//
             this.multiFrameSourceReader = this.kinectSensor.OpenMultiSourceFrameReader(FrameSourceTypes.Depth | FrameSourceTypes.Color | FrameSourceTypes.BodyIndex);
 
             //this.multiFrameSourceReader.MultiSourceFrameArrived += this.Reader_MultiSourceFrameArrived;
@@ -512,7 +512,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             this.colorMappedToDepthPoints = new DepthSpacePoint[colorWidth * colorHeight];
 
             this.bitmap = new WriteableBitmap(colorWidth, colorHeight, 96.0, 96.0, PixelFormats.Bgra32, null);
-            
+
             // Calculate the WriteableBitmap back buffer size
             this.bitmapBackBufferSize = (uint)((this.bitmap.BackBufferStride * (this.bitmap.PixelHeight - 1)) + (this.bitmap.PixelWidth * this.bytesPerPixel));
 
@@ -673,7 +673,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                     this.faceFrameSources[i] = null;
                 }
             }
-            
+
             if (this.bodyFrameReader != null)
             {
                 // BodyFrameReader is IDisposable
@@ -816,7 +816,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             using (var bodyFrame = e.FrameReference.AcquireFrame())
             {
                 if (bodyFrame != null)
-                {                    
+                {
                     // update body data
                     bodyFrame.GetAndRefreshBodyData(this.bodies);
 
@@ -839,7 +839,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                         {
                             // check if a valid face is tracked in this face source
                             if (this.faceFrameSources[i].IsTrackingIdValid)
-                            {                                    
+                            {
                                 // check if we have valid face frame results
                                 if (this.faceFrameResults[i] != null)
                                 {
@@ -880,7 +880,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                             // a body was tracked but the corresponding face was not tracked
                             // a body and the corresponding face was tracked though the face box or the face points were not valid
                             dc.DrawText(
-                                this.textFaceNotTracked, 
+                                this.textFaceNotTracked,
                                 this.textLayoutFaceNotTracked);
                         }
 
@@ -891,7 +891,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
 
 
-                //---------SkeletonFrame----------//
+                        //---------SkeletonFrame----------//
                         int penIndex = 0;
                         foreach (Body body in this.bodies)
                         {
@@ -928,17 +928,17 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
                                 this.DrawBody(joints, jointPoints, dc, drawPen);
 
-                                this.DrawHand(body.HandLeftState, jointPoints[JointType.HandLeft], dc);
-                                this.DrawHand(body.HandRightState, jointPoints[JointType.HandRight], dc);
+                                //this.DrawHand(body.HandLeftState, jointPoints[JointType.HandLeft], dc);
+                                //this.DrawHand(body.HandRightState, jointPoints[JointType.HandRight], dc);
                             }
                         }
 
-                        
+
 
 
 
                     }
-                    }
+                }
             }
         }
 
@@ -997,7 +997,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                 clothes(ShoulderLeft_ColorSpacePoint, clothes_width, clothes_height);
                 doClothes = false;
             }
-            
+
         }
 
 
@@ -1005,7 +1005,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
         {
             try
             {
-                string fileName = "00000.jpg";
+                string fileName = TrackID2 + "-00000.jpg";
                 using (FileStream saveImage = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.Write))
                 {
                     //從ColorImage.Source處取出一張影像，轉為BitmapSource格式
@@ -1015,6 +1015,11 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                     JpegBitmapEncoder encoder = new JpegBitmapEncoder();
 
                     //將BitmapSource裁切成衣服大小，並add frames
+                    if ((int)clothesOrigin.Y + clothes_height > 1080)
+                    {
+                        clothes_height = 1080 - (int)clothesOrigin.Y;
+                    }
+
                     Int32Rect int32faceBox2 = new Int32Rect((int)clothesOrigin.X, (int)clothesOrigin.Y, clothes_width, clothes_height);
                     CroppedBitmap crop = new CroppedBitmap(this.colorBitmap, int32faceBox2);
                     encoder.Frames.Add(BitmapFrame.Create(crop));
@@ -1024,27 +1029,43 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                     saveImage.Flush();
                     saveImage.Close();
                     saveImage.Dispose();
-
-
-                    //顯示衣服圖檔
-                    string currentpath = Directory.GetCurrentDirectory() + "\\00000.jpg";
-                    //MessageBox.Show(currentpath);
-                    BitmapImage bitmapSource2;
-                    Uri fileUri = new Uri(currentpath);
-                    bitmapSource2 = new BitmapImage();
-                    bitmapSource2.BeginInit();
-                    bitmapSource2.UriSource = fileUri;
-                    bitmapSource2.EndInit();
-                    clothesIMG.Source = bitmapSource2;
+                    showClothes();
                 }
+
+
+
+                ////顯示衣服圖檔
+                //string currentpath = Directory.GetCurrentDirectory() + "\\00000.jpg";
+                //BitmapImage bitmapSource2;
+                //Uri fileUri = new Uri(currentpath);
+                //bitmapSource2 = new BitmapImage();
+                //bitmapSource2.BeginInit();
+                //bitmapSource2.UriSource = fileUri;
+                //bitmapSource2.EndInit();
+                //clothesIMG.Source = bitmapSource2;
+
+
             }
             catch
             {
 
             }
 
-        }
 
+
+        }
+        
+        private void showClothes()
+        {
+            string currentpath = Directory.GetCurrentDirectory() + "\\" + TrackID2 + "-00000.jpg";
+            FileStream stream = new FileStream(currentpath, FileMode.Open, FileAccess.Read);
+            
+            BitmapImage src = new BitmapImage();
+            src.BeginInit();
+            src.StreamSource = stream;
+            src.EndInit();
+            clothesIMG.Source = src;            
+        }
 
         /// <summary>
         /// Draws one bone of a body (joint to joint)
@@ -1158,7 +1179,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
         /// <param name="drawingContext">drawing context to render to</param>
         private void DrawFaceFrameResults(int faceIndex, FaceFrameResult faceResult, DrawingContext drawingContext)
         {
-            
+
             // choose the brush based on the face index
             Brush drawingBrush = this.faceBrush[faceIndex];
             if (faceIndex < this.bodyCount)
@@ -1169,7 +1190,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
 
 
-             //---------Microsoft Face Api----------// 
+                //---------Microsoft Face Api----------// 
                 //if(this.bodies[faceIndex].TrackingId != saveTrackingID[faceIndex])
                 //{
                 //    saveTrackingID[faceIndex] = this.bodies[faceIndex].TrackingId;
@@ -1344,7 +1365,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             // DrawingContext drawingContext2 = new DrawingContext;
 
             string EyePosition = string.Empty;
-            
+
             if (faceResult.FacePointsInColorSpace != null)
             {
                 textBox.Text = "";
@@ -1390,7 +1411,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
                 //增加顯示tracking id
                 //faceText += "faceIndex：" + faceIndexShow + "\n" + "TrackingID=" + this.bodies[faceIndex].TrackingId + "\n" + DetectAgeGenderResult[faceIndex] + "\n\n" + EyePosition;
-                faceText += "faceIndex：" + faceIndexShow + "\n" + "TrackingID=" + this.bodies[faceIndex].TrackingId + "\n" + DetectAgeGenderResult[faceIndex] ;
+                faceText += "faceIndex：" + faceIndexShow + "\n" + "TrackingID=" + this.bodies[faceIndex].TrackingId + "\n" + DetectAgeGenderResult[faceIndex];
                 labelText += faceText + "\n\n" + EyePosition;
 
                 //// 臉部表情狀態(happy, engery)
@@ -1482,7 +1503,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
                 faceTextLayout.X = textPointInColor.X;
                 faceTextLayout.Y = textPointInColor.Y;
-                isLayoutValid = true;                
+                isLayoutValid = true;
             }
 
             return isLayoutValid;
@@ -1566,52 +1587,52 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                     attributes = faces.Select(Face => Face.FaceAttributes).ToArray();
                 }
 
-            //MessageBox.Show(attributes.ToString(), "1", MessageBoxButton.OK);
+                //MessageBox.Show(attributes.ToString(), "1", MessageBoxButton.OK);
 
-            //接收傳回資料後，加工處理年齡、性別、微笑值資料
-            int female = 0, male = 0, adult = 0, child = 0;
-            double youngest = 120, oldest = 0, smilest = 0;
-            foreach (var attribute in attributes)
-            {
-                var gender = attribute.Gender;
-                if (gender == "male")
-                    male++;
-                else if (gender == "female")
-                    female++;
-                else
-                    MessageBox.Show("Unknown Gender!");
+                //接收傳回資料後，加工處理年齡、性別、微笑值資料
+                int female = 0, male = 0, adult = 0, child = 0;
+                double youngest = 120, oldest = 0, smilest = 0;
+                foreach (var attribute in attributes)
+                {
+                    var gender = attribute.Gender;
+                    if (gender == "male")
+                        male++;
+                    else if (gender == "female")
+                        female++;
+                    else
+                        MessageBox.Show("Unknown Gender!");
 
-                var age = attribute.Age;
-                if (age >= 20)
-                    adult++;
-                else
-                    child++;
-                if (age < youngest)
-                    youngest = age;
-                if (age > oldest)
-                    oldest = age;
-                var smile = attribute.Smile;
-                if (smile > smilest)
-                    smilest = smile;
-
-
-
-                //MessageBox.Show(attribute.Gender + "  " + attribute.Age);
-                DetectAgeGenderResult[faceIndex] = attribute.Gender + ", " + attribute.Age;
-                //MessageBox.Show(DetectAgeGenderResult[faceIndex]);
-                //textBox.Text = textBox.Text + "\n" + DetectAgeGenderResult;
+                    var age = attribute.Age;
+                    if (age >= 20)
+                        adult++;
+                    else
+                        child++;
+                    if (age < youngest)
+                        youngest = age;
+                    if (age > oldest)
+                        oldest = age;
+                    var smile = attribute.Smile;
+                    if (smile > smilest)
+                        smilest = smile;
 
 
-                // textBox顯示
-                //textBox.Text = textBox.Text + "\nFaceIndex: " + faceIndex + "\nTrackingID: " + saveTrackingID[faceIndex].ToString() + "\n" + DetectAgeGenderResult[faceIndex] + ", " + faceRotate;
-                
-                // 把辨識結果儲存到tmp.txt
-                DateTime mNow = DateTime.Now;
-                string path = @"tmp.txt";
-                File.AppendAllText(path, mNow.ToString("yyyy-MM-dd HH:mm:ss") + ", FaceIndex: " + faceIndex + ", TrackingID: " + saveTrackingID[faceIndex].ToString() + ", " + DetectAgeGenderResult[faceIndex] + ", " + faceRotate + Environment.NewLine);
+
+                    //MessageBox.Show(attribute.Gender + "  " + attribute.Age);
+                    DetectAgeGenderResult[faceIndex] = attribute.Gender + ", " + attribute.Age;
+                    //MessageBox.Show(DetectAgeGenderResult[faceIndex]);
+                    //textBox.Text = textBox.Text + "\n" + DetectAgeGenderResult;
 
 
-            }
+                    // textBox顯示
+                    //textBox.Text = textBox.Text + "\nFaceIndex: " + faceIndex + "\nTrackingID: " + saveTrackingID[faceIndex].ToString() + "\n" + DetectAgeGenderResult[faceIndex] + ", " + faceRotate;
+
+                    // 把辨識結果儲存到tmp.txt
+                    DateTime mNow = DateTime.Now;
+                    string path = @"tmp.txt";
+                    File.AppendAllText(path, mNow.ToString("yyyy-MM-dd HH:mm:ss") + ", FaceIndex: " + faceIndex + ", TrackingID: " + saveTrackingID[faceIndex].ToString() + ", " + DetectAgeGenderResult[faceIndex] + ", " + faceRotate + Environment.NewLine);
+
+
+                }
 
 
 
@@ -1630,7 +1651,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
 
 
-    //---------CoordinateMappingBasics-WPF----------//
+        //---------CoordinateMappingBasics-WPF----------//
 
         /// <summary>
         /// Handles the depth/color/body index frame data arriving from the sensor
@@ -1788,7 +1809,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
         private string DetectAgeGenderResult1(object sender, object faceIndex)
         {
 
-            return("");
+            return ("");
         }
 
 
@@ -1812,6 +1833,16 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             trackID = false;
             trackidno = 0;
             TrackID2 = null;
+            doClothes = true;
+            clothesIMG.Source = null;
+
+            for (int i = 0; i < 6; i++)
+            {
+
+            }
+
+
         }
+
     }
 }
