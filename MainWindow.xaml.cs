@@ -1304,13 +1304,13 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
 
 
-            // 取得頭部旋轉資料，當faceYaw介於-30~30之間才做辨識
+            // 取得頭部旋轉資料，當faceYaw介於-20~20之間才做辨識
             int pitch2, yaw2, roll2;
             ExtractFaceRotationInDegrees(faceResult.FaceRotationQuaternion, out pitch2, out yaw2, out roll2);
 
 
             //---------Microsoft Face Api----------// 
-            if (this.bodies[faceIndex].TrackingId != saveTrackingID[faceIndex] && yaw2 > -30 && yaw2 < 30)
+            if (this.bodies[faceIndex].TrackingId != saveTrackingID[faceIndex] && yaw2 > -20 && yaw2 < 20)
             {
                 //textBox.Text = textBox.Text + yaw2.ToString();
 
