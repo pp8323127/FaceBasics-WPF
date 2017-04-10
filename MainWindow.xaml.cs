@@ -1006,50 +1006,59 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
         private void clothes(ColorSpacePoint clothesOrigin, int clothes_width, int clothes_height)
         {
-            string fileName = nowTrackID + "-00000.jpg";
-            //textBox.Text += fileName+"11111111";
-            textBox1.Text = fileName;
-            using (FileStream saveImage = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.Write))
+            try
             {
-                //從ColorImage.Source處取出一張影像，轉為BitmapSource格式
-                //儲存到imageSource
-                BitmapSource imageSourceAPI = (BitmapSource)colorBitmap;
-                //挑選Joint Photographic Experts Group(JPEG)影像編碼器
-                JpegBitmapEncoder encoder = new JpegBitmapEncoder();
 
-                //將BitmapSource裁切成衣服大小，並add frames
-                if ((int)clothesOrigin.Y + clothes_height > 1080)
+
+                string fileName = nowTrackID + "-00000.jpg";
+                //textBox.Text += fileName+"11111111";
+                textBox1.Text = fileName;
+                using (FileStream saveImage = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.Write))
                 {
-                    clothes_height = 1080 - (int)clothesOrigin.Y;
+                    //從ColorImage.Source處取出一張影像，轉為BitmapSource格式
+                    //儲存到imageSource
+                    BitmapSource imageSourceAPI = (BitmapSource)colorBitmap;
+                    //挑選Joint Photographic Experts Group(JPEG)影像編碼器
+                    JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+
+                    //將BitmapSource裁切成衣服大小，並add frames
+                    if ((int)clothesOrigin.Y + clothes_height > 1080)
+                    {
+                        clothes_height = 1080 - (int)clothesOrigin.Y;
+                    }
+                    else if ((int)clothesOrigin.X + clothes_width > 1920)
+                    {
+                        clothes_width = 1920 - (int)clothesOrigin.X;
+                    }
+
+                    Int32Rect int32faceBox2 = new Int32Rect((int)clothesOrigin.X, (int)clothesOrigin.Y, clothes_width, clothes_height);
+                    CroppedBitmap crop = new CroppedBitmap(this.colorBitmap, int32faceBox2);
+                    encoder.Frames.Add(BitmapFrame.Create(crop));
+
+                    //儲存影像與後續影像清除工作
+                    encoder.Save(saveImage);
+                    saveImage.Flush();
+                    saveImage.Close();
+                    saveImage.Dispose();
+                    //showClothes();
+
+
+
+
+                    ////顯示衣服圖檔
+                    //string currentpath = Directory.GetCurrentDirectory() + "\\00000.jpg";
+                    //BitmapImage bitmapSource2;
+                    //Uri fileUri = new Uri(currentpath);
+                    //bitmapSource2 = new BitmapImage();
+                    //bitmapSource2.BeginInit();
+                    //bitmapSource2.UriSource = fileUri;
+                    //bitmapSource2.EndInit();
+                    //clothesIMG.Source = bitmapSource2;
                 }
-                else if ((int)clothesOrigin.X + clothes_width > 1920)
-                {
-                    clothes_width = 1920 - (int)clothesOrigin.X;
-                }
-
-                Int32Rect int32faceBox2 = new Int32Rect((int)clothesOrigin.X, (int)clothesOrigin.Y, clothes_width, clothes_height);
-                CroppedBitmap crop = new CroppedBitmap(this.colorBitmap, int32faceBox2);
-                encoder.Frames.Add(BitmapFrame.Create(crop));
-
-                //儲存影像與後續影像清除工作
-                encoder.Save(saveImage);
-                saveImage.Flush();
-                saveImage.Close();
-                saveImage.Dispose();
-                //showClothes();
-
-
-
-
-                ////顯示衣服圖檔
-                //string currentpath = Directory.GetCurrentDirectory() + "\\00000.jpg";
-                //BitmapImage bitmapSource2;
-                //Uri fileUri = new Uri(currentpath);
-                //bitmapSource2 = new BitmapImage();
-                //bitmapSource2.BeginInit();
-                //bitmapSource2.UriSource = fileUri;
-                //bitmapSource2.EndInit();
-                //clothesIMG.Source = bitmapSource2;
+            }
+            catch (Exception e)
+            {
+                textBox1.Text += e.Message;
             }
         }
 
