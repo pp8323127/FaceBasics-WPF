@@ -854,7 +854,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                                         nowTrackIndex = i;
                                         textBox.Text = nowTrackID + " " + nowTrackIndex + " ";
                                         // draw face frame results                                        
-                                        this.DrawFaceFrameResults(nowTrackIndex, this.faceFrameResults[nowTrackIndex], dc);
+                                        this.DrawFaceFrameResults(i, this.faceFrameResults[i], dc);
                                     }
 
                                     if (!drawFaceResult)
@@ -868,6 +868,8 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                                 // check if the corresponding body is tracked 
                                 if (this.bodies[i].IsTracked)
                                 {
+                                    nowTrackID = bodies[i].TrackingId;
+                                    doClothes = true;
                                     // update the face frame source to track this body
                                     this.faceFrameSources[i].TrackingId = this.bodies[i].TrackingId;
                                 }
@@ -1829,12 +1831,12 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             trackID = false;
             nowTrackIndex = 0;
             nowTrackID = null;
-            doClothes = true;
+            //doClothes = false;
             clothesIMG.Source = null;
 
             for (int i = 0; i < 6; i++)
             {
-
+                faceFrameResults[i] = null;
             }
 
 
