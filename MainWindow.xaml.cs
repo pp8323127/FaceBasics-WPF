@@ -295,10 +295,10 @@ namespace Microsoft.Samples.Kinect.FaceBasics
         private int nowBody = 0;
         private ulong[] saveTrackingID = null;
         private string[] DetectAgeGenderResult;
-        private bool doClothes = true;
+        private bool doClothes = false;
         private bool trackID = false;
-        int trackidno = 0;
-        ulong? TrackID2 = null;
+        int nowTrackIndex = 0;
+        ulong? nowTrackID = null;
 
 
 
@@ -844,15 +844,17 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                                 if (this.faceFrameResults[i] != null)
                                 {
                                     //只追蹤一人
-                                    if (TrackID2 == null)
+                                    if (nowTrackID == null)
                                     {
-                                        TrackID2 = faceFrameResults[i].TrackingId;
+                                        nowTrackID = faceFrameResults[i].TrackingId;
+                                        doClothes = true;
                                     }
-                                    else if (TrackID2 == faceFrameResults[i].TrackingId)
+                                    else if (nowTrackID == faceFrameResults[i].TrackingId)
                                     {
-
-                                        // draw face frame results
-                                        this.DrawFaceFrameResults(i, this.faceFrameResults[i], dc);
+                                        nowTrackIndex = i;
+                                        textBox.Text = nowTrackID + " " + nowTrackIndex + " ";
+                                        // draw face frame results                                        
+                                        this.DrawFaceFrameResults(nowTrackIndex, this.faceFrameResults[nowTrackIndex], dc);
                                     }
 
                                     if (!drawFaceResult)
@@ -866,7 +868,6 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                                 // check if the corresponding body is tracked 
                                 if (this.bodies[i].IsTracked)
                                 {
-                                    trackidno = i;
                                     // update the face frame source to track this body
                                     this.faceFrameSources[i].TrackingId = this.bodies[i].TrackingId;
                                 }
@@ -956,11 +957,11 @@ namespace Microsoft.Samples.Kinect.FaceBasics
         /// <param name="drawingPen">specifies color to draw a specific body</param>
         private void DrawBody(IReadOnlyDictionary<JointType, Joint> joints, IDictionary<JointType, Point> jointPoints, DrawingContext drawingContext, Pen drawingPen)
         {
-            //// Draw the bones
-            //foreach (var bone in this.bones)
-            //{
-            //    this.DrawBone(joints, jointPoints, bone.Item1, bone.Item2, drawingContext, drawingPen);
-            //}
+            // Draw the bones
+            foreach (var bone in this.bones)
+            {
+                this.DrawBone(joints, jointPoints, bone.Item1, bone.Item2, drawingContext, drawingPen);
+            }
 
             // Draw the joints
             foreach (JointType jointType in joints.Keys)
@@ -1003,34 +1004,38 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
         private void clothes(ColorSpacePoint clothesOrigin, int clothes_width, int clothes_height)
         {
-            try
+            string fileName = nowTrackID + "-00000.jpg";
+            //textBox.Text += fileName+"11111111";
+            textBox1.Text = fileName;
+            using (FileStream saveImage = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.Write))
             {
-                string fileName = TrackID2 + "-00000.jpg";
-                using (FileStream saveImage = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.Write))
+                //從ColorImage.Source處取出一張影像，轉為BitmapSource格式
+                //儲存到imageSource
+                BitmapSource imageSourceAPI = (BitmapSource)colorBitmap;
+                //挑選Joint Photographic Experts Group(JPEG)影像編碼器
+                JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+
+                //將BitmapSource裁切成衣服大小，並add frames
+                if ((int)clothesOrigin.Y + clothes_height > 1080)
                 {
-                    //從ColorImage.Source處取出一張影像，轉為BitmapSource格式
-                    //儲存到imageSource
-                    BitmapSource imageSourceAPI = (BitmapSource)colorBitmap;
-                    //挑選Joint Photographic Experts Group(JPEG)影像編碼器
-                    JpegBitmapEncoder encoder = new JpegBitmapEncoder();
-
-                    //將BitmapSource裁切成衣服大小，並add frames
-                    if ((int)clothesOrigin.Y + clothes_height > 1080)
-                    {
-                        clothes_height = 1080 - (int)clothesOrigin.Y;
-                    }
-
-                    Int32Rect int32faceBox2 = new Int32Rect((int)clothesOrigin.X, (int)clothesOrigin.Y, clothes_width, clothes_height);
-                    CroppedBitmap crop = new CroppedBitmap(this.colorBitmap, int32faceBox2);
-                    encoder.Frames.Add(BitmapFrame.Create(crop));
-
-                    //儲存影像與後續影像清除工作
-                    encoder.Save(saveImage);
-                    saveImage.Flush();
-                    saveImage.Close();
-                    saveImage.Dispose();
-                    showClothes();
+                    clothes_height = 1080 - (int)clothesOrigin.Y;
                 }
+                else if ((int)clothesOrigin.X + clothes_width > 1920)
+                {
+                    clothes_width = 1920 - (int)clothesOrigin.X;
+                }
+
+                Int32Rect int32faceBox2 = new Int32Rect((int)clothesOrigin.X, (int)clothesOrigin.Y, clothes_width, clothes_height);
+                CroppedBitmap crop = new CroppedBitmap(this.colorBitmap, int32faceBox2);
+                encoder.Frames.Add(BitmapFrame.Create(crop));
+
+                //儲存影像與後續影像清除工作
+                encoder.Save(saveImage);
+                saveImage.Flush();
+                saveImage.Close();
+                saveImage.Dispose();
+                //showClothes();
+
 
 
 
@@ -1043,28 +1048,19 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                 //bitmapSource2.UriSource = fileUri;
                 //bitmapSource2.EndInit();
                 //clothesIMG.Source = bitmapSource2;
-
-
             }
-            catch
-            {
-
-            }
-
-
-
         }
-        
+
         private void showClothes()
         {
-            string currentpath = Directory.GetCurrentDirectory() + "\\" + TrackID2 + "-00000.jpg";
+            string currentpath = Directory.GetCurrentDirectory() + "\\" + nowTrackID + "-00000.jpg";
             FileStream stream = new FileStream(currentpath, FileMode.Open, FileAccess.Read);
-            
+
             BitmapImage src = new BitmapImage();
             src.BeginInit();
             src.StreamSource = stream;
             src.EndInit();
-            clothesIMG.Source = src;            
+            clothesIMG.Source = src;
         }
 
         /// <summary>
@@ -1301,7 +1297,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             //---------Microsoft Face Api----------// 
             if (this.bodies[faceIndex].TrackingId != saveTrackingID[faceIndex] && yaw2 > -30 && yaw2 < 30)
             {
-                textBox.Text = textBox.Text + yaw2.ToString();
+                //textBox.Text = textBox.Text + yaw2.ToString();
 
                 saveTrackingID[faceIndex] = this.bodies[faceIndex].TrackingId;
                 //textBox.Text = this.faceFrameSources[faceIndex].TrackingId.ToString() + "\n" + saveTrackingID[faceIndex].ToString();
@@ -1356,7 +1352,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             }
 
 
-            textBox.Text = JointType.ShoulderRight.ToString();
+            //textBox.Text = JointType.ShoulderRight.ToString();
 
 
 
@@ -1368,7 +1364,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
             if (faceResult.FacePointsInColorSpace != null)
             {
-                textBox.Text = "";
+                //textBox.Text = "";
                 int i = 0;
 
                 // draw each face point
@@ -1384,7 +1380,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                         if (i == 0)
                         {
                             Point LeftEye = new Point(pointF.X, pointF.Y);
-                            EyePosition += "LeftEye1:\n" + pointF.X + "\n" + pointF.Y + "\n\n";
+                            EyePosition += "LeftEye:\n" + pointF.X + "\n" + pointF.Y + "\n\n";
                             //textBox.Text = textBox.Text + LeftEye.X.ToString() + " " + LeftEye.Y + " ";
 
                         }
@@ -1831,8 +1827,8 @@ namespace Microsoft.Samples.Kinect.FaceBasics
         private void resetID_Click(object sender, RoutedEventArgs e)
         {
             trackID = false;
-            trackidno = 0;
-            TrackID2 = null;
+            nowTrackIndex = 0;
+            nowTrackID = null;
             doClothes = true;
             clothesIMG.Source = null;
 
