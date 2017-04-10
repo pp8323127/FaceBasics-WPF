@@ -1846,6 +1846,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             for (int i = 0; i < 6; i++)
             {
                 faceFrameResults[i] = null;
+                saveTrackingID[i] = null;
             }
 
 
