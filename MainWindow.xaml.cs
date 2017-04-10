@@ -1008,8 +1008,6 @@ namespace Microsoft.Samples.Kinect.FaceBasics
         {
             try
             {
-
-
                 string fileName = nowTrackID + "-00000.jpg";
                 //textBox.Text += fileName+"11111111";
                 textBox1.Text = fileName;
@@ -1040,9 +1038,8 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                     saveImage.Flush();
                     saveImage.Close();
                     saveImage.Dispose();
+
                     //showClothes();
-
-
 
 
                     ////顯示衣服圖檔
@@ -1065,14 +1062,21 @@ namespace Microsoft.Samples.Kinect.FaceBasics
         private void showClothes()
         {
             string currentpath = Directory.GetCurrentDirectory() + "\\" + nowTrackID + "-00000.jpg";
-            FileStream stream = new FileStream(currentpath, FileMode.Open, FileAccess.Read);
 
+            FileStream stream = new FileStream(currentpath, FileMode.Open, FileAccess.Read);
             BitmapImage src = new BitmapImage();
             src.BeginInit();
             src.StreamSource = stream;
             src.EndInit();
             clothesIMG.Source = src;
+
         }
+
+
+
+        //stream.Flush();
+        //stream.Close();
+        //stream.Dispose();
 
         /// <summary>
         /// Draws one bone of a body (joint to joint)
@@ -1638,12 +1642,8 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                     string path = @"tmp.txt";
                     File.AppendAllText(path, mNow.ToString("yyyy-MM-dd HH:mm:ss") + ", FaceIndex: " + faceIndex + ", TrackingID: " + saveTrackingID[faceIndex].ToString() + ", " + DetectAgeGenderResult[faceIndex] + ", " + faceRotate + Environment.NewLine);
 
-
+                    showClothes();
                 }
-
-
-
-
             }
             catch (Exception e)
             {
@@ -1851,5 +1851,9 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
         }
 
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            showClothes();
+        }
     }
 }
