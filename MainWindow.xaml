@@ -1,7 +1,7 @@
 ﻿<Window x:Class="Microsoft.Samples.Kinect.FaceBasics.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Face Basics" 
+        Title="KinectFace" 
         Height="768" Width="1366" 
         Loaded="MainWindow_Loaded"
         Closing="MainWindow_Closing">
@@ -25,7 +25,7 @@
             <Grid Name="CompositeImage" Width="1024">
                 <Image Source="{Binding ImageSource_coor}" Stretch="UniformToFill" Margin="-1554,-177,1554,177"  />
                 <Image Source="{Binding ImageSource}" Stretch="Uniform" />
-                <Label x:Name="label" Content="Label" HorizontalAlignment="Left" Margin="1029,0,-216,0" VerticalAlignment="Top" Height="674" Width="211" RenderTransformOrigin="0.471,0.439" FontSize="16"/>
+                <Label x:Name="label" Content="LabelLabel" HorizontalAlignment="Left" Margin="1029,0,-301,0" VerticalAlignment="Top" Height="674" Width="296" RenderTransformOrigin="0.471,0.439" FontSize="16" FontFamily="Microsoft JhengHei"/>
                 <Image x:Name="clothesIMG"  Stretch="Uniform" Width="200" Height="200" Margin="1029,474,-205,0" />
                 <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="102" Margin="10,619,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="976"/>
                 <Button x:Name="resetID" Content="ResetTrackID" HorizontalAlignment="Left" Margin="843,670,0,0" VerticalAlignment="Top" Width="108" Height="28" Click="resetID_Click" />

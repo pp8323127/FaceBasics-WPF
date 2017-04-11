@@ -69,7 +69,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                         "No Faces...",
                         CultureInfo.GetCultureInfo("en-us"),
                         FlowDirection.LeftToRight,
-                        new Typeface("Georgia"),
+                        new Typeface("Microsoft JhengHei"),
                         DrawTextFontSize,
                         Brushes.White);
 
@@ -1069,14 +1069,8 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             src.StreamSource = stream;
             src.EndInit();
             clothesIMG.Source = src;
-
         }
 
-
-
-        //stream.Flush();
-        //stream.Close();
-        //stream.Dispose();
 
         /// <summary>
         /// Draws one bone of a body (joint to joint)
@@ -1245,7 +1239,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                     strr,
                     CultureInfo.GetCultureInfo("en-us"),
                             FlowDirection.LeftToRight,
-                            new Typeface("Georgia"),
+                            new Typeface("Microsoft JhengHei"),
                             DrawTextFontSize,
                             Brushes.Red);
 
@@ -1256,8 +1250,8 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
 
                 //MessageBox.Show(this.bodyCount.ToString(), "1", MessageBoxButton.OK);
-                if (nowBody != numFace)
-                {
+                //if (nowBody != numFace)
+                //{
                     /*
                     string fileName = "tmp.jpg";
                     using (FileStream saveImage = new FileStream(fileName, FileMode.Open, FileAccess.Write))
@@ -1279,7 +1273,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                     }*/
                     //辨識
                     //DetectAgeGender(fileName);
-                }
+                //}
 
                 numFace = 0;
 
@@ -1475,7 +1469,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                             faceText,
                             CultureInfo.GetCultureInfo("en-us"),
                             FlowDirection.LeftToRight,
-                            new Typeface("Georgia"),
+                            new Typeface("Microsoft JhengHei"),
                             DrawTextFontSize,
                             drawingBrush),
                         faceTextLayout);
