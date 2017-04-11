@@ -1845,11 +1845,9 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
             for (int i = 0; i < 6; i++)
             {
-                faceFrameResults[i] = null;
+                //faceFrameResults[i] = null;
+                this.faceFrameResults = new FaceFrameResult[this.bodyCount];
             }
-
-            //saveTrackingID = null;
-
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
