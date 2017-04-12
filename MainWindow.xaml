@@ -24,8 +24,12 @@
         </Grid.ColumnDefinitions>
 
         <!--Grid.ColumnSpan="2"-->
-        <Image Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Source="Images\Logo.png" HorizontalAlignment="Left" Stretch="Fill" Height="32" Width="81" Margin="0 10 0 5" />
-        <Image Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Source="Images\Status.png" Stretch="None" HorizontalAlignment="Center" Margin="0 0 0 5" />
+        <!--<Image Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Source="Images\Logo.png" HorizontalAlignment="Left" Stretch="Fill" Height="32" Width="81" Margin="0 10 0 5" />-->
+        <!--<Image Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Source="Images\Status.png" Stretch="None" HorizontalAlignment="Center" Margin="0 0 0 5" />-->
+
+        <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Source="Images\olives_logo-01.png" HorizontalAlignment="Left" Stretch="Uniform" Height="75" Width="75" Margin="20,20,0,0" VerticalAlignment="Top"  />
+        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="0 20 -1 0" HorizontalAlignment="Center" VerticalAlignment="Bottom" Foreground="{StaticResource MediumGreyBrush}" FontFamily="Segoe UI" FontSize="18">利用深度影像感測技術於智慧購物牆之研究</TextBlock>
+        <!--<TextBlock Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" Margin="0 40 -1 0" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="{StaticResource MediumGreyBrush}" FontFamily="Segoe UI" FontSize="18">A Study of Smart Shopping Wall Using Depth Image Sensor and Recommendation Techniques.</TextBlock>-->
         <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="0 0 -1 0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Foreground="{StaticResource MediumGreyBrush}" FontFamily="Segoe UI" FontSize="18">NKFUST E508Lab</TextBlock>
 
         <Viewbox Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left">
@@ -45,8 +49,8 @@
             <Image x:Name="clothesIMG" Stretch="Uniform" Width="200" Height="200" VerticalAlignment="Bottom" Margin="0" />
 
         </Grid>
-       
-        
+
+
 
         <StatusBar Grid.Row="2" HorizontalAlignment="Stretch" Name="statusBar" VerticalAlignment="Bottom" Background="White" Foreground="{StaticResource MediumGreyBrush}">
             <StatusBarItem Content="{Binding StatusText}" />

@@ -22,7 +22,6 @@ D:\Documents\Visual Studio 2015\Projects\KinectFace\bin\x64\Debug\Microsoft.Kine
 D:\Documents\Visual Studio 2015\Projects\KinectFace\bin\x64\Debug\Microsoft.Kinect.Face.dll
 D:\Documents\Visual Studio 2015\Projects\KinectFace\bin\x64\Debug\Microsoft.Kinect.xml
 D:\Documents\Visual Studio 2015\Projects\KinectFace\bin\x64\Debug\Microsoft.Kinect.Face.xml
-D:\Documents\Visual Studio 2015\Projects\KinectFace\obj\x64\Debug\FaceBasics-WPF.csprojResolveAssemblyReference.cache
 D:\Documents\Visual Studio 2015\Projects\KinectFace\obj\x64\Debug\MainWindow.baml
 D:\Documents\Visual Studio 2015\Projects\KinectFace\obj\x64\Debug\MainWindow.g.cs
 D:\Documents\Visual Studio 2015\Projects\KinectFace\obj\x64\Debug\App.g.cs
