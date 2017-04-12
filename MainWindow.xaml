@@ -43,6 +43,7 @@
             <Label x:Name="label" Content="LabelLabel" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" FontFamily="Microsoft JhengHei"/>
             <Label x:Name="label2" Margin="100,0,0,200" Content="上衣關鍵字" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="16" FontFamily="Microsoft JhengHei"/>
             <Image x:Name="clothesIMG" Stretch="Uniform" Width="200" Height="200" VerticalAlignment="Bottom" Margin="0" />
+
         </Grid>
        
         
