@@ -1840,7 +1840,10 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             for (int i = 0; i < 6; i++)
             {
                 //faceFrameResults[i] = null;
-                this.faceFrameResults = new FaceFrameResult[this.bodyCount];
+                //this.faceFrameSources = new FaceFrameSource[this.bodyCount];
+                //this.faceFrameReaders = new FaceFrameReader[this.bodyCount];
+                //this.faceFrameResults = new FaceFrameResult[this.bodyCount];
+                this.faceFrameResults[i] = null;
             }
         }
 
