@@ -29,10 +29,9 @@
         <Image Grid.Row="0" Source="Images\Status.png" Stretch="None" HorizontalAlignment="Center" Margin="0 0 0 5" />
 
         <Viewbox Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left">
-            <Grid Name="CompositeImage" Width="1024">
+            <Grid Name="CompositeImage" Width="1000">
                 <Image Source="{Binding ImageSource_coor}" Stretch="UniformToFill" Margin="-1554,-177,1554,177"  />
                 <Image Source="{Binding ImageSource}" Stretch="Uniform" />
-                <Image x:Name="clothesIMG"  Stretch="Uniform" Width="200" Height="200" Margin="1029,474,-205,0" />
                 <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="102" Margin="10,619,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="976"/>
                 <Button x:Name="resetID" Content="ResetTrackID" HorizontalAlignment="Left" Margin="843,670,0,0" VerticalAlignment="Top" Width="108" Height="28" Click="resetID_Click" />
                 <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="92" Margin="231,531,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="720"/>
@@ -40,9 +39,10 @@
             </Grid>
         </Viewbox>
 
-
         <Grid Grid.Row="1" Grid.Column="1">
             <Label x:Name="label" Content="LabelLabel" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" FontFamily="Microsoft JhengHei"/>
+            <Label x:Name="label2" Margin="100" Content="LabelLabel" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" FontFamily="Microsoft JhengHei"/>
+            <Image x:Name="clothesIMG"  Stretch="Uniform" Width="200" Height="200" VerticalAlignment="Bottom" Margin="0" />
         </Grid>
        
         
