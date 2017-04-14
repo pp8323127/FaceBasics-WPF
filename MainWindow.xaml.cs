@@ -869,6 +869,9 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                                 {
                                     nowTrackID = bodies[i].TrackingId;
                                     doClothes = true;
+                                    // hidden the gender image result when new body detect
+                                    img_gender_girl.Visibility = Visibility.Hidden;
+                                    img_gender_boy.Visibility = Visibility.Hidden;
                                     // update the face frame source to track this body
                                     this.faceFrameSources[i].TrackingId = this.bodies[i].TrackingId;
                                 }
@@ -1605,13 +1608,11 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                     {
                         gender = "男性";
                         img_gender_boy.Visibility = Visibility.Visible;
-                        img_gender_girl.Visibility = Visibility.Hidden;
                     }
                     else
                     {
                         gender = "女性";
                         img_gender_girl.Visibility = Visibility.Visible;
-                        img_gender_boy.Visibility = Visibility.Hidden;
                     }
 
                     //var gender = attribute.Gender;
