@@ -7,3 +7,4 @@ tmp/*.tmp
 *.sublime*
 sftp-config.json
 bin/x64/Debug/*.jpg
+bin/x64/Debug/tmp.txt
