@@ -1597,33 +1597,38 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                 //接收傳回資料後，加工處理年齡、性別、微笑值資料
                 int female = 0, male = 0, adult = 0, child = 0;
                 double youngest = 120, oldest = 0, smilest = 0;
+                string gender = null;
+                
                 foreach (var attribute in attributes)
                 {
-                    var gender = attribute.Gender;
-                    if (gender == "male")
-                        male++;
-                    else if (gender == "female")
-                        female++;
-                    else
-                        MessageBox.Show("Unknown Gender!");
+                    if (attribute.Gender == "male") gender = "男性";
+                    else gender = "女性";
 
-                    var age = attribute.Age;
-                    if (age >= 20)
-                        adult++;
-                    else
-                        child++;
-                    if (age < youngest)
-                        youngest = age;
-                    if (age > oldest)
-                        oldest = age;
-                    var smile = attribute.Smile;
-                    if (smile > smilest)
-                        smilest = smile;
+                    //var gender = attribute.Gender;
+                    //if (gender == "male")
+                    //    male++;
+                    //else if (gender == "female")
+                    //    female++;
+                    //else
+                    //    MessageBox.Show("Unknown Gender!");
+
+                    //var age = attribute.Age;
+                    //if (age >= 20)
+                    //    adult++;
+                    //else
+                    //    child++;
+                    //if (age < youngest)
+                    //    youngest = age;
+                    //if (age > oldest)
+                    //    oldest = age;
+                    //var smile = attribute.Smile;
+                    //if (smile > smilest)
+                    //    smilest = smile;
 
 
 
                     //MessageBox.Show(attribute.Gender + "  " + attribute.Age);
-                    DetectAgeGenderResult[faceIndex] = attribute.Gender + ", " + attribute.Age;
+                    DetectAgeGenderResult[faceIndex] = gender + ", " + attribute.Age;
                     //MessageBox.Show(DetectAgeGenderResult[faceIndex]);
                     //textBox.Text = textBox.Text + "\n" + DetectAgeGenderResult;
 
