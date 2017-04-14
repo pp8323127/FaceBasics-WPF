@@ -148,6 +148,10 @@
   <ItemGroup>
     <Resource Include="Images\olives_logo-01.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\boy.png" />
+    <Resource Include="Images\girl.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy "$(KINECTSDK20_DIR)Redist\Face\$(Platform)\NuiDatabase" "$(TargetDir)\NuiDatabase" /S /R /Y /I</PostBuildEvent>

@@ -35,7 +35,8 @@
         <Viewbox Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left">
             <Grid Name="CompositeImage" Width="1000">
                 <Image Source="{Binding ImageSource_coor}" Stretch="UniformToFill" Margin="-1554,-177,1554,177"  />
-                <Image Source="{Binding ImageSource}" Stretch="Uniform" />
+                <!--<Image Source="{Binding ImageSource}" Stretch="Uniform" />-->
+                <WebBrowser Source="http://163.18.42.141/POST/nargo.html" />
                 <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="102" Margin="10,619,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="976"/>
                 <Button x:Name="resetID" Content="ResetTrackID" HorizontalAlignment="Left" Margin="843,670,0,0" VerticalAlignment="Top" Width="108" Height="28" Click="resetID_Click" />
                 <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="92" Margin="231,531,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="720"/>
@@ -43,12 +44,46 @@
             </Grid>
         </Viewbox>
 
+        
         <Grid Grid.Row="1" Grid.Column="1">
-            <Label x:Name="label" Content="LabelLabel" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" FontFamily="Microsoft JhengHei"/>
-            <Label x:Name="label2" Margin="100,0,0,200" Content="上衣關鍵字" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="16" FontFamily="Microsoft JhengHei"/>
-            <Image x:Name="clothesIMG" Stretch="Uniform" Width="200" Height="200" VerticalAlignment="Bottom" Margin="0" />
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Image Source="{Binding ImageSource}" Stretch="Uniform" />
+            </Grid>
+
+            <Grid Grid.Row="1" Margin="0 10 0 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                
+                <Grid Grid.Column="0">
+                    <Image x:Name="img_gender_boy" VerticalAlignment="Top" HorizontalAlignment="Left" Width="100" Height="100" Stretch="Uniform" Source="Images/boy.png" Visibility="Visible"/>
+                    <Image x:Name="img_gender_girl" VerticalAlignment="Top" HorizontalAlignment="Left" Width="100" Height="100" Stretch="Uniform" Source="Images/girl.png" Visibility="Hidden"/>
+                </Grid>
+
+                <Grid Grid.Column="1">
+                    <Label x:Name="label" Content="LabelLabel" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" FontFamily="Microsoft JhengHei"/>
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Row="2">
+                
+            </Grid>
+            
+            <Grid Grid.Row="3" VerticalAlignment="Bottom">
+                <Label x:Name="label2" Margin="100,0,0,200" Content="上衣關鍵字" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="16" FontFamily="Microsoft JhengHei"/>
+                <Image x:Name="clothesIMG" Stretch="Uniform" Width="200" Height="200" VerticalAlignment="Bottom" Margin="0" />
+            </Grid>
 
         </Grid>
+
 
 
 

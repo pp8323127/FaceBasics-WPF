@@ -54,4 +54,3 @@ C:\MO\KinectFace\obj\x64\Debug\Microsoft.Samples.Kinect.FaceBasics.Properties.Re
 C:\MO\KinectFace\obj\x64\Debug\FaceBasics-WPF.csproj.GenerateResource.Cache
 C:\MO\KinectFace\obj\x64\Debug\FaceBasics-WPF.exe
 C:\MO\KinectFace\obj\x64\Debug\FaceBasics-WPF.pdb
-D:\Documents\Visual Studio 2015\Projects\KinectFace\obj\x64\Debug\FaceBasics-WPF.csprojResolveAssemblyReference.cache

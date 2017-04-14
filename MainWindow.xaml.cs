@@ -519,8 +519,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
 
 
-
-
+          
 
 
 
@@ -1417,7 +1416,8 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                 //增加顯示tracking id
                 //faceText += "faceIndex：" + faceIndexShow + "\n" + "TrackingID=" + this.bodies[faceIndex].TrackingId + "\n" + DetectAgeGenderResult[faceIndex] + "\n\n" + EyePosition;
                 faceText += "faceIndex：" + faceIndexShow + "\n" + "TrackingID=" + this.bodies[faceIndex].TrackingId + "\n" + DetectAgeGenderResult[faceIndex];
-                labelText += faceText + "\n\n" + EyePosition;
+                //labelText += faceText + "\n\n" + EyePosition;
+                labelText += faceText + "\n\n";
 
                 //// 臉部表情狀態(happy, engery)
                 //foreach (var item in faceResult.FaceProperties)
@@ -1447,9 +1447,9 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                 //            "FacePitch : " + pitch + "\n" +
                 //            "FacenRoll : " + roll + "\n";
 
-                labelText += "FaceYaw : " + yaw + "\n" +
-                            "FacePitch : " + pitch + "\n" +
-                            "FacenRoll : " + roll + "\n";
+                //labelText += "FaceYaw : " + yaw + "\n" +
+                //            "FacePitch : " + pitch + "\n" +
+                //            "FacenRoll : " + roll + "\n";
             }
 
             // render the face property and face rotation information
@@ -1601,8 +1601,18 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                 
                 foreach (var attribute in attributes)
                 {
-                    if (attribute.Gender == "male") gender = "男性";
-                    else gender = "女性";
+                    if (attribute.Gender == "male")
+                    {
+                        gender = "男性";
+                        img_gender_boy.Visibility = Visibility.Visible;
+                        img_gender_girl.Visibility = Visibility.Hidden;
+                    }
+                    else
+                    {
+                        gender = "女性";
+                        img_gender_girl.Visibility = Visibility.Visible;
+                        img_gender_boy.Visibility = Visibility.Hidden;
+                    }
 
                     //var gender = attribute.Gender;
                     //if (gender == "male")
