@@ -75,7 +75,7 @@
             </Grid>
 
             <Grid Grid.Row="2">
-                
+                <Label x:Name="label3" Content="推薦" FontSize="16" FontFamily="Microsoft JhengHei" />
             </Grid>
             
             <Grid Grid.Row="3" VerticalAlignment="Bottom">
