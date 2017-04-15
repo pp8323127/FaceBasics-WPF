@@ -524,8 +524,13 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
 
 
-          
 
+            // 啟動第三方程式，開啟WebServer_MicroHttpServer
+            Process[] MyProcess = Process.GetProcessesByName("MicroHttpServer");
+            if (MyProcess.Length == 0)
+            {
+                Process.Start(@"D:\Documents\Visual Studio 2015\Projects\MicroHttpServer\MicroHttpServer\bin\Debug\MicroHttpServer.exe");
+            }
 
 
 
@@ -714,6 +719,13 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                 this.multiFrameSourceReader = null;
             }
 
+
+            // 關閉第三方程式，WebServer_MicroHttpServer
+            Process[] MyProcess = Process.GetProcessesByName("MicroHttpServer");
+            if (MyProcess.Length > 0)
+            {
+                MyProcess[0].Kill();
+            }
 
         }
 
