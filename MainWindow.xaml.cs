@@ -23,6 +23,9 @@ namespace Microsoft.Samples.Kinect.FaceBasics
     using Microsoft.ProjectOxford.Face.Contract;
     using System.Linq;
 
+    using System.Net;
+    using System.Text.RegularExpressions;
+
     /// <summary>
     /// Interaction logic for MainWindow
     /// </summary>
@@ -1071,6 +1074,43 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             src.StreamSource = stream;
             src.EndInit();
             clothesIMG.Source = src;
+
+            string clothesURL = nowTrackID + "-00000.jpg";
+
+            //searchClothes(clothesURL);
+
+            MessageBox.Show(searchClothes(clothesURL));
+        }
+
+        // 把圖片丟到Google以圖搜圖，回傳結果
+        private string searchClothes(string imagePath)
+        {
+            var webRequest = WebRequest.Create(String.Format("http://www.google.com/searchbyimage?hl=zh-TW&site=search&image_url=http://163.18.42.205/" + imagePath)) as HttpWebRequest;
+
+            webRequest.Method = "GET";
+            webRequest.ProtocolVersion = HttpVersion.Version11;
+            //webRequest.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.1 (KHTML, like Gecko) Chrome/13.0.782.220 Safari/535.1";
+            webRequest.UserAgent = "Mozilla/5.0(Windows NT 10.0; Win64; x64) AppleWebKit/537.36(KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36";
+
+            var response = webRequest.GetResponse() as HttpWebResponse;
+            var reader = new StreamReader(response.GetResponseStream());
+
+            var str = reader.ReadToEnd();
+            //File.WriteAllText("tmp3.txt", str + Environment.NewLine);
+
+            //MessageBox.Show(str);
+            var regexId = new Regex(@"這個圖片最有可能的推測結果：(?<ID>.*?)搜尋結果", RegexOptions.IgnoreCase);
+            //var regexId = new Regex(@"這個圖片最有可能的推測結果：(?<ID>.*?)", RegexOptions.IgnoreCase);
+
+            MatchCollection mcId = regexId.Matches(str);
+
+            //File.WriteAllText("tmp.txt", mcId[0].Groups["ID"].Value + Environment.NewLine);
+
+            if (mcId.Count != 0)
+            {
+                return Regex.Replace(mcId[0].Groups["ID"].Value, @"<[^>]*>", String.Empty).Replace("&nbsp;", "");
+            }
+            return "";
         }
 
 
