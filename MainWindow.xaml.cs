@@ -26,6 +26,8 @@ namespace Microsoft.Samples.Kinect.FaceBasics
     using System.Net;
     using System.Text.RegularExpressions;
 
+    using System.Threading.Tasks;
+
     /// <summary>
     /// Interaction logic for MainWindow
     /// </summary>
@@ -302,7 +304,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
         private bool trackID = false;
         int nowTrackIndex = 0;
         ulong? nowTrackID = null;
-
+        private string clothes_keyword_result = null;
 
 
 
@@ -875,6 +877,8 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                                     // hidden the gender image result when new body detect
                                     img_gender_girl.Visibility = Visibility.Hidden;
                                     img_gender_boy.Visibility = Visibility.Hidden;
+                                    // empty the searchClothes Result
+                                    clothes_label.Content = "";
                                     // update the face frame source to track this body
                                     this.faceFrameSources[i].TrackingId = this.bodies[i].TrackingId;
                                 }
@@ -1044,6 +1048,8 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                     saveImage.Close();
                     saveImage.Dispose();
 
+                    searchClothes(fileName);
+
                     //showClothes();
 
 
@@ -1074,18 +1080,73 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             src.StreamSource = stream;
             src.EndInit();
             clothesIMG.Source = src;
-
-            string clothesURL = nowTrackID + "-00000.jpg";
-
-            //searchClothes(clothesURL);
-
-            MessageBox.Show(searchClothes(clothesURL));
         }
 
-        // 把圖片丟到Google以圖搜圖，回傳結果
-        private string searchClothes(string imagePath)
+
+
+
+        // 把圖片丟到Google以圖搜圖，回傳結果_async
+        public async Task searchClothes(string url)
         {
-            var webRequest = WebRequest.Create(String.Format("http://www.google.com/searchbyimage?hl=zh-TW&site=search&image_url=http://163.18.42.205/" + imagePath)) as HttpWebRequest;
+            //postData = "My Data To Post";
+
+            var webRequest = WebRequest.Create(String.Format("http://www.google.com/searchbyimage?hl=zh-TW&site=search&image_url=http://163.18.42.211:1688/" + url)) as HttpWebRequest;
+
+
+            webRequest.Method = "GET";
+            webRequest.ProtocolVersion = HttpVersion.Version11;
+            //webRequest.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.1 (KHTML, like Gecko) Chrome/13.0.782.220 Safari/535.1";
+            webRequest.UserAgent = "Mozilla/5.0(Windows NT 10.0; Win64; x64) AppleWebKit/537.36(KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36";
+
+
+            //using (Stream postStream = await webRequest.GetRequestStreamAsync())
+            //{
+            //    byte[] byteArray = Encoding.UTF8.GetBytes(postData);
+            //    await postStream.WriteAsync(byteArray, 0, byteArray.Length);
+            //    await postStream.FlushAsync();
+            //}
+            try
+            {
+                string Response;
+                using (var response = (HttpWebResponse)await webRequest.GetResponseAsync())
+                using (Stream streamResponse = response.GetResponseStream())
+                using (StreamReader streamReader = new StreamReader(streamResponse))
+                {
+                    Response = await streamReader.ReadToEndAsync();
+
+                    var regexId = new Regex(@"這個圖片最有可能的推測結果：(?<ID>.*?)搜尋結果", RegexOptions.IgnoreCase);
+                    MatchCollection mcId = regexId.Matches(Response);
+
+                    if (mcId.Count != 0)
+                    {
+                        string str = Regex.Replace(mcId[0].Groups["ID"].Value, @"<[^>]*>", String.Empty).Replace("&nbsp;", "");
+                        //return Task <>
+
+                        string[] clothes_keyword = str.Split('.');
+                        //MessageBox.Show(clothes_keyword[0]);
+                        //MessageBox.Show(keyword);
+                        //File.WriteAllText("tmp2.txt", keyword);
+                        clothes_label.Content = "上衣關鍵字：" + clothes_keyword[0];
+                        clothes_keyword_result = clothes_keyword[0];
+                        showClothes();
+                    }                    
+                }
+
+            }
+            catch (WebException)
+            {
+                //error    
+            }
+        }
+
+
+
+
+
+        // 把圖片丟到Google以圖搜圖，回傳結果
+        private string searchClothes_ERROR(string imagePath)
+        {
+            var webRequest = WebRequest.Create(String.Format("http://www.google.com/searchbyimage?hl=zh-TW&site=search&image_url=http://163.18.42.211:1688/" + imagePath)) as HttpWebRequest;
 
             webRequest.Method = "GET";
             webRequest.ProtocolVersion = HttpVersion.Version11;
@@ -1690,7 +1751,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                     // 把辨識結果儲存到tmp.txt
                     DateTime mNow = DateTime.Now;
                     string path = @"tmp.txt";
-                    File.AppendAllText(path, mNow.ToString("yyyy-MM-dd HH:mm:ss") + ", FaceIndex: " + faceIndex + ", TrackingID: " + saveTrackingID[faceIndex].ToString() + ", " + DetectAgeGenderResult[faceIndex] + ", " + faceRotate + Environment.NewLine);
+                    File.AppendAllText(path, mNow.ToString("yyyy-MM-dd HH:mm:ss") + ", FaceIndex: " + faceIndex + ", TrackingID: " + saveTrackingID[faceIndex].ToString() + ", " + DetectAgeGenderResult[faceIndex] + ", " + ", " + faceRotate + Environment.NewLine);
 
                     showClothes();
                 }
@@ -1906,6 +1967,11 @@ namespace Microsoft.Samples.Kinect.FaceBasics
         private void button_Click(object sender, RoutedEventArgs e)
         {
             showClothes();
+        }
+
+        private void button1_Click(object sender, RoutedEventArgs e)
+        {
+            //DefLoginAsync("v0ZHddN.jpg");
         }
     }
 }
