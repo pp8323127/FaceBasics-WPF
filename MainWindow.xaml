@@ -37,10 +37,11 @@
                 <Image Source="{Binding ImageSource_coor}" Stretch="UniformToFill" Margin="-1554,-177,1554,177"  />
                 <!--<Image Source="{Binding ImageSource}" Stretch="Uniform" />-->
                 <!--<WebBrowser Source="http://163.18.42.141/QREC/mobile/fullPage" />-->
-                <Image Source="Images/qr.png" Stretch="Uniform" Margin="0 30 0 0"/>
-                <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="102" Margin="10,619,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="976"/>
+                <!--<Image Source="Images/qr.png" Stretch="Uniform" Margin="0 30 0 0"/>-->
+                <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="102" Margin="10,619,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="976" FontSize="20"/>
                 <Button x:Name="resetID" Content="ResetTrackID" HorizontalAlignment="Left" Margin="843,670,0,0" VerticalAlignment="Top" Width="108" Height="28" Click="resetID_Click" />
-                <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="92" Margin="231,531,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="720"/>
+                <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="92" Margin="231,531,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="720" FontSize="20"/>
+                <TextBox x:Name="textBox2" HorizontalAlignment="Left" Height="92" Margin="231,434,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="720" FontSize="20"/>
                 <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="843,628,0,0" VerticalAlignment="Top" Width="75" Click="button_Click"/>
                 <Button x:Name="button1" Content="Button" HorizontalAlignment="Left" Margin="728,670,0,0" VerticalAlignment="Top" Width="75" Click="button1_Click"/>
             </Grid>
@@ -93,4 +94,7 @@
             <StatusBarItem Content="{Binding StatusText}" />
         </StatusBar>
     </Grid>
+    
+    
+    
 </Window>
