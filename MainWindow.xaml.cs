@@ -28,6 +28,9 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
     using System.Threading.Tasks;
 
+    using System.Windows.Media.Animation;
+    using System.Windows.Controls;
+
     /// <summary>
     /// Interaction logic for MainWindow
     /// </summary>
@@ -853,58 +856,62 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
                     bf.GetAndRefreshBodyData(bodies);
 
-                    for (int i = 0; i < bf.BodyCount; i++)
+                    if (bodies[nowTrackIndex].IsTracked)
                     {
-                        if (bodies[i].IsTracked)
+
+                        if (Prebody[nowTrackIndex] != null)
                         {
 
-                            if (Prebody[i] != null)
+                            /*
+                            ColorSpacePoint csp = coordinateMapper.MapCameraPointToColorSpace(Prebody[nowTrackIndex].Joints[JointType.HandRight].Position);
+                            var point = PointToScreen(new Point { X = csp.X, Y=csp.Y });
+                            */
+
+                            //textBox2.Text = Prebody[nowTrackIndex].Joints[JointType.HandLeft].Position.X + "  " + Prebody[nowTrackIndex].Joints[JointType.HandLeft].Position.Y + "\n";
+                            //textBox2.Text += bodies[nowTrackIndex].Joints[JointType.HandLeft].Position.X + "  " + bodies[nowTrackIndex].Joints[JointType.HandLeft].Position.Y;
+
+
+
+                            double dis = distance(Prebody[nowTrackIndex].Joints[JointType.HandLeft].Position, bodies[nowTrackIndex].Joints[JointType.HandLeft].Position) * 100;
+                            if (dis > 6)
                             {
-
-                                /*
-                                ColorSpacePoint csp = coordinateMapper.MapCameraPointToColorSpace(Prebody[i].Joints[JointType.HandRight].Position);
-                                var point = PointToScreen(new Point { X = csp.X, Y=csp.Y });
-                                */
-
-                                double dis = distance(Prebody[i].Joints[JointType.HandLeft].Position, bodies[i].Joints[JointType.HandLeft].Position) * 100;
-                                if (dis > 6)
+                                if (HandLeftMotion[nowTrackIndex].Count == 0)
                                 {
-                                    if (HandLeftMotion[i].Count == 0)
-                                    {
-                                        HandLeftMotion[i].Add(bodies[i].Joints[JointType.HandLeft].Position);
-                                    }
+                                    HandLeftMotion[nowTrackIndex].Add(bodies[nowTrackIndex].Joints[JointType.HandLeft].Position);
                                 }
-                                else
-                                {
-                                    if (HandLeftMotion[i].Count != 0)
-                                    {
-                                        HandLeftMotion[i].Add(bodies[i].Joints[JointType.HandLeft].Position);
-                                        double subX = (HandLeftMotion[i][0].X - HandLeftMotion[i][1].X) * 100;
-                                        double subY = (HandLeftMotion[i][0].Y - HandLeftMotion[i][1].Y) * 100;
-
-                                        if (subX > 20 && subY < 8 && subY > -8)
-                                        {
-                                            //SendKeys.SendWait("{LEFT}");
-                                            textBox2.Text = "LEFT";
-                                        }
-                                        else if (subX < -18 && subY < 8 && subY > -8)
-                                        {
-                                            //SendKeys.SendWait("{RIGHT}");
-                                            textBox2.Text = "RIGHT";
-                                        }
-
-                                        HandLeftMotion[i].Clear();
-                                    }
-                                }
-                                Prebody[i] = bodies[i];
                             }
                             else
                             {
-                                Prebody[i] = bodies[i];
-                            }
-                        }
+                                if (HandLeftMotion[nowTrackIndex].Count != 0)
+                                {
+                                    HandLeftMotion[nowTrackIndex].Add(bodies[nowTrackIndex].Joints[JointType.HandLeft].Position);
+                                    double subX = (HandLeftMotion[nowTrackIndex][0].X - HandLeftMotion[nowTrackIndex][1].X) * 100;
+                                    double subY = (HandLeftMotion[nowTrackIndex][0].Y - HandLeftMotion[nowTrackIndex][1].Y) * 100;
 
+                                    if (subX > 20 && subY < 8 && subY > -8)
+                                    {
+                                        //SendKeys.SendWait("{LEFT}");
+                                        textBox2.Text = "LEFT";
+                                        hand_left();
+                                    }
+                                    else if (subX < -18 && subY < 8 && subY > -8)
+                                    {
+                                        //SendKeys.SendWait("{RIGHT}");
+                                        textBox2.Text = "RIGHT";
+                                        hand_right();
+                                    }
+
+                                    HandLeftMotion[nowTrackIndex].Clear();
+                                }
+                            }
+                            Prebody[nowTrackIndex] = bodies[nowTrackIndex];
+                        }
+                        else
+                        {
+                            Prebody[nowTrackIndex] = bodies[nowTrackIndex];
+                        }
                     }
+
                 }
             }
         }
@@ -918,7 +925,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
         /// <param name="sender">object sending the event</param>
         /// <param name="e">event arguments</param>
         private void Reader_BodyFrameArrived(object sender, BodyFrameArrivedEventArgs e)
-        {       
+        {
             using (var bodyFrame = e.FrameReference.AcquireFrame())
             {
                 if (bodyFrame != null)
@@ -971,10 +978,6 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
 
 
-                                        if (HandLeftMotion[i].Count != 0)
-                                        {
-                                            textBox2.Text = "";
-                                        }
 
 
 
@@ -1361,7 +1364,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                         clothes_label.Content = "上衣關鍵字：" + clothes_keyword[0];
                         clothes_keyword_result = clothes_keyword[0];
                         showClothes();
-                    }                    
+                    }
                 }
 
             }
@@ -1587,27 +1590,27 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                 //MessageBox.Show(this.bodyCount.ToString(), "1", MessageBoxButton.OK);
                 //if (nowBody != numFace)
                 //{
-                    /*
-                    string fileName = "tmp.jpg";
-                    using (FileStream saveImage = new FileStream(fileName, FileMode.Open, FileAccess.Write))
-                    {
-                        從ColorImage.Source處取出一張影像，轉為BitmapSource格式
-                        儲存到imageSource
-                        BitmapSource imageSourceAPI = (BitmapSource)colorBitmap;
-                        挑選Joint Photographic Experts Group(JPEG)影像編碼器
-                        JpegBitmapEncoder encoder = new JpegBitmapEncoder();
-                        將取出的影像加到編碼器的影像集
-                        encoder.Frames.Add(BitmapFrame.Create(imageSourceAPI));
-                        儲存影像與後續影像清除工作
-                        encoder.Save(saveImage);
-                        saveImage.Flush();
-                        saveImage.Close();
-                        saveImage.Dispose();
+                /*
+                string fileName = "tmp.jpg";
+                using (FileStream saveImage = new FileStream(fileName, FileMode.Open, FileAccess.Write))
+                {
+                    從ColorImage.Source處取出一張影像，轉為BitmapSource格式
+                    儲存到imageSource
+                    BitmapSource imageSourceAPI = (BitmapSource)colorBitmap;
+                    挑選Joint Photographic Experts Group(JPEG)影像編碼器
+                    JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+                    將取出的影像加到編碼器的影像集
+                    encoder.Frames.Add(BitmapFrame.Create(imageSourceAPI));
+                    儲存影像與後續影像清除工作
+                    encoder.Save(saveImage);
+                    saveImage.Flush();
+                    saveImage.Close();
+                    saveImage.Dispose();
 
-                        nowBody = numFace;
-                    }*/
-                    //辨識
-                    //DetectAgeGender(fileName);
+                    nowBody = numFace;
+                }*/
+                //辨識
+                //DetectAgeGender(fileName);
                 //}
 
                 numFace = 0;
@@ -1934,7 +1937,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                 int female = 0, male = 0, adult = 0, child = 0;
                 double youngest = 120, oldest = 0, smilest = 0;
                 string gender = null;
-                
+
                 foreach (var attribute in attributes)
                 {
                     if (attribute.Gender == "male")
@@ -2205,5 +2208,38 @@ namespace Microsoft.Samples.Kinect.FaceBasics
         {
             //DefLoginAsync("v0ZHddN.jpg");
         }
+
+
+
+        private void DoMove(DependencyProperty dp, double to, double ar, double dr, double duration)
+        {
+            DoubleAnimation doubleAnimation = new DoubleAnimation();//创建双精度动画对象
+            doubleAnimation.To = to;//设置动画的结束值
+            doubleAnimation.Duration = TimeSpan.FromSeconds(duration);//设置动画时间线长度
+            doubleAnimation.AccelerationRatio = ar;//动画加速
+            doubleAnimation.DecelerationRatio = dr;//动画减速
+            doubleAnimation.FillBehavior = FillBehavior.HoldEnd;//设置动画完成后执行的操作
+            grdTransfer.BeginAnimation(dp, doubleAnimation);//设置动画应用的属性并启动动画
+        }
+
+        int to = 0;
+        private void button5_Click(object sender, RoutedEventArgs e)
+        {
+            to -= 1100;
+            DoMove(Canvas.LeftProperty, to, 0.1, 0.5, 0.5);
+        }
+
+        private void hand_right()
+        {
+            to += 1100;
+            DoMove(Canvas.LeftProperty, to, 0.1, 0.5, 0.5);
+        }
+
+        private void hand_left()
+        {
+            to -= 1100;
+            DoMove(Canvas.LeftProperty, to, 0.1, 0.5, 0.5);
+        }
+
     }
 }
