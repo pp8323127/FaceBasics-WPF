@@ -2222,7 +2222,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             grdTransfer.BeginAnimation(dp, doubleAnimation);//设置动画应用的属性并启动动画
         }
 
-        int to = 0;
+        int to = -4400;
         private void button5_Click(object sender, RoutedEventArgs e)
         {
             to -= 1100;

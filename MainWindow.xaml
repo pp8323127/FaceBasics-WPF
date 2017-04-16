@@ -41,7 +41,7 @@
 
 
                 <Canvas x:Name="cvsGround" Height="500">
-                    <StackPanel Width="15000" Height="550" x:Name="grdTransfer" Canvas.Left="-4400" Background="White" Orientation="Horizontal">
+                    <StackPanel Width="11000" Height="550" x:Name="grdTransfer" Canvas.Left="-4400" Background="White" Orientation="Horizontal">
                         <Image Source="Images/qr.png" Stretch="Uniform" Margin="0,0,0,0" Width="1100" HorizontalAlignment="Left" />
                         <Image Source="Images/qr.png" Stretch="Uniform" Margin="0 0 0 0" Width="1100" HorizontalAlignment="Left"/>
                         <Image Source="Images/qr.png" Stretch="Uniform" Margin="0 0 0 0" Width="1100" HorizontalAlignment="Left"/>
