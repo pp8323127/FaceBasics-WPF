@@ -893,6 +893,9 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                                     double subX = (HandRightMotion[nowTrackIndex][0].X - HandRightMotion[nowTrackIndex][1].X) * 100;
                                     double subY = (HandRightMotion[nowTrackIndex][0].Y - HandRightMotion[nowTrackIndex][1].Y) * 100;
 
+                                    // 顯示手部頭部座標
+                                    textBox3.Text = "HandRight: " + bodies[nowTrackIndex].Joints[JointType.HandRight].Position.Y + "\nHandLeft: " + bodies[nowTrackIndex].Joints[JointType.HandLeft].Position.Y + "\nHead: " + bodies[nowTrackIndex].Joints[JointType.Head].Position.Y;
+
                                     if (subX > 20 && subY < 8 && subY > -8)
                                     {
                                         //SendKeys.SendWait("{LEFT}");
@@ -1213,7 +1216,6 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                                     ColorSpacePoint jointPointsInColor = this.coordinateMapper.MapCameraPointToColorSpace(position);
                                     jointPoints[jointType] = new Point(jointPointsInColor.X, jointPointsInColor.Y);
                                 }
-
                                 this.DrawBody(joints, jointPoints, dc, drawPen);
 
                                 //this.DrawHand(body.HandLeftState, jointPoints[JointType.HandLeft], dc);
