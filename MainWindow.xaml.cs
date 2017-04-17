@@ -893,7 +893,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                                     double subY = (HandRightMotion[nowTrackIndex][0].Y - HandRightMotion[nowTrackIndex][1].Y) * 100;
 
 
-                                    if (subX > 20 && subY < 8 && subY > -8)
+                                    if (subX > 16 && subY < 8 && subY > -8)
                                     {
                                         //SendKeys.SendWait("{LEFT}");
                                         textBox2.Text = "LEFT";
@@ -935,7 +935,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                                         //textBox2.Text = "LEFT";
                                         //hand_left();
                                     }
-                                    else if (subX < -18 && subY < 8 && subY > -8)
+                                    else if (subX < -16 && subY < 8 && subY > -8)
                                     {
                                         //SendKeys.SendWait("{RIGHT}");
                                         textBox2.Text = "RIGHT";
@@ -1001,11 +1001,11 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                                     if (nowTrackID == null)
                                     {
                                         nowTrackID = faceFrameResults[i].TrackingId;
+                                        nowTrackIndex = i;
                                         doClothes = true;
                                     }
                                     else if (nowTrackID == faceFrameResults[i].TrackingId)
-                                    {
-                                        nowTrackIndex = i;
+                                    {                                        
                                         textBox.Text = nowTrackID + " " + nowTrackIndex + " ";
                                         // draw face frame results                                        
                                         this.DrawFaceFrameResults(i, this.faceFrameResults[i], dc);
@@ -1022,15 +1022,42 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                                 // check if the corresponding body is tracked 
                                 if (this.bodies[i].IsTracked)
                                 {
-                                    nowTrackID = bodies[i].TrackingId;
-                                    doClothes = true;
-                                    // hidden the gender image result when new body detect
-                                    img_gender_girl.Visibility = Visibility.Hidden;
-                                    img_gender_boy.Visibility = Visibility.Hidden;
-                                    // empty the searchClothes Result
-                                    clothes_label.Content = "";
-                                    // update the face frame source to track this body
-                                    this.faceFrameSources[i].TrackingId = this.bodies[i].TrackingId;
+                                    ////nowTrackID = bodies[i].TrackingId;
+                                    ////nowTrackIndex = i;
+                                    //doClothes = true;
+                                    //// hidden the gender image result when new body detect
+                                    //img_gender_girl.Visibility = Visibility.Hidden;
+                                    //img_gender_boy.Visibility = Visibility.Hidden;
+                                    //// empty the searchClothes Result
+                                    //clothes_label.Content = "";
+                                    //// update the face frame source to track this body
+                                    ////this.faceFrameSources[i].TrackingId = this.bodies[i].TrackingId;
+
+
+
+                                    // 顯示手部頭部座標
+                                    //textBox3.Text = "HandRight: " + bodies[nowTrackIndex].Joints[JointType.HandRight].Position.Y + "\nHandLeft: " + bodies[nowTrackIndex].Joints[JointType.HandLeft].Position.Y + "\nHead: " + bodies[nowTrackIndex].Joints[JointType.Head].Position.Y;
+
+                                    double hand_right = bodies[i].Joints[JointType.HandRight].Position.Y;
+                                    double hand_left = bodies[i].Joints[JointType.HandLeft].Position.Y;
+                                    double head = bodies[i].Joints[JointType.Head].Position.Y;
+
+                                    if (hand_right > head && hand_left > head)
+                                    {
+                                        nowTrackIndex = i;
+                                        nowTrackID = bodies[i].TrackingId;
+                                        this.faceFrameSources[i].TrackingId = this.bodies[i].TrackingId;
+
+                                        textBox3.Text = i + "  " + nowTrackIndex.ToString();
+
+                                        doClothes = true;
+                                        // hidden the gender image result when new body detect
+                                        img_gender_girl.Visibility = Visibility.Hidden;
+                                        img_gender_boy.Visibility = Visibility.Hidden;
+                                        // empty the searchClothes Result
+                                        clothes_label.Content = "";
+                                    }
+
                                 }
                             }
 
@@ -1038,18 +1065,14 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
 
 
-                            // 顯示手部頭部座標
-                            //textBox3.Text = "HandRight: " + bodies[nowTrackIndex].Joints[JointType.HandRight].Position.Y + "\nHandLeft: " + bodies[nowTrackIndex].Joints[JointType.HandLeft].Position.Y + "\nHead: " + bodies[nowTrackIndex].Joints[JointType.Head].Position.Y;
 
-                            double hand_right = bodies[i].Joints[JointType.HandRight].Position.Y;
-                            double hand_left = bodies[i].Joints[JointType.HandLeft].Position.Y;
-                            double head = bodies[i].Joints[JointType.Head].Position.Y;
 
-                            if (hand_right > head && hand_left > head)
-                            {
-                                nowTrackIndex = i;
-                                textBox3.Text = nowTrackIndex.ToString();
-                            }
+
+
+
+
+
+
 
 
 
