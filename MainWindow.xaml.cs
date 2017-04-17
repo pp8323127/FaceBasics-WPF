@@ -2194,14 +2194,21 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
         private void hand_right()
         {
-            to += 1100;
-            DoMove(Canvas.LeftProperty, to, 0.1, 0.5, 0.5);
+            if (to != 0)
+            {
+                to += 1100;
+                DoMove(Canvas.LeftProperty, to, 0.1, 0.5, 0.5);
+                textBox3.Text = to.ToString();
+            }
         }
 
         private void hand_left()
         {
-            to -= 1100;
-            DoMove(Canvas.LeftProperty, to, 0.1, 0.5, 0.5);
+            if (to != -9900){
+                to -= 1100;
+                DoMove(Canvas.LeftProperty, to, 0.1, 0.5, 0.5);
+                textBox3.Text = to.ToString();
+            }
         }
 
         private void delete_file()
