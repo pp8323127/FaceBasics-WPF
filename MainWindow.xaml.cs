@@ -754,6 +754,9 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                 MyProcess[0].Kill();
             }
 
+            // 結束程式後，刪除jpg跟txt檔
+            delete_file();
+
         }
 
 
@@ -1274,6 +1277,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             src.StreamSource = stream;
             src.EndInit();
             clothesIMG.Source = src;
+            //stream.Flush();
         }
 
 
@@ -2198,6 +2202,45 @@ namespace Microsoft.Samples.Kinect.FaceBasics
         {
             to -= 1100;
             DoMove(Canvas.LeftProperty, to, 0.1, 0.5, 0.5);
+        }
+
+        private void delete_file()
+        {
+            string sourceDir = Directory.GetCurrentDirectory() + @"\";
+
+            try
+            {
+                string[] txtList = Directory.GetFiles(sourceDir, @"*.txt");
+                string[] imgList = Directory.GetFiles(sourceDir, @"*.jpg");
+
+                foreach (string f in imgList)
+                {
+                    try
+                    {
+                        File.Delete(f);
+                    }
+                    // Catch exception if the file was already copied.
+                    catch (IOException ex)
+                    {                        
+                    }
+                }
+
+                //foreach (string f in txtList)
+                //{
+                //    try
+                //    {
+                //        File.Delete(f);
+                //    }
+                //    // Catch exception if the file was already copied.
+                //    catch (IOException ex)
+                //    {
+                //    }
+                //}
+            }
+            catch (Exception ex)
+            {                
+            }
+
         }
 
     }
