@@ -313,6 +313,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
         Body[] Prebody = new Body[6];
         List<Body[]> preBody = new List<Body[]>();
         List<CameraSpacePoint>[] HandLeftMotion = new List<CameraSpacePoint>[6];
+        List<CameraSpacePoint>[] HandRightMotion = new List<CameraSpacePoint>[6];
         private double distance(CameraSpacePoint pre, CameraSpacePoint aft)
         {
             double X = pre.X - aft.X;
@@ -555,7 +556,10 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             {
                 HandLeftMotion[i] = new List<CameraSpacePoint>();
             }
-
+            for (int i = 0; i < HandRightMotion.Length; i++)
+            {
+                HandRightMotion[i] = new List<CameraSpacePoint>();
+            }
 
 
 
@@ -846,6 +850,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
         }
 
 
+        // 手勢辨識
         private void Bfr_FrameArrived(object sender, BodyFrameArrivedEventArgs e)
         {
             using (BodyFrame bf = e.FrameReference.AcquireFrame())
@@ -872,8 +877,44 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
 
 
-                            double dis = distance(Prebody[nowTrackIndex].Joints[JointType.HandLeft].Position, bodies[nowTrackIndex].Joints[JointType.HandLeft].Position) * 100;
-                            if (dis > 6)
+                            double dis_HandRight = distance(Prebody[nowTrackIndex].Joints[JointType.HandRight].Position, bodies[nowTrackIndex].Joints[JointType.HandRight].Position) * 100;
+                            if (dis_HandRight > 6)
+                            {
+                                if (HandRightMotion[nowTrackIndex].Count == 0)
+                                {
+                                    HandRightMotion[nowTrackIndex].Add(bodies[nowTrackIndex].Joints[JointType.HandRight].Position);
+                                }
+                            }
+                            else
+                            {
+                                if (HandRightMotion[nowTrackIndex].Count != 0)
+                                {
+                                    HandRightMotion[nowTrackIndex].Add(bodies[nowTrackIndex].Joints[JointType.HandRight].Position);
+                                    double subX = (HandRightMotion[nowTrackIndex][0].X - HandRightMotion[nowTrackIndex][1].X) * 100;
+                                    double subY = (HandRightMotion[nowTrackIndex][0].Y - HandRightMotion[nowTrackIndex][1].Y) * 100;
+
+                                    if (subX > 20 && subY < 8 && subY > -8)
+                                    {
+                                        //SendKeys.SendWait("{LEFT}");
+                                        textBox2.Text = "LEFT";
+                                        hand_left();
+                                    }
+                                    else if (subX < -18 && subY < 8 && subY > -8)
+                                    {
+                                        //SendKeys.SendWait("{RIGHT}");
+                                        //textBox2.Text = "RIGHT";
+                                        //hand_right();
+                                    }
+
+                                    HandRightMotion[nowTrackIndex].Clear();
+                                }
+                            }
+                            //Prebody[nowTrackIndex] = bodies[nowTrackIndex];
+
+
+
+                            double dis_HandLeft = distance(Prebody[nowTrackIndex].Joints[JointType.HandLeft].Position, bodies[nowTrackIndex].Joints[JointType.HandLeft].Position) * 100;
+                            if (dis_HandLeft > 6)
                             {
                                 if (HandLeftMotion[nowTrackIndex].Count == 0)
                                 {
@@ -891,8 +932,8 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                                     if (subX > 20 && subY < 8 && subY > -8)
                                     {
                                         //SendKeys.SendWait("{LEFT}");
-                                        textBox2.Text = "LEFT";
-                                        hand_left();
+                                        //textBox2.Text = "LEFT";
+                                        //hand_left();
                                     }
                                     else if (subX < -18 && subY < 8 && subY > -8)
                                     {
