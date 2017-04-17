@@ -1595,8 +1595,14 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             //建立臉部box的Int32Rect
             //Int32Converter int32faceBox = new Int32Converter();
             //int32faceBox.ConvertFrom(faceBox);
-            Int32Rect int32faceBox = new Int32Rect(faceBoxSource.Left, faceBoxSource.Top, faceBoxSource.Right - faceBoxSource.Left, faceBoxSource.Bottom - faceBoxSource.Top);
 
+            //  修正臉部截圖放大20%
+            double x = faceBoxSource.Left * 0.9;
+            double y = faceBoxSource.Top * 0.7;
+            double width = (faceBoxSource.Right - faceBoxSource.Left) * 1.8;
+            double height = (faceBoxSource.Bottom - faceBoxSource.Top) * 1.9;
+            //Int32Rect int32faceBox = new Int32Rect(faceBoxSource.Left, faceBoxSource.Top, faceBoxSource.Right - faceBoxSource.Left, faceBoxSource.Bottom - faceBoxSource.Top);
+            Int32Rect int32faceBox = new Int32Rect((int)x, (int)y, (int)width, (int)height);
 
 
             // 取得頭部旋轉資料，當faceYaw介於-20~20之間才做辨識
