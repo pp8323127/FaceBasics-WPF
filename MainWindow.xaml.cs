@@ -863,7 +863,6 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
                     if (bodies[nowTrackIndex].IsTracked)
                     {
-
                         if (Prebody[nowTrackIndex] != null)
                         {
 
@@ -893,8 +892,6 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                                     double subX = (HandRightMotion[nowTrackIndex][0].X - HandRightMotion[nowTrackIndex][1].X) * 100;
                                     double subY = (HandRightMotion[nowTrackIndex][0].Y - HandRightMotion[nowTrackIndex][1].Y) * 100;
 
-                                    // 顯示手部頭部座標
-                                    textBox3.Text = "HandRight: " + bodies[nowTrackIndex].Joints[JointType.HandRight].Position.Y + "\nHandLeft: " + bodies[nowTrackIndex].Joints[JointType.HandLeft].Position.Y + "\nHead: " + bodies[nowTrackIndex].Joints[JointType.Head].Position.Y;
 
                                     if (subX > 20 && subY < 8 && subY > -8)
                                     {
@@ -1012,132 +1009,6 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                                         textBox.Text = nowTrackID + " " + nowTrackIndex + " ";
                                         // draw face frame results                                        
                                         this.DrawFaceFrameResults(i, this.faceFrameResults[i], dc);
-
-
-
-
-                                        // Track HandLeft
-                                        //textBox2.Text = bodies[nowTrackIndex].Joints[JointType.HandLeft].Position.X + "  " + bodies[nowTrackIndex].Joints[JointType.HandLeft].Position.Y;
-                                        //double dis = distance(Prebody[i].Joints[JointType.HandLeft].Position, bodies[i].Joints[JointType.HandLeft].Position) * 100;
-
-
-
-
-
-
-
-
-
-
-                                        //if (Prebody[i] != null)
-                                        //{
-                                        //    textBox2.Text = Prebody[i].Joints[JointType.HandLeft].Position.X + "  " + Prebody[i].Joints[JointType.HandLeft].Position.Y + "\n";
-                                        //    textBox2.Text += bodies[i].Joints[JointType.HandLeft].Position.X + "  " + bodies[i].Joints[JointType.HandLeft].Position.Y;
-
-                                        //    /*
-                                        //    ColorSpacePoint csp = coordinateMapper.MapCameraPointToColorSpace(Prebody[i].Joints[JointType.HandRight].Position);
-                                        //    var point = PointToScreen(new Point { X = csp.X, Y=csp.Y });
-                                        //    */
-
-                                        //    double dis = distance(Prebody[i].Joints[JointType.HandLeft].Position, bodies[i].Joints[JointType.HandLeft].Position) * 100;
-                                        //    if (dis > 6)
-                                        //    {
-                                        //        if (HandLeftMotion[i].Count == 0)
-                                        //        {
-                                        //            HandLeftMotion[i].Add(bodies[i].Joints[JointType.HandLeft].Position);
-                                        //        }
-                                        //    }
-                                        //    else
-                                        //    {
-                                        //        if (HandLeftMotion[i].Count != 0)
-                                        //        {
-                                        //            HandLeftMotion[i].Add(bodies[i].Joints[JointType.HandLeft].Position);
-                                        //            double subX = (HandLeftMotion[i][0].X - HandLeftMotion[i][1].X) * 100;
-                                        //            double subY = (HandLeftMotion[i][0].Y - HandLeftMotion[i][1].Y) * 100;
-
-                                        //            if (subX > 20 && subY < 8 && subY > -8)
-                                        //            {
-                                        //                //SendKeys.SendWait("{LEFT}");
-                                        //                textBox2.Text = "LEFT";
-                                        //            }
-                                        //            else if (subX < -18 && subY < 8 && subY > -8)
-                                        //            {
-                                        //                //SendKeys.SendWait("{RIGHT}");
-                                        //                textBox2.Text = "RIGHT";
-                                        //            }
-
-                                        //            HandLeftMotion[i].Clear();
-                                        //        }
-                                        //    }
-                                        //    Prebody[i] = bodies[i];
-                                        //}
-                                        //else
-                                        //{
-                                        //    Prebody[i] = bodies[i];
-                                        //}
-
-
-
-
-
-
-
-                                        //// Track 手部
-                                        //if (Prebody[nowTrackIndex] != null)
-                                        //{
-
-                                        //    /*
-                                        //    ColorSpacePoint csp = coordinateMapper.MapCameraPointToColorSpace(Prebody[i].Joints[JointType.HandRight].Position);
-                                        //    var point = PointToScreen(new Point { X = csp.X, Y=csp.Y });
-                                        //    */
-
-                                        //    double dis = distance(Prebody[nowTrackIndex].Joints[JointType.HandLeft].Position, bodies[nowTrackIndex].Joints[JointType.HandLeft].Position) * 100;
-                                        //    if (dis > 6)
-                                        //    {
-                                        //        if (HandLeftMotion[nowTrackIndex].Count == 0)
-                                        //        {
-                                        //            HandLeftMotion[nowTrackIndex].Add(bodies[nowTrackIndex].Joints[JointType.HandLeft].Position);
-                                        //        }
-                                        //    }
-                                        //    else
-                                        //    {
-                                        //        if (HandLeftMotion[nowTrackIndex].Count != 0)
-                                        //        {
-                                        //            HandLeftMotion[nowTrackIndex].Add(bodies[nowTrackIndex].Joints[JointType.HandLeft].Position);
-                                        //            double subX = (HandLeftMotion[nowTrackIndex][0].X - HandLeftMotion[nowTrackIndex][1].X) * 100;
-                                        //            double subY = (HandLeftMotion[nowTrackIndex][0].Y - HandLeftMotion[nowTrackIndex][1].Y) * 100;
-
-                                        //            if (subX > 20 && subY < 8 && subY > -8)
-                                        //            {
-                                        //                //SendKeys.SendWait("{LEFT}");
-                                        //                textBox2.Text += "  LEFT";
-                                        //            }
-                                        //            else if (subX < -18 && subY < 8 && subY > -8)
-                                        //            {
-                                        //                //SendKeys.SendWait("{RIGHT}");
-                                        //                textBox2.Text += "  RIGHT";
-                                        //            }
-
-                                        //            HandLeftMotion[nowTrackIndex].Clear();
-                                        //        }
-                                        //    }
-                                        //    Prebody[nowTrackIndex] = bodies[nowTrackIndex];
-                                        //}
-                                        //else
-                                        //{
-                                        //    Prebody[nowTrackIndex] = bodies[nowTrackIndex];
-                                        //    textBox2.Text = Prebody[nowTrackIndex].TrackingId.ToString();
-                                        //}
-
-
-
-
-
-
-
-
-
-
                                     }
 
                                     if (!drawFaceResult)
@@ -1162,6 +1033,28 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                                     this.faceFrameSources[i].TrackingId = this.bodies[i].TrackingId;
                                 }
                             }
+
+
+
+
+
+                            // 顯示手部頭部座標
+                            //textBox3.Text = "HandRight: " + bodies[nowTrackIndex].Joints[JointType.HandRight].Position.Y + "\nHandLeft: " + bodies[nowTrackIndex].Joints[JointType.HandLeft].Position.Y + "\nHead: " + bodies[nowTrackIndex].Joints[JointType.Head].Position.Y;
+
+                            double hand_right = bodies[i].Joints[JointType.HandRight].Position.Y;
+                            double hand_left = bodies[i].Joints[JointType.HandLeft].Position.Y;
+                            double head = bodies[i].Joints[JointType.Head].Position.Y;
+
+                            if (hand_right > head && hand_left > head)
+                            {
+                                nowTrackIndex = i;
+                                textBox3.Text = nowTrackIndex.ToString();
+                            }
+
+
+
+
+
                         }
 
                         if (!drawFaceResult)
