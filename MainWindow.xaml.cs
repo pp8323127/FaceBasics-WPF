@@ -754,6 +754,9 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                 MyProcess[0].Kill();
             }
 
+            // 結束程式後，刪除jpg跟txt檔
+            delete_file();
+
         }
 
 
@@ -1274,6 +1277,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             src.StreamSource = stream;
             src.EndInit();
             clothesIMG.Source = src;
+            //stream.Flush();
         }
 
 
@@ -1591,8 +1595,14 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             //建立臉部box的Int32Rect
             //Int32Converter int32faceBox = new Int32Converter();
             //int32faceBox.ConvertFrom(faceBox);
-            Int32Rect int32faceBox = new Int32Rect(faceBoxSource.Left, faceBoxSource.Top, faceBoxSource.Right - faceBoxSource.Left, faceBoxSource.Bottom - faceBoxSource.Top);
 
+            //  修正臉部截圖放大20%
+            double x = faceBoxSource.Left * 0.9;
+            double y = faceBoxSource.Top * 0.7;
+            double width = (faceBoxSource.Right - faceBoxSource.Left) * 1.8;
+            double height = (faceBoxSource.Bottom - faceBoxSource.Top) * 1.9;
+            //Int32Rect int32faceBox = new Int32Rect(faceBoxSource.Left, faceBoxSource.Top, faceBoxSource.Right - faceBoxSource.Left, faceBoxSource.Bottom - faceBoxSource.Top);
+            Int32Rect int32faceBox = new Int32Rect((int)x, (int)y, (int)width, (int)height);
 
 
             // 取得頭部旋轉資料，當faceYaw介於-20~20之間才做辨識
@@ -2190,14 +2200,60 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
         private void hand_right()
         {
-            to += 1100;
-            DoMove(Canvas.LeftProperty, to, 0.1, 0.5, 0.5);
+            if (to != 0)
+            {
+                to += 1100;
+                DoMove(Canvas.LeftProperty, to, 0.1, 0.5, 0.5);
+                textBox3.Text = to.ToString();
+            }
         }
 
         private void hand_left()
         {
-            to -= 1100;
-            DoMove(Canvas.LeftProperty, to, 0.1, 0.5, 0.5);
+            if (to != -9900){
+                to -= 1100;
+                DoMove(Canvas.LeftProperty, to, 0.1, 0.5, 0.5);
+                textBox3.Text = to.ToString();
+            }
+        }
+
+        private void delete_file()
+        {
+            string sourceDir = Directory.GetCurrentDirectory() + @"\";
+
+            try
+            {
+                string[] txtList = Directory.GetFiles(sourceDir, @"*.txt");
+                string[] imgList = Directory.GetFiles(sourceDir, @"*.jpg");
+
+                foreach (string f in imgList)
+                {
+                    try
+                    {
+                        File.Delete(f);
+                    }
+                    // Catch exception if the file was already copied.
+                    catch (IOException ex)
+                    {                        
+                    }
+                }
+
+                //foreach (string f in txtList)
+                //{
+                //    try
+                //    {
+                //        File.Delete(f);
+                //    }
+                //    // Catch exception if the file was already copied.
+                //    catch (IOException ex)
+                //    {
+                //    }
+                //}
+            }
+            catch (Exception ex)
+            {                
+            }
+
         }
 
     }
