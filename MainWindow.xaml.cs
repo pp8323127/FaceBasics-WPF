@@ -1086,6 +1086,13 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
                         }
 
+
+
+
+                        textBox2.Text = "nowTrackID: " + nowTrackID + "\nnowTrackIndex: " + nowTrackIndex;
+
+
+
                         if (!drawFaceResult)
                         {
                             // if no faces were drawn then this indicates one of the following:
@@ -1550,8 +1557,6 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                 drawingBrush = this.faceBrush[faceIndex];
 
                 //textBox.Text = this.faceFrameSources[faceIndex].TrackingId.ToString() + "\n" + saveTrackingID[faceIndex].ToString();
-
-
 
                 //---------Microsoft Face Api----------// 
                 //if(this.bodies[faceIndex].TrackingId != saveTrackingID[faceIndex])
