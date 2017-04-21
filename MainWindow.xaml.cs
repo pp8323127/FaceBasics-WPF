@@ -1089,6 +1089,19 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                         }
 
 
+                        // 利用骨架切割上衣圖片
+                        if (doClothes)
+                        {
+                            doClothes = false;
+
+                            ColorSpacePoint ShoulderLeft_ColorSpacePoint = this.coordinateMapper.MapCameraPointToColorSpace(bodies[nowTrackIndex].Joints[JointType.ShoulderLeft].Position);
+                            ColorSpacePoint ShoulderRight_ColorSpacePoint = this.coordinateMapper.MapCameraPointToColorSpace(bodies[nowTrackIndex].Joints[JointType.ShoulderRight].Position);
+                            ColorSpacePoint HipLeft_ColorSpacePoint = this.coordinateMapper.MapCameraPointToColorSpace(bodies[nowTrackIndex].Joints[JointType.HipLeft].Position);
+
+                            int clothes_width = (int)Math.Abs(ShoulderLeft_ColorSpacePoint.X - ShoulderRight_ColorSpacePoint.X);
+                            int clothes_height = (int)Math.Abs(ShoulderLeft_ColorSpacePoint.Y - HipLeft_ColorSpacePoint.Y);
+                            clothes(ShoulderLeft_ColorSpacePoint, clothes_width, clothes_height);
+                        }
 
 
                         textBox2.Text = "nowTrackID: " + nowTrackID + "\nnowTrackIndex: " + nowTrackIndex;
@@ -1206,19 +1219,19 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             }
 
 
-            // 利用骨架切割上衣圖片
-            if (doClothes)
-            {
-                doClothes = false;
+            //// 利用骨架切割上衣圖片
+            //if (doClothes)
+            //{
+            //    doClothes = false;
 
-                ColorSpacePoint ShoulderLeft_ColorSpacePoint = this.coordinateMapper.MapCameraPointToColorSpace(joints[JointType.ShoulderLeft].Position);
-                ColorSpacePoint ShoulderRight_ColorSpacePoint = this.coordinateMapper.MapCameraPointToColorSpace(joints[JointType.ShoulderRight].Position);
-                ColorSpacePoint HipLeft_ColorSpacePoint = this.coordinateMapper.MapCameraPointToColorSpace(joints[JointType.HipLeft].Position);
+            //    ColorSpacePoint ShoulderLeft_ColorSpacePoint = this.coordinateMapper.MapCameraPointToColorSpace(joints[JointType.ShoulderLeft].Position);
+            //    ColorSpacePoint ShoulderRight_ColorSpacePoint = this.coordinateMapper.MapCameraPointToColorSpace(joints[JointType.ShoulderRight].Position);
+            //    ColorSpacePoint HipLeft_ColorSpacePoint = this.coordinateMapper.MapCameraPointToColorSpace(joints[JointType.HipLeft].Position);
 
-                int clothes_width = (int)Math.Abs(ShoulderLeft_ColorSpacePoint.X - ShoulderRight_ColorSpacePoint.X);
-                int clothes_height = (int)Math.Abs(ShoulderLeft_ColorSpacePoint.Y - HipLeft_ColorSpacePoint.Y);
-                clothes(ShoulderLeft_ColorSpacePoint, clothes_width, clothes_height);
-            }
+            //    int clothes_width = (int)Math.Abs(ShoulderLeft_ColorSpacePoint.X - ShoulderRight_ColorSpacePoint.X);
+            //    int clothes_height = (int)Math.Abs(ShoulderLeft_ColorSpacePoint.Y - HipLeft_ColorSpacePoint.Y);
+            //    clothes(ShoulderLeft_ColorSpacePoint, clothes_width, clothes_height);
+            //}
 
         }
 
