@@ -1002,17 +1002,18 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                                 if (this.faceFrameResults[i] != null)
                                 {
                                     //只追蹤一人
-                                    if (nowTrackID == null)
+                                    //if (nowTrackID == null)
+                                    //{
+                                    //    //nowTrackID = faceFrameResults[i].TrackingId;
+                                    //    //nowTrackIndex = i;
+                                    //    //doClothes = true;
+                                    //}
+                                    //else 
+                                    if (nowTrackID == faceFrameResults[i].TrackingId)
                                     {
-                                        nowTrackID = faceFrameResults[i].TrackingId;
-                                        nowTrackIndex = i;
-                                        doClothes = true;
-                                    }
-                                    else if (nowTrackID == faceFrameResults[i].TrackingId)
-                                    {                                        
                                         textBox.Text = nowTrackID + " " + nowTrackIndex + " ";
                                         // draw face frame results                                        
-                                        this.DrawFaceFrameResults(nowTrackIndex, this.faceFrameResults[nowTrackIndex], dc);
+                                        this.DrawFaceFrameResults(i, this.faceFrameResults[i], dc);
                                     }
 
                                     if (!drawFaceResult)
@@ -1039,8 +1040,6 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
 
 
-
-
                                     // 顯示手部頭部座標
                                     //textBox3.Text = "HandRight: " + bodies[nowTrackIndex].Joints[JointType.HandRight].Position.Y + "\nHandLeft: " + bodies[nowTrackIndex].Joints[JointType.HandLeft].Position.Y + "\nHead: " + bodies[nowTrackIndex].Joints[JointType.Head].Position.Y;
 
@@ -1048,13 +1047,13 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                                     double hand_left = bodies[i].Joints[JointType.HandLeft].Position.Y;
                                     double head = bodies[i].Joints[JointType.Head].Position.Y;
 
-                                    if (hand_right > head && hand_left > head)
+                                    if (hand_right > head && hand_left > head && nowTrackID != faceFrameSources[i].TrackingId)
                                     {
                                         nowTrackIndex = i;
                                         nowTrackID = bodies[i].TrackingId;
                                         this.faceFrameSources[i].TrackingId = this.bodies[i].TrackingId;
 
-                                        textBox3.Text = i + "  " + nowTrackIndex.ToString();
+                                        textBox3.Text = "i: " + i + "\nnowTrackIndex: " + nowTrackIndex.ToString();
 
                                         doClothes = true;
                                         // hidden the gender image result when new body detect
@@ -1064,6 +1063,9 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                                         clothes_label.Content = "";
                                         clothesIMG.Source = null;
                                     }
+
+
+
                                 }
                             }
 
@@ -2272,7 +2274,8 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
         private void hand_left()
         {
-            if (to != -9900){
+            if (to != -9900)
+            {
                 to -= 1100;
                 DoMove(Canvas.LeftProperty, to, 0.1, 0.5, 0.5);
                 textBox3.Text = to.ToString();
@@ -2296,7 +2299,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                     }
                     // Catch exception if the file was already copied.
                     catch (IOException ex)
-                    {                        
+                    {
                     }
                 }
 
@@ -2313,7 +2316,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                 //}
             }
             catch (Exception ex)
-            {                
+            {
             }
 
         }
