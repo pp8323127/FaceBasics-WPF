@@ -1025,43 +1025,47 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                                 // check if the corresponding body is tracked 
                                 if (this.bodies[i].IsTracked)
                                 {
-                                    ////nowTrackID = bodies[i].TrackingId;
-                                    ////nowTrackIndex = i;
-                                    //doClothes = true;
-                                    //// hidden the gender image result when new body detect
-                                    //img_gender_girl.Visibility = Visibility.Hidden;
-                                    //img_gender_boy.Visibility = Visibility.Hidden;
-                                    //// empty the searchClothes Result
-                                    //clothes_label.Content = "";
-                                    //// update the face frame source to track this body
-                                    ////this.faceFrameSources[i].TrackingId = this.bodies[i].TrackingId;
+                                    //nowTrackID = bodies[i].TrackingId;
+                                    //nowTrackIndex = i;
+                                    doClothes = true;
+                                    // hidden the gender image result when new body detect
+                                    img_gender_girl.Visibility = Visibility.Hidden;
+                                    img_gender_boy.Visibility = Visibility.Hidden;
+                                    // empty the searchClothes Result
+                                    clothes_label.Content = "";
+                                    // update the face frame source to track this body
+                                    //this.faceFrameSources[i].TrackingId = this.bodies[i].TrackingId;
 
 
 
-                                    // 顯示手部頭部座標
-                                    //textBox3.Text = "HandRight: " + bodies[nowTrackIndex].Joints[JointType.HandRight].Position.Y + "\nHandLeft: " + bodies[nowTrackIndex].Joints[JointType.HandLeft].Position.Y + "\nHead: " + bodies[nowTrackIndex].Joints[JointType.Head].Position.Y;
-
-                                    double hand_right = bodies[i].Joints[JointType.HandRight].Position.Y;
-                                    double hand_left = bodies[i].Joints[JointType.HandLeft].Position.Y;
-                                    double head = bodies[i].Joints[JointType.Head].Position.Y;
-
-                                    if (hand_right > head && hand_left > head)
-                                    {
-                                        nowTrackIndex = i;
-                                        nowTrackID = bodies[i].TrackingId;
-                                        this.faceFrameSources[i].TrackingId = this.bodies[i].TrackingId;
-
-                                        textBox3.Text = i + "  " + nowTrackIndex.ToString();
-
-                                        doClothes = true;
-                                        // hidden the gender image result when new body detect
-                                        img_gender_girl.Visibility = Visibility.Hidden;
-                                        img_gender_boy.Visibility = Visibility.Hidden;
-                                        // empty the searchClothes Result
-                                        clothes_label.Content = "";
-                                    }
 
                                 }
+
+
+
+                                // 顯示手部頭部座標
+                                //textBox3.Text = "HandRight: " + bodies[nowTrackIndex].Joints[JointType.HandRight].Position.Y + "\nHandLeft: " + bodies[nowTrackIndex].Joints[JointType.HandLeft].Position.Y + "\nHead: " + bodies[nowTrackIndex].Joints[JointType.Head].Position.Y;
+
+                                double hand_right = bodies[i].Joints[JointType.HandRight].Position.Y;
+                                double hand_left = bodies[i].Joints[JointType.HandLeft].Position.Y;
+                                double head = bodies[i].Joints[JointType.Head].Position.Y;
+
+                                if (hand_right > head && hand_left > head)
+                                {
+                                    nowTrackIndex = i;
+                                    nowTrackID = bodies[i].TrackingId;
+                                    this.faceFrameSources[i].TrackingId = this.bodies[i].TrackingId;
+
+                                    textBox3.Text = i + "  " + nowTrackIndex.ToString();
+
+                                    doClothes = true;
+                                    // hidden the gender image result when new body detect
+                                    img_gender_girl.Visibility = Visibility.Hidden;
+                                    img_gender_boy.Visibility = Visibility.Hidden;
+                                    // empty the searchClothes Result
+                                    clothes_label.Content = "";
+                                }
+
                             }
 
 
@@ -1277,9 +1281,13 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             src.StreamSource = stream;
             src.EndInit();
             clothesIMG.Source = src;
-            //stream.Flush();
+            stream.Flush();
         }
 
+        private void showClothesFlush()
+        {
+
+        }
 
 
 
