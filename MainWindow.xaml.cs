@@ -308,6 +308,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
         int nowTrackIndex = 0;
         ulong? nowTrackID = null;
         private string clothes_keyword_result = null;
+        private string clothes_fileName = null;
 
 
         Body[] Prebody = new Body[6];
@@ -932,13 +933,13 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                                     double subX = (HandLeftMotion[nowTrackIndex][0].X - HandLeftMotion[nowTrackIndex][1].X) * 100;
                                     double subY = (HandLeftMotion[nowTrackIndex][0].Y - HandLeftMotion[nowTrackIndex][1].Y) * 100;
 
-                                    if (subX > 20 && subY < 8 && subY > -8)
+                                    if (subX > 13 && subY < 8 && subY > -8)
                                     {
                                         //SendKeys.SendWait("{LEFT}");
                                         //textBox2.Text = "LEFT";
                                         //hand_left();
                                     }
-                                    else if (subX < -16 && subY < 8 && subY > -8)
+                                    else if (subX < -9 && subY < 8 && subY > -8)
                                     {
                                         //SendKeys.SendWait("{RIGHT}");
                                         textBox2.Text = "RIGHT";
@@ -1001,14 +1002,15 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                                 if (this.faceFrameResults[i] != null)
                                 {
                                     //只追蹤一人
-                                    if (nowTrackID == null)
+                                    //if (nowTrackID == null)
+                                    //{
+                                    //    //nowTrackID = faceFrameResults[i].TrackingId;
+                                    //    //nowTrackIndex = i;
+                                    //    //doClothes = true;
+                                    //}
+                                    //else 
+                                    if (nowTrackID == faceFrameResults[i].TrackingId)
                                     {
-                                        nowTrackID = faceFrameResults[i].TrackingId;
-                                        nowTrackIndex = i;
-                                        doClothes = true;
-                                    }
-                                    else if (nowTrackID == faceFrameResults[i].TrackingId)
-                                    {                                        
                                         textBox.Text = nowTrackID + " " + nowTrackIndex + " ";
                                         // draw face frame results                                        
                                         this.DrawFaceFrameResults(i, this.faceFrameResults[i], dc);
@@ -1045,13 +1047,13 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                                     double hand_left = bodies[i].Joints[JointType.HandLeft].Position.Y;
                                     double head = bodies[i].Joints[JointType.Head].Position.Y;
 
-                                    if (hand_right > head && hand_left > head)
+                                    if (hand_right > head && hand_left > head && nowTrackID != faceFrameSources[i].TrackingId)
                                     {
                                         nowTrackIndex = i;
                                         nowTrackID = bodies[i].TrackingId;
                                         this.faceFrameSources[i].TrackingId = this.bodies[i].TrackingId;
 
-                                        textBox3.Text = i + "  " + nowTrackIndex.ToString();
+                                        textBox3.Text = "i: " + i + "\nnowTrackIndex: " + nowTrackIndex.ToString();
 
                                         doClothes = true;
                                         // hidden the gender image result when new body detect
@@ -1059,7 +1061,10 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                                         img_gender_boy.Visibility = Visibility.Hidden;
                                         // empty the searchClothes Result
                                         clothes_label.Content = "";
+                                        clothesIMG.Source = null;
                                     }
+
+
 
                                 }
                             }
@@ -1082,6 +1087,26 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
 
                         }
+
+
+                        // 利用骨架切割上衣圖片
+                        if (doClothes)
+                        {
+                            doClothes = false;
+
+                            ColorSpacePoint ShoulderLeft_ColorSpacePoint = this.coordinateMapper.MapCameraPointToColorSpace(bodies[nowTrackIndex].Joints[JointType.ShoulderLeft].Position);
+                            ColorSpacePoint ShoulderRight_ColorSpacePoint = this.coordinateMapper.MapCameraPointToColorSpace(bodies[nowTrackIndex].Joints[JointType.ShoulderRight].Position);
+                            ColorSpacePoint HipLeft_ColorSpacePoint = this.coordinateMapper.MapCameraPointToColorSpace(bodies[nowTrackIndex].Joints[JointType.HipLeft].Position);
+
+                            int clothes_width = (int)Math.Abs(ShoulderLeft_ColorSpacePoint.X - ShoulderRight_ColorSpacePoint.X);
+                            int clothes_height = (int)Math.Abs(ShoulderLeft_ColorSpacePoint.Y - HipLeft_ColorSpacePoint.Y);
+                            clothes(ShoulderLeft_ColorSpacePoint, clothes_width, clothes_height);
+                        }
+
+
+                        textBox2.Text = "nowTrackID: " + nowTrackID + "\nnowTrackIndex: " + nowTrackIndex;
+
+
 
                         if (!drawFaceResult)
                         {
@@ -1194,18 +1219,19 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             }
 
 
-            // 利用骨架切割上衣圖片
-            if (doClothes)
-            {
-                ColorSpacePoint ShoulderLeft_ColorSpacePoint = this.coordinateMapper.MapCameraPointToColorSpace(joints[JointType.ShoulderLeft].Position);
-                ColorSpacePoint ShoulderRight_ColorSpacePoint = this.coordinateMapper.MapCameraPointToColorSpace(joints[JointType.ShoulderRight].Position);
-                ColorSpacePoint HipLeft_ColorSpacePoint = this.coordinateMapper.MapCameraPointToColorSpace(joints[JointType.HipLeft].Position);
+            //// 利用骨架切割上衣圖片
+            //if (doClothes)
+            //{
+            //    doClothes = false;
 
-                int clothes_width = (int)Math.Abs(ShoulderLeft_ColorSpacePoint.X - ShoulderRight_ColorSpacePoint.X);
-                int clothes_height = (int)Math.Abs(ShoulderLeft_ColorSpacePoint.Y - HipLeft_ColorSpacePoint.Y);
-                clothes(ShoulderLeft_ColorSpacePoint, clothes_width, clothes_height);
-                doClothes = false;
-            }
+            //    ColorSpacePoint ShoulderLeft_ColorSpacePoint = this.coordinateMapper.MapCameraPointToColorSpace(joints[JointType.ShoulderLeft].Position);
+            //    ColorSpacePoint ShoulderRight_ColorSpacePoint = this.coordinateMapper.MapCameraPointToColorSpace(joints[JointType.ShoulderRight].Position);
+            //    ColorSpacePoint HipLeft_ColorSpacePoint = this.coordinateMapper.MapCameraPointToColorSpace(joints[JointType.HipLeft].Position);
+
+            //    int clothes_width = (int)Math.Abs(ShoulderLeft_ColorSpacePoint.X - ShoulderRight_ColorSpacePoint.X);
+            //    int clothes_height = (int)Math.Abs(ShoulderLeft_ColorSpacePoint.Y - HipLeft_ColorSpacePoint.Y);
+            //    clothes(ShoulderLeft_ColorSpacePoint, clothes_width, clothes_height);
+            //}
 
         }
 
@@ -1214,10 +1240,10 @@ namespace Microsoft.Samples.Kinect.FaceBasics
         {
             try
             {
-                string fileName = nowTrackID + "-00000.jpg";
+                clothes_fileName = nowTrackID + "-00000.jpg";
                 //textBox.Text += fileName+"11111111";
-                textBox1.Text = fileName;
-                using (FileStream saveImage = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.Write))
+                textBox1.Text = clothes_fileName;
+                using (FileStream saveImage = new FileStream(clothes_fileName, FileMode.OpenOrCreate, FileAccess.Write))
                 {
                     //從ColorImage.Source處取出一張影像，轉為BitmapSource格式
                     //儲存到imageSource
@@ -1245,10 +1271,9 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                     saveImage.Close();
                     saveImage.Dispose();
 
-                    searchClothes(fileName);
+                    //searchClothes(fileName);
 
                     //showClothes();
-
 
                     ////顯示衣服圖檔
                     //string currentpath = Directory.GetCurrentDirectory() + "\\00000.jpg";
@@ -1269,17 +1294,72 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
         private void showClothes()
         {
-            string currentpath = Directory.GetCurrentDirectory() + "\\" + nowTrackID + "-00000.jpg";
 
-            FileStream stream = new FileStream(currentpath, FileMode.Open, FileAccess.Read);
-            BitmapImage src = new BitmapImage();
-            src.BeginInit();
-            src.StreamSource = stream;
-            src.EndInit();
-            clothesIMG.Source = src;
-            //stream.Flush();
+            string currentpath = Directory.GetCurrentDirectory() + "\\" + clothes_fileName;
+
+            // Create the image element.
+            //Image simpleImage = new Image();
+            //simpleImage.Width = 200;
+            //simpleImage.Margin = new Thickness(5);
+
+            // Create source.
+            BitmapImage bi = new BitmapImage();
+            // BitmapImage.UriSource must be in a BeginInit/EndInit block.
+            bi.BeginInit();
+            bi.UriSource = new Uri(currentpath, UriKind.RelativeOrAbsolute);
+            bi.EndInit();
+            // Set the image source.
+            clothesIMG.Source = bi;
+
+            //try
+            //{
+            //    FileStream stream = new FileStream(currentpath, FileMode.Open, FileAccess.ReadWrite);
+            //    BitmapImage src = new BitmapImage();
+            //    src.BeginInit();
+            //    src.StreamSource = stream;
+            //    src.EndInit();
+            //    clothesIMG.Source = src;
+            //    //stream.Flush();
+            //    //stream.Close();
+            //    //stream.Dispose();
+            //}
+            //catch
+            //{
+            //}
+
+
+
+            //MessageBox.Show(fileName);
+
+            //using (FileStream stream = new FileStream(fileName, FileMode.Open, FileAccess.Read))
+            //{
+            //    //BitmapSource src = (BitmapSource)ImageSource;
+            //    BitmapImage src = new BitmapImage();
+            //    src.BeginInit();
+            //    src.StreamSource = stream;
+
+            //    clothesIMG.Source = src;
+            //    src.EndInit();
+
+            //    //stream.Flush();
+            //    //stream.Close();
+            //    //stream.Dispose();
+
+            //    //clothesIMG.Source = src;
+
+            //}
+
+
+
+
+
+
         }
 
+        private void showClothesFlush()
+        {
+
+        }
 
 
 
@@ -1326,7 +1406,6 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                         //File.WriteAllText("tmp2.txt", keyword);
                         clothes_label.Content = "上衣關鍵字：" + clothes_keyword[0];
                         clothes_keyword_result = clothes_keyword[0];
-                        showClothes();
                     }
                 }
 
@@ -1494,8 +1573,6 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
                 //textBox.Text = this.faceFrameSources[faceIndex].TrackingId.ToString() + "\n" + saveTrackingID[faceIndex].ToString();
 
-
-
                 //---------Microsoft Face Api----------// 
                 //if(this.bodies[faceIndex].TrackingId != saveTrackingID[faceIndex])
                 //{
@@ -1596,14 +1673,13 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             //Int32Converter int32faceBox = new Int32Converter();
             //int32faceBox.ConvertFrom(faceBox);
 
-            //  修正臉部截圖放大20%
-            double x = faceBoxSource.Left * 0.9;
-            double y = faceBoxSource.Top * 0.7;
-            double width = (faceBoxSource.Right - faceBoxSource.Left) * 1.8;
-            double height = (faceBoxSource.Bottom - faceBoxSource.Top) * 1.9;
-            //Int32Rect int32faceBox = new Int32Rect(faceBoxSource.Left, faceBoxSource.Top, faceBoxSource.Right - faceBoxSource.Left, faceBoxSource.Bottom - faceBoxSource.Top);
-            Int32Rect int32faceBox = new Int32Rect((int)x, (int)y, (int)width, (int)height);
-
+            ////  修正臉部截圖放大20%
+            //double x = faceBoxSource.Left * 0.9;
+            //double y = faceBoxSource.Top * 0.7;
+            //double width = (faceBoxSource.Right - faceBoxSource.Left) * 1.8;
+            //double height = (faceBoxSource.Bottom - faceBoxSource.Top) * 1.9;
+            //Int32Rect int32faceBox = new Int32Rect((int)x, (int)y, (int)width, (int)height);
+            Int32Rect int32faceBox = new Int32Rect(faceBoxSource.Left, faceBoxSource.Top, faceBoxSource.Right - faceBoxSource.Left, faceBoxSource.Bottom - faceBoxSource.Top);
 
             // 取得頭部旋轉資料，當faceYaw介於-20~20之間才做辨識
             int pitch2, yaw2, roll2;
@@ -1956,7 +2032,6 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                     DateTime mNow = DateTime.Now;
                     string path = @"tmp.txt";
                     File.AppendAllText(path, mNow.ToString("yyyy-MM-dd HH:mm:ss") + ", FaceIndex: " + faceIndex + ", TrackingID: " + saveTrackingID[faceIndex].ToString() + ", " + DetectAgeGenderResult[faceIndex] + ", " + ", " + faceRotate + Environment.NewLine);
-
                     showClothes();
                 }
             }
@@ -2176,6 +2251,8 @@ namespace Microsoft.Samples.Kinect.FaceBasics
         private void button1_Click(object sender, RoutedEventArgs e)
         {
             //DefLoginAsync("v0ZHddN.jpg");
+
+            clothesIMG.Source = null;
         }
 
 
@@ -2210,7 +2287,8 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
         private void hand_left()
         {
-            if (to != -9900){
+            if (to != -9900)
+            {
                 to -= 1100;
                 DoMove(Canvas.LeftProperty, to, 0.1, 0.5, 0.5);
                 textBox3.Text = to.ToString();
@@ -2234,7 +2312,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                     }
                     // Catch exception if the file was already copied.
                     catch (IOException ex)
-                    {                        
+                    {
                     }
                 }
 
@@ -2251,7 +2329,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                 //}
             }
             catch (Exception ex)
-            {                
+            {
             }
 
         }
