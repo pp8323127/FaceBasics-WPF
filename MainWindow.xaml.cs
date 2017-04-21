@@ -933,13 +933,13 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                                     double subX = (HandLeftMotion[nowTrackIndex][0].X - HandLeftMotion[nowTrackIndex][1].X) * 100;
                                     double subY = (HandLeftMotion[nowTrackIndex][0].Y - HandLeftMotion[nowTrackIndex][1].Y) * 100;
 
-                                    if (subX > 16 && subY < 8 && subY > -8)
+                                    if (subX > 13 && subY < 8 && subY > -8)
                                     {
                                         //SendKeys.SendWait("{LEFT}");
                                         //textBox2.Text = "LEFT";
                                         //hand_left();
                                     }
-                                    else if (subX < -12 && subY < 8 && subY > -8)
+                                    else if (subX < -9 && subY < 8 && subY > -8)
                                     {
                                         //SendKeys.SendWait("{RIGHT}");
                                         textBox2.Text = "RIGHT";
