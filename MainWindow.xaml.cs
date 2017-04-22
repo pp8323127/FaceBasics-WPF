@@ -1009,34 +1009,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                                     //    //doClothes = true;
                                     //}
                                     //else 
-                                    if (nowTrackID == faceFrameResults[i].TrackingId)
-                                    {
-                                        textBox.Text = nowTrackID + " " + nowTrackIndex + " ";
-                                        // draw face frame results                                        
-                                        this.DrawFaceFrameResults(i, this.faceFrameResults[i], dc);
-                                    }
 
-                                    if (!drawFaceResult)
-                                    {
-                                        drawFaceResult = true;
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                // check if the corresponding body is tracked 
-                                if (this.bodies[i].IsTracked)
-                                {
-                                    ////nowTrackID = bodies[i].TrackingId;
-                                    ////nowTrackIndex = i;
-                                    //doClothes = true;
-                                    //// hidden the gender image result when new body detect
-                                    //img_gender_girl.Visibility = Visibility.Hidden;
-                                    //img_gender_boy.Visibility = Visibility.Hidden;
-                                    //// empty the searchClothes Result
-                                    //clothes_label.Content = "";
-                                    //// update the face frame source to track this body
-                                    ////this.faceFrameSources[i].TrackingId = this.bodies[i].TrackingId;
 
 
 
@@ -1065,6 +1038,37 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                                     }
 
 
+
+
+
+                                    if (nowTrackID == faceFrameResults[i].TrackingId)
+                                    {
+                                        textBox.Text = nowTrackID + " " + nowTrackIndex + " ";
+                                        // draw face frame results                                        
+                                        this.DrawFaceFrameResults(i, this.faceFrameResults[i], dc);
+                                    }
+
+                                    if (!drawFaceResult)
+                                    {
+                                        drawFaceResult = true;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                // check if the corresponding body is tracked 
+                                if (this.bodies[i].IsTracked)
+                                {
+                                    ////nowTrackID = bodies[i].TrackingId;
+                                    ////nowTrackIndex = i;
+                                    //doClothes = true;
+                                    //// hidden the gender image result when new body detect
+                                    //img_gender_girl.Visibility = Visibility.Hidden;
+                                    //img_gender_boy.Visibility = Visibility.Hidden;
+                                    //// empty the searchClothes Result
+                                    //clothes_label.Content = "";
+                                    //// update the face frame source to track this body
+                                    this.faceFrameSources[i].TrackingId = this.bodies[i].TrackingId;
 
                                 }
                             }
