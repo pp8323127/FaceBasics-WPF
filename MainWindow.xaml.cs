@@ -544,6 +544,9 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             this.bitmapBackBufferSize = (uint)((this.bitmap.BackBufferStride * (this.bitmap.PixelHeight - 1)) + (this.bitmap.PixelWidth * this.bytesPerPixel));
 
 
+            // showClothes BitmampImage
+            BitmapImage bi = new BitmapImage();
+
 
 
 
@@ -1052,7 +1055,6 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                                         textBox.Text = nowTrackID + " " + nowTrackIndex + " ";
                                         // draw face frame results                                        
                                         this.DrawFaceFrameResults(nowTrackIndex, this.faceFrameResults[nowTrackIndex], dc);
-
                                     }
 
                                     if (!drawFaceResult)
@@ -1254,47 +1256,52 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                 clothes_fileName = nowTrackID + "-00000.jpg";
                 //textBox.Text += fileName+"11111111";
                 textBox1.Text = clothes_fileName;
-                using (FileStream saveImage = new FileStream(clothes_fileName, FileMode.OpenOrCreate, FileAccess.Write))
+                if (!File.Exists(clothes_fileName))
                 {
-                    //從ColorImage.Source處取出一張影像，轉為BitmapSource格式
-                    //儲存到imageSource
-                    BitmapSource imageSourceAPI = (BitmapSource)colorBitmap;
-                    //挑選Joint Photographic Experts Group(JPEG)影像編碼器
-                    JpegBitmapEncoder encoder = new JpegBitmapEncoder();
 
-                    //將BitmapSource裁切成衣服大小，並add frames
-                    if ((int)clothesOrigin.Y + clothes_height > 1080)
+
+                    using (FileStream saveImage = new FileStream(clothes_fileName, FileMode.Create, FileAccess.Write))
                     {
-                        clothes_height = 1080 - (int)clothesOrigin.Y;
+                        //從ColorImage.Source處取出一張影像，轉為BitmapSource格式
+                        //儲存到imageSource
+                        BitmapSource imageSourceAPI = (BitmapSource)colorBitmap;
+                        //挑選Joint Photographic Experts Group(JPEG)影像編碼器
+                        JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+
+                        //將BitmapSource裁切成衣服大小，並add frames
+                        if ((int)clothesOrigin.Y + clothes_height > 1080)
+                        {
+                            clothes_height = 1080 - (int)clothesOrigin.Y;
+                        }
+                        else if ((int)clothesOrigin.X + clothes_width > 1920)
+                        {
+                            clothes_width = 1920 - (int)clothesOrigin.X;
+                        }
+
+                        Int32Rect int32faceBox2 = new Int32Rect((int)clothesOrigin.X, (int)clothesOrigin.Y, clothes_width, clothes_height);
+                        CroppedBitmap crop = new CroppedBitmap(this.colorBitmap, int32faceBox2);
+                        encoder.Frames.Add(BitmapFrame.Create(crop));
+
+                        //儲存影像與後續影像清除工作
+                        encoder.Save(saveImage);
+                        saveImage.Flush();
+                        saveImage.Close();
+                        saveImage.Dispose();
+
+                        //searchClothes(fileName);
+
+                        //showClothes();
+
+                        ////顯示衣服圖檔
+                        //string currentpath = Directory.GetCurrentDirectory() + "\\00000.jpg";
+                        //BitmapImage bitmapSource2;
+                        //Uri fileUri = new Uri(currentpath);
+                        //bitmapSource2 = new BitmapImage();
+                        //bitmapSource2.BeginInit();
+                        //bitmapSource2.UriSource = fileUri;
+                        //bitmapSource2.EndInit();
+                        //clothesIMG.Source = bitmapSource2;
                     }
-                    else if ((int)clothesOrigin.X + clothes_width > 1920)
-                    {
-                        clothes_width = 1920 - (int)clothesOrigin.X;
-                    }
-
-                    Int32Rect int32faceBox2 = new Int32Rect((int)clothesOrigin.X, (int)clothesOrigin.Y, clothes_width, clothes_height);
-                    CroppedBitmap crop = new CroppedBitmap(this.colorBitmap, int32faceBox2);
-                    encoder.Frames.Add(BitmapFrame.Create(crop));
-
-                    //儲存影像與後續影像清除工作
-                    encoder.Save(saveImage);
-                    saveImage.Flush();
-                    saveImage.Close();
-                    saveImage.Dispose();
-
-                    //searchClothes(fileName);
-
-                    //showClothes();
-
-                    ////顯示衣服圖檔
-                    //string currentpath = Directory.GetCurrentDirectory() + "\\00000.jpg";
-                    //BitmapImage bitmapSource2;
-                    //Uri fileUri = new Uri(currentpath);
-                    //bitmapSource2 = new BitmapImage();
-                    //bitmapSource2.BeginInit();
-                    //bitmapSource2.UriSource = fileUri;
-                    //bitmapSource2.EndInit();
-                    //clothesIMG.Source = bitmapSource2;
                 }
             }
             catch (Exception e)
@@ -1306,21 +1313,29 @@ namespace Microsoft.Samples.Kinect.FaceBasics
         private void showClothes()
         {
 
-            string currentpath = Directory.GetCurrentDirectory() + "\\" + clothes_fileName;
+            string currentpath = Directory.GetCurrentDirectory() + "\\" + nowTrackID + "-00000.jpg";
 
             // Create the image element.
             //Image simpleImage = new Image();
             //simpleImage.Width = 200;
             //simpleImage.Margin = new Thickness(5);
-
-            // Create source.
-            BitmapImage bi = new BitmapImage();
-            // BitmapImage.UriSource must be in a BeginInit/EndInit block.
-            bi.BeginInit();
-            bi.UriSource = new Uri(currentpath, UriKind.RelativeOrAbsolute);
-            bi.EndInit();
-            // Set the image source.
-            clothesIMG.Source = bi;
+            try
+            {
+                if (File.Exists(currentpath))
+                {
+                    // Create source.
+                    BitmapImage bi = new BitmapImage();
+                    // BitmapImage.UriSource must be in a BeginInit/EndInit block.
+                    bi.BeginInit();
+                    bi.UriSource = new Uri(currentpath, UriKind.RelativeOrAbsolute);
+                    bi.EndInit();
+                    // Set the image source.
+                    clothesIMG.Source = bi;
+                }
+            }
+            finally
+            {
+            }
 
             //try
             //{
@@ -1818,7 +1833,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                 {
                     showGenderImg(DetectGenderResult[faceIndex]);
                 }
-                
+
                 labelText += faceText + "\n\n";
 
                 //// 臉部表情狀態(happy, engery)
@@ -2303,6 +2318,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
         }
 
         int to = -4400;
+
         private void button5_Click(object sender, RoutedEventArgs e)
         {
             to -= 1100;
