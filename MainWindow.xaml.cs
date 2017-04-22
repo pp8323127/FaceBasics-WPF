@@ -1012,7 +1012,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
 
 
-
+                                    // 雙手舉超過頭部，才會被追蹤
                                     // 顯示手部頭部座標
                                     //textBox3.Text = "HandRight: " + bodies[nowTrackIndex].Joints[JointType.HandRight].Position.Y + "\nHandLeft: " + bodies[nowTrackIndex].Joints[JointType.HandLeft].Position.Y + "\nHead: " + bodies[nowTrackIndex].Joints[JointType.Head].Position.Y;
 
@@ -1045,7 +1045,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                                     {
                                         textBox.Text = nowTrackID + " " + nowTrackIndex + " ";
                                         // draw face frame results                                        
-                                        this.DrawFaceFrameResults(i, this.faceFrameResults[i], dc);
+                                        this.DrawFaceFrameResults(nowTrackIndex, this.faceFrameResults[nowTrackIndex], dc);
                                     }
 
                                     if (!drawFaceResult)
