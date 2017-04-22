@@ -17,7 +17,7 @@
                 <!-- 
                     Styles that define look and feel of Kinect controls  
                 -->
-                <!--<ResourceDictionary Source="HandPointers/HandPointerStyles.xaml"/>-->
+                <ResourceDictionary Source="HandPointers/HandPointerStyles.xaml"/>
 
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

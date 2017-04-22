@@ -31,6 +31,9 @@ namespace Microsoft.Samples.Kinect.FaceBasics
     using System.Windows.Media.Animation;
     using System.Windows.Controls;
 
+    using Microsoft.Kinect.Wpf.Controls;
+    using Microsoft.Samples.Kinect.ControlsBasics.DataModel;
+
     /// <summary>
     /// Interaction logic for MainWindow
     /// </summary>
@@ -571,10 +574,16 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                 HandRightMotion[i] = new List<CameraSpacePoint>();
             }
 
-
-
+            
             // initialize the components (controls) of the window
             this.InitializeComponent();
+
+
+
+            // Add in display content
+            var sampleDataSource = SampleDataSource.GetGroup("Group-1");
+            this.itemsControl.ItemsSource = sampleDataSource;
+            
         }
 
         /// <summary>
@@ -2384,5 +2393,9 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
         }
 
+        private void ButtonClick(object sender, RoutedEventArgs e)
+        {
+        }
+
+        }
     }
-}
