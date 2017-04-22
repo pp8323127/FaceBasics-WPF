@@ -1813,7 +1813,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                 faceText += "faceIndex：" + faceIndexShow + "\n" + "TrackingID=" + this.bodies[faceIndex].TrackingId + "\n" + DetectGenderResult[faceIndex] + ", " + DetectAgeResult[faceIndex];
                 //labelText += faceText + "\n\n" + EyePosition;
 
-                // show Gender img
+                // 顯示性別圖示 show Gender img
                 if (DetectGenderResult[faceIndex] != null)
                 {
                     showGenderImg(DetectGenderResult[faceIndex]);
@@ -2006,12 +2006,12 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                     if (attribute.Gender == "male")
                     {
                         gender = "男性";
-                        img_gender_boy.Visibility = Visibility.Visible;
+                        //img_gender_boy.Visibility = Visibility.Visible;
                     }
                     else
                     {
                         gender = "女性";
-                        img_gender_girl.Visibility = Visibility.Visible;
+                        //img_gender_girl.Visibility = Visibility.Visible;
                     }
 
                     //var gender = attribute.Gender;
