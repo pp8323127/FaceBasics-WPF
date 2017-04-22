@@ -152,6 +152,132 @@ namespace Microsoft.Samples.Kinect.ControlsBasics.DataModel
                     itemContent,
                     group1));
             group1.Items.Add(
+                new SampleDataItem(
+                    "Group-1-Item-1",
+                    "Item Title: 6",
+                    "Item Subtitle: 6",
+                    new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1576"),
+                    new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1576"),
+                    "Item Description: Pellentesque porta, mauris quis interdum vehicula, urna sapien ultrices velit, nec venenatis dui odio in augue. Cras posuere, enim a cursus convallis, neque turpis malesuada erat, ut adipiscing neque tortor ac erat.",
+                    itemContent,
+                    group1));
+            group1.Items.Add(
+                new SampleDataItem(
+                    "Group-1-Item-1",
+                    "Item Title: 6",
+                    "Item Subtitle: 6",
+                    new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1576"),
+                    new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1576"),
+                    "Item Description: Pellentesque porta, mauris quis interdum vehicula, urna sapien ultrices velit, nec venenatis dui odio in augue. Cras posuere, enim a cursus convallis, neque turpis malesuada erat, ut adipiscing neque tortor ac erat.",
+                    itemContent,
+                    group1));
+            group1.Items.Add(
+                new SampleDataItem(
+                    "Group-1-Item-1",
+                    "Item Title: 6",
+                    "Item Subtitle: 6",
+                    new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1576"),
+                    new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1576"),
+                    "Item Description: Pellentesque porta, mauris quis interdum vehicula, urna sapien ultrices velit, nec venenatis dui odio in augue. Cras posuere, enim a cursus convallis, neque turpis malesuada erat, ut adipiscing neque tortor ac erat.",
+                    itemContent,
+                    group1));
+            group1.Items.Add(
+                new SampleDataItem(
+                    "Group-1-Item-1",
+                    "Item Title: 6",
+                    "Item Subtitle: 6",
+                    new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1576"),
+                    new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1576"),
+                    "Item Description: Pellentesque porta, mauris quis interdum vehicula, urna sapien ultrices velit, nec venenatis dui odio in augue. Cras posuere, enim a cursus convallis, neque turpis malesuada erat, ut adipiscing neque tortor ac erat.",
+                    itemContent,
+                    group1));
+            group1.Items.Add(
+                new SampleDataItem(
+                    "Group-1-Item-1",
+                    "Item Title: 6",
+                    "Item Subtitle: 6",
+                    new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1576"),
+                    new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1576"),
+                    "Item Description: Pellentesque porta, mauris quis interdum vehicula, urna sapien ultrices velit, nec venenatis dui odio in augue. Cras posuere, enim a cursus convallis, neque turpis malesuada erat, ut adipiscing neque tortor ac erat.",
+                    itemContent,
+                    group1));
+            group1.Items.Add(
+                new SampleDataItem(
+                    "Group-1-Item-1",
+                    "Item Title: 6",
+                    "Item Subtitle: 6",
+                    new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1576"),
+                    new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1576"),
+                    "Item Description: Pellentesque porta, mauris quis interdum vehicula, urna sapien ultrices velit, nec venenatis dui odio in augue. Cras posuere, enim a cursus convallis, neque turpis malesuada erat, ut adipiscing neque tortor ac erat.",
+                    itemContent,
+                    group1));
+            group1.Items.Add(
+                new SampleDataItem(
+                    "Group-1-Item-1",
+                    "Item Title: 6",
+                    "Item Subtitle: 6",
+                    new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1576"),
+                    new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1576"),
+                    "Item Description: Pellentesque porta, mauris quis interdum vehicula, urna sapien ultrices velit, nec venenatis dui odio in augue. Cras posuere, enim a cursus convallis, neque turpis malesuada erat, ut adipiscing neque tortor ac erat.",
+                    itemContent,
+                    group1));
+
+            group1.Items.Add(
+                new SampleDataItem(
+                    "Group-1-Item-1",
+                    "Item Title: 6",
+                    "Item Subtitle: 6",
+                    new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1576"),
+                    new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1576"),
+                    "Item Description: Pellentesque porta, mauris quis interdum vehicula, urna sapien ultrices velit, nec venenatis dui odio in augue. Cras posuere, enim a cursus convallis, neque turpis malesuada erat, ut adipiscing neque tortor ac erat.",
+                    itemContent,
+                    group1));
+
+            group1.Items.Add(
+                new SampleDataItem(
+                    "Group-1-Item-1",
+                    "Item Title: 6",
+                    "Item Subtitle: 6",
+                    new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1576"),
+                    new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1576"),
+                    "Item Description: Pellentesque porta, mauris quis interdum vehicula, urna sapien ultrices velit, nec venenatis dui odio in augue. Cras posuere, enim a cursus convallis, neque turpis malesuada erat, ut adipiscing neque tortor ac erat.",
+                    itemContent,
+                    group1));
+
+            group1.Items.Add(
+                new SampleDataItem(
+                    "Group-1-Item-1",
+                    "Item Title: 6",
+                    "Item Subtitle: 6",
+                    new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1576"),
+                    new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1576"),
+                    "Item Description: Pellentesque porta, mauris quis interdum vehicula, urna sapien ultrices velit, nec venenatis dui odio in augue. Cras posuere, enim a cursus convallis, neque turpis malesuada erat, ut adipiscing neque tortor ac erat.",
+                    itemContent,
+                    group1));
+
+            group1.Items.Add(
+                new SampleDataItem(
+                    "Group-1-Item-1",
+                    "Item Title: 6",
+                    "Item Subtitle: 6",
+                    new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1576"),
+                    new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1576"),
+                    "Item Description: Pellentesque porta, mauris quis interdum vehicula, urna sapien ultrices velit, nec venenatis dui odio in augue. Cras posuere, enim a cursus convallis, neque turpis malesuada erat, ut adipiscing neque tortor ac erat.",
+                    itemContent,
+                    group1));
+
+            group1.Items.Add(
+                new SampleDataItem(
+                    "Group-1-Item-1",
+                    "Item Title: 6",
+                    "Item Subtitle: 6",
+                    new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1576"),
+                    new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1576"),
+                    "Item Description: Pellentesque porta, mauris quis interdum vehicula, urna sapien ultrices velit, nec venenatis dui odio in augue. Cras posuere, enim a cursus convallis, neque turpis malesuada erat, ut adipiscing neque tortor ac erat.",
+                    itemContent,
+                    group1));
+
+            group1.Items.Add(
                     new SampleDataItem(
                         "Group-1-Item-1",
                         "Item Title: 6",
