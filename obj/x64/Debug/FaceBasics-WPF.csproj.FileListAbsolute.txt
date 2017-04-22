@@ -57,3 +57,7 @@ C:\MO\KinectFace\obj\x64\Debug\FaceBasics-WPF.pdb
 D:\Documents\Visual Studio 2015\Projects\KinectFace\obj\x64\Debug\FaceBasics-WPF.csprojResolveAssemblyReference.cache
 C:\MO\KinectFace\bin\x64\Debug\Microsoft.Kinect.Wpf.Controls.dll
 C:\MO\KinectFace\bin\x64\Debug\Microsoft.Kinect.Wpf.Controls.xml
+C:\MO\KinectFace\obj\x64\Debug\Common\StandardStyles.baml
+C:\MO\KinectFace\obj\x64\Debug\HandPointers\HandPointerStyles.baml
+C:\MO\KinectFace\obj\x64\Debug\App.baml
+C:\MO\KinectFace\obj\x64\Debug\FaceBasics-WPF_Content.g.cs
