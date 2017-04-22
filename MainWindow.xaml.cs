@@ -303,12 +303,16 @@ namespace Microsoft.Samples.Kinect.FaceBasics
         private int nowBody = 0;
         private ulong[] saveTrackingID = null;
         private string[] DetectAgeGenderResult;
+        private string[] DetectAgeResult;
+        private string[] DetectGenderResult;
+
         private bool doClothes = false;
         private bool trackID = false;
         int nowTrackIndex = 0;
         ulong? nowTrackID = null;
         private string clothes_keyword_result = null;
         private string clothes_fileName = null;
+        bool doDetect = true;
 
 
         Body[] Prebody = new Body[6];
@@ -363,6 +367,8 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
             // 建立儲存辨識結果的地方(依faceIndex)
             this.DetectAgeGenderResult = new string[this.bodyCount];
+            this.DetectGenderResult = new string[this.bodyCount];
+            this.DetectAgeResult = new string[this.bodyCount];
 
             // specify the required face frame results
             FaceFrameFeatures faceFrameFeatures =
@@ -1046,6 +1052,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                                         textBox.Text = nowTrackID + " " + nowTrackIndex + " ";
                                         // draw face frame results                                        
                                         this.DrawFaceFrameResults(nowTrackIndex, this.faceFrameResults[nowTrackIndex], dc);
+
                                     }
 
                                     if (!drawFaceResult)
@@ -1803,8 +1810,15 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
                 //增加顯示tracking id
                 //faceText += "faceIndex：" + faceIndexShow + "\n" + "TrackingID=" + this.bodies[faceIndex].TrackingId + "\n" + DetectAgeGenderResult[faceIndex] + "\n\n" + EyePosition;
-                faceText += "faceIndex：" + faceIndexShow + "\n" + "TrackingID=" + this.bodies[faceIndex].TrackingId + "\n" + DetectAgeGenderResult[faceIndex];
+                faceText += "faceIndex：" + faceIndexShow + "\n" + "TrackingID=" + this.bodies[faceIndex].TrackingId + "\n" + DetectGenderResult[faceIndex] + ", " + DetectAgeResult[faceIndex];
                 //labelText += faceText + "\n\n" + EyePosition;
+
+                // show Gender img
+                if (DetectGenderResult[faceIndex] != null)
+                {
+                    showGenderImg(DetectGenderResult[faceIndex]);
+                }
+                
                 labelText += faceText + "\n\n";
 
                 //// 臉部表情狀態(happy, engery)
@@ -2024,7 +2038,10 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
 
                     //MessageBox.Show(attribute.Gender + "  " + attribute.Age);
-                    DetectAgeGenderResult[faceIndex] = gender + ", " + attribute.Age;
+                    //DetectAgeGenderResult[faceIndex] = gender + ", " + attribute.Age;
+                    DetectAgeResult[faceIndex] = attribute.Age.ToString();
+                    DetectGenderResult[faceIndex] = gender;
+
                     //MessageBox.Show(DetectAgeGenderResult[faceIndex]);
                     //textBox.Text = textBox.Text + "\n" + DetectAgeGenderResult;
 
@@ -2035,7 +2052,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                     // 把辨識結果儲存到tmp.txt
                     DateTime mNow = DateTime.Now;
                     string path = @"tmp.txt";
-                    File.AppendAllText(path, mNow.ToString("yyyy-MM-dd HH:mm:ss") + ", FaceIndex: " + faceIndex + ", TrackingID: " + saveTrackingID[faceIndex].ToString() + ", " + DetectAgeGenderResult[faceIndex] + ", " + ", " + faceRotate + Environment.NewLine);
+                    File.AppendAllText(path, mNow.ToString("yyyy-MM-dd HH:mm:ss") + ", FaceIndex: " + faceIndex + ", TrackingID: " + saveTrackingID[faceIndex].ToString() + ", " + DetectGenderResult[faceIndex] + ", " + DetectAgeResult[faceIndex] + ", " + faceRotate + Environment.NewLine);
                     showClothes();
                 }
             }
@@ -2049,6 +2066,19 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
 
 
+        private void showGenderImg(string gender)
+        {
+            if (gender == "男性")
+            {
+                img_gender_boy.Visibility = Visibility.Visible;
+                img_gender_girl.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                img_gender_boy.Visibility = Visibility.Hidden;
+                img_gender_girl.Visibility = Visibility.Visible;
+            }
+        }
 
 
 
