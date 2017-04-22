@@ -35,9 +35,9 @@
         <TextBlock Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" Margin="0 30 0 0" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="{StaticResource MediumGreyBrush}" FontFamily="Segoe UI" FontSize="12">A Study of Smart Shopping Wall Using Depth Image Sensor and Recommendation Techniques.</TextBlock>
         <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="0 0 -1 0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Foreground="{StaticResource MediumGreyBrush}" FontFamily="Segoe UI" FontSize="18">NKFUST E508Lab</TextBlock>
 
-        <Viewbox Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left">
+        <Grid Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left">
             <k:KinectRegion x:Name="kinectRegion">
-                <Grid Name="CompositeImage" Width="1000">
+                <Grid Name="CompositeImage">
                     <!--<Image Source="{Binding ImageSource_coor}" Stretch="UniformToFill" Margin="-1554,-177,1554,177"  />-->
                     <!--<Image Source="{Binding ImageSource}" Stretch="Uniform" />-->
                     <!--<WebBrowser Source="http://163.18.42.141/QREC/mobile/fullPage" />-->
@@ -45,9 +45,9 @@
 
 
                     
-                    <Canvas x:Name="cvsGround" Height="500">
+                    <!--<Canvas x:Name="cvsGround" Height="500">
                         <StackPanel Width="11000" Height="550" x:Name="grdTransfer" Canvas.Left="-4400" Background="White" Orientation="Horizontal">
-                            <!--<Image Source="Images/qr.png" Stretch="Uniform" Margin="0,0,0,0" Width="1100" HorizontalAlignment="Left" />
+                            --><!--<Image Source="Images/qr.png" Stretch="Uniform" Margin="0,0,0,0" Width="1100" HorizontalAlignment="Left" />
                             <Image Source="Images/qr.png" Stretch="Uniform" Margin="0 0 0 0" Width="1100" HorizontalAlignment="Left"/>
                             <Image Source="Images/qr.png" Stretch="Uniform" Margin="0 0 0 0" Width="1100" HorizontalAlignment="Left"/>
                             <Image Source="Images/qr.png" Stretch="Uniform" Margin="0 0 0 0" Width="1100" HorizontalAlignment="Left"/>
@@ -65,14 +65,39 @@
                                         </ItemsPanelTemplate>
                                     </ItemsControl.ItemsPanel>
                                 </ItemsControl>
-                            </ContentControl>-->
+                            </ContentControl>--><!--
                         </StackPanel>
 
 
 
                         <Button x:Name="button5" Content="Button" Width="75" Click="button5_Click"/>
-                    </Canvas>
+                    </Canvas>-->
 
+
+                    <ContentControl Grid.Row="1" x:Name="navigationRegion">
+                        <Grid x:Name="kinectRegionGrid" Margin="10,20,10,20">
+                            <ScrollViewer Grid.Row="0" Name="scrollViewer" 
+                                  HorizontalScrollBarVisibility="Visible"
+                                  VerticalScrollBarVisibility="Disabled" 
+                                  k:KinectRegion.IsScrollInertiaEnabled="True">
+                                <ItemsControl Grid.Row="0" Name="itemsControl" ItemTemplate="{StaticResource Kinect250x250ItemTemplate}" Button.Click="ButtonClick">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel VerticalAlignment="Center" Orientation="Vertical" Margin="75,0,75,0" />
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                </ItemsControl>
+                                <!--<Grid>
+                        <Label x:Name="label" Content="123"/>
+                        <Button x:Name="btn1" Click="btn1_Click" Content="aa" Style="{StaticResource KinectTileButton}" />
+                    </Grid>-->
+
+                            </ScrollViewer>
+                        </Grid>
+                    </ContentControl>
+
+                    
+                    
 
                     <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="102" Margin="10,619,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="976" FontSize="20" Visibility="Hidden"/>
                     <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="92" Margin="83,527,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="720" FontSize="20"/>
@@ -82,32 +107,15 @@
                     <Button x:Name="button1" Content="Button" HorizontalAlignment="Left" Margin="728,670,0,0" VerticalAlignment="Top" Width="75" Click="button1_Click"/>
                     <Button x:Name="resetID" Content="ResetTrackID" HorizontalAlignment="Left" Margin="843,670,0,0" VerticalAlignment="Top" Width="108" Height="28" Click="resetID_Click" />
 
+
+
+
                 </Grid>
+                
+                
             </k:KinectRegion>
 
-        </Viewbox>
-
-        <ContentControl Grid.Row="1" x:Name="navigationRegion">
-            <Grid x:Name="kinectRegionGrid" Margin="10,20,10,20">
-                <ScrollViewer Grid.Row="0" Name="scrollViewer" 
-                                  HorizontalScrollBarVisibility="Visible"
-                                  VerticalScrollBarVisibility="Disabled" 
-                                  k:KinectRegion.IsScrollInertiaEnabled="True">
-                    <ItemsControl Grid.Row="0" Name="itemsControl" ItemTemplate="{StaticResource Kinect250x250ItemTemplate}" Button.Click="ButtonClick">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel VerticalAlignment="Center" Orientation="Vertical" Margin="75,0,75,0" />
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                    </ItemsControl>
-                    <!--<Grid>
-                        <Label x:Name="label" Content="123"/>
-                        <Button x:Name="btn1" Click="btn1_Click" Content="aa" Style="{StaticResource KinectTileButton}" />
-                    </Grid>-->
-
-                </ScrollViewer>
-            </Grid>
-        </ContentControl>
+        </Grid>
 
         <Grid Grid.Row="1" Grid.Column="1" Background="White" Margin="0,0,-10,0">
             <Grid.RowDefinitions>
