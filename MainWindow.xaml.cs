@@ -2323,7 +2323,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             doubleAnimation.AccelerationRatio = ar;//动画加速
             doubleAnimation.DecelerationRatio = dr;//动画减速
             doubleAnimation.FillBehavior = FillBehavior.HoldEnd;//设置动画完成后执行的操作
-            grdTransfer.BeginAnimation(dp, doubleAnimation);//设置动画应用的属性并启动动画
+            //grdTransfer.BeginAnimation(dp, doubleAnimation);//设置动画应用的属性并启动动画
         }
 
         int to = -4400;
