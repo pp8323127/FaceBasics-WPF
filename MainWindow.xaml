@@ -150,8 +150,14 @@
             </Grid>
 
             <Grid Grid.Row="3" VerticalAlignment="Bottom">
-                <Label x:Name="clothes_label" Margin="100,0,0,100" Content="" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="16" FontFamily="Microsoft JhengHei"/>
-                <Image x:Name="clothesIMG" Source="{Binding clothesSource}" Stretch="Uniform" Width="100" Height="100" VerticalAlignment="Bottom" Margin="0" />
+                <Grid HorizontalAlignment="Left" Margin="30">
+                    <Label x:Name="face_label" Margin="0 -30 0 0" Content=""  HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="18" FontFamily="Microsoft JhengHei"/>
+                    <Image x:Name="faceIMG" Stretch="Uniform" Width="150" Height="150" VerticalAlignment="Bottom" Margin="0" />
+                </Grid>
+                <Grid HorizontalAlignment="Right" Margin="30">
+                    <Label x:Name="clothes_label" Margin="0 -30 0 0" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="18" FontFamily="Microsoft JhengHei"/>
+                    <Image x:Name="clothesIMG" Source="{Binding clothesSource}" Stretch="Uniform" Width="150" Height="150" VerticalAlignment="Bottom" Margin="0" />
+                </Grid>
             </Grid>
 
         </Grid>

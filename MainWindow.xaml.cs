@@ -561,7 +561,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             Process[] MyProcess = Process.GetProcessesByName("MicroHttpServer");
             if (MyProcess.Length == 0)
             {
-                //Process.Start(@"D:\Documents\Visual Studio 2015\Projects\MicroHttpServer\MicroHttpServer\bin\Debug\MicroHttpServer.exe");
+                Process.Start(@"MicroHttpServer.exe");
             }
 
 
@@ -1311,7 +1311,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                         saveImage.Close();
                         saveImage.Dispose();
 
-                        //searchClothes(fileName);
+                        searchClothes(clothes_fileName);
 
                         //showClothes();
 
@@ -1421,7 +1421,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
         {
             //postData = "My Data To Post";
 
-            var webRequest = WebRequest.Create(String.Format("http://www.google.com/searchbyimage?hl=zh-TW&site=search&image_url=http://163.18.42.211:1688/" + url)) as HttpWebRequest;
+            var webRequest = WebRequest.Create(String.Format("http://www.google.com/searchbyimage?hl=zh-TW&site=search&image_url=http://163.18.42.205:1688/" + url)) as HttpWebRequest;
 
 
             webRequest.Method = "GET";
@@ -1457,7 +1457,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                         //MessageBox.Show(clothes_keyword[0]);
                         //MessageBox.Show(keyword);
                         //File.WriteAllText("tmp2.txt", keyword);
-                        clothes_label.Content = "上衣關鍵字：" + clothes_keyword[0];
+                        clothes_label.Content = "上衣(關鍵字)：" + clothes_keyword[0];
                         clothes_keyword_result = clothes_keyword[0];
                     }
                 }
@@ -1794,6 +1794,10 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
                 }
 
+            } else
+            {
+                showFaceImg(saveTrackingID[faceIndex]);
+                showClothes();
             }
 
 
@@ -1860,7 +1864,6 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                 {
                     showGenderImg(DetectGenderResult[faceIndex]);
                 }
-
                 labelText += faceText + "\n\n";
 
                 //// 臉部表情狀態(happy, engery)
@@ -2084,6 +2087,8 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                     DetectAgeResult[faceIndex] = attribute.Age.ToString();
                     DetectGenderResult[faceIndex] = gender;
 
+
+
                     //MessageBox.Show(DetectAgeGenderResult[faceIndex]);
                     //textBox.Text = textBox.Text + "\n" + DetectAgeGenderResult;
 
@@ -2095,7 +2100,13 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                     DateTime mNow = DateTime.Now;
                     string path = @"tmp.txt";
                     File.AppendAllText(path, mNow.ToString("yyyy-MM-dd HH:mm:ss") + ", FaceIndex: " + faceIndex + ", TrackingID: " + saveTrackingID[faceIndex].ToString() + ", " + DetectGenderResult[faceIndex] + ", " + DetectAgeResult[faceIndex] + ", " + faceRotate + Environment.NewLine);
-                    showClothes();
+
+                    // 顯示人臉截圖
+                    showFaceImg(nowTrackID);
+
+                    //showClothes();
+
+
                 }
             }
             catch (Exception e)
@@ -2106,6 +2117,34 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
         }
 
+
+        private void showFaceImg(ulong? sender)
+        {
+            string currentpath = Directory.GetCurrentDirectory() + "\\" + sender + "-" + nowTrackIndex + ".jpg";
+
+            // Create the image element.
+            //Image simpleImage = new Image();
+            //simpleImage.Width = 200;
+            //simpleImage.Margin = new Thickness(5);
+            try
+            {
+                if (File.Exists(currentpath))
+                {
+                    // Create source.
+                    BitmapImage bi = new BitmapImage();
+                    // BitmapImage.UriSource must be in a BeginInit/EndInit block.
+                    bi.BeginInit();
+                    bi.UriSource = new Uri(currentpath, UriKind.RelativeOrAbsolute);
+                    bi.EndInit();
+                    // Set the image source.
+                    faceIMG.Source = bi;
+                    face_label.Content = "人臉辨識截圖：";
+                }
+            }
+            catch
+            {
+            }
+        }
 
 
         private void showGenderImg(string gender)
@@ -2360,7 +2399,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             //    DoMove(Canvas.LeftProperty, to, 0.1, 0.5, 0.5);
             //    textBox3.Text = to.ToString();
             //}
-            
+
             // Add in display content
             var sampleDataSource = SampleDataSource.GetGroup("Group-2");
             this.itemsControl.ItemsSource = sampleDataSource;
