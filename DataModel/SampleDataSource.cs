@@ -124,169 +124,125 @@ namespace Microsoft.Samples.Kinect.ControlsBasics.DataModel
             group1.Items.Add(
                     new SampleDataItem(
                         "Group-1-Item-1",
-                        "Item Title: 6",
-                        "Item Subtitle: 6",
+                        "黃金甜蜜地瓜飲單瓶",
+                        "NT$ 49",
+                        new Uri("http://www.nargo.com.tw/image/data/0725/T9.jpg"),
                         new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1576"),
-                        new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1576"),
-                        "Item Description: Pellentesque porta, mauris quis interdum vehicula, urna sapien ultrices velit, nec venenatis dui odio in augue. Cras posuere, enim a cursus convallis, neque turpis malesuada erat, ut adipiscing neque tortor ac erat.",
+                        "黃金甜蜜推出營養地瓜飲，香濃的氣味來自台灣產地直銷的天然地瓜，也來自台灣農人的用心耕耘，少了化學的藥品、少了華而不實的香氣，以最簡單的原料—地瓜，製成一瓶瓶健康的飲品，用最簡單的心做最好的食品，用心將地瓜原本最美好的風味封存入一罐罐地瓜飲裡面，濃郁香甜，生津止渴。",
                         itemContent,
                         group1));
             group1.Items.Add(
                     new SampleDataItem(
                         "Group-1-Item-2",
-                        "Item Title: 7",
-                        "Item Subtitle: 7",
-                        SampleDataSource.mediumGrayImage,
-                        SampleDataSource.mediumGrayImage,
-                        "Item Description: Pellentesque porta, mauris quis interdum vehicula, urna sapien ultrices velit, nec venenatis dui odio in augue. Cras posuere, enim a cursus convallis, neque turpis malesuada erat, ut adipiscing neque tortor ac erat.",
+                        "嘻豆非基因改造黃豆(高雄9號)",
+                        "NT$ 150",
+                        new Uri("http://www.nargo.com.tw/image/data/0725/T7.jpg"),
+                        new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1575"),
+                        "台灣每年進口約250萬公噸的大豆，有九成以上是基改大豆。本土黃豆新鮮、採收後直接冷藏，比進口黃豆安心許多，也很適合乾旱缺水的極端氣候，希望大家能多支持。高雄選9號黃豆，飽滿豆香濃，做豆漿或放入飯中一起烹煮都很合適！",
                         itemContent,
                         group1));
             group1.Items.Add(
                 new SampleDataItem(
                     "Group-1-Item-1",
-                    "Item Title: 6",
-                    "Item Subtitle: 6",
-                    new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1576"),
-                    new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1576"),
-                    "Item Description: Pellentesque porta, mauris quis interdum vehicula, urna sapien ultrices velit, nec venenatis dui odio in augue. Cras posuere, enim a cursus convallis, neque turpis malesuada erat, ut adipiscing neque tortor ac erat.",
+                    "嘻豆-黑白豆",
+                    "NT$ 130",
+                    new Uri("http://www.nargo.com.tw/image/data/0725/t5.jpg"),
+                    new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1571"),
+                    "黑白豆-以高雄7號+高雄9號煎焙製造而成，香酥可口．豆香迷人！",
                     itemContent,
                     group1));
             group1.Items.Add(
                 new SampleDataItem(
                     "Group-1-Item-1",
-                    "Item Title: 6",
-                    "Item Subtitle: 6",
-                    new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1576"),
-                    new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1576"),
-                    "Item Description: Pellentesque porta, mauris quis interdum vehicula, urna sapien ultrices velit, nec venenatis dui odio in augue. Cras posuere, enim a cursus convallis, neque turpis malesuada erat, ut adipiscing neque tortor ac erat.",
+                    "新纖豆點",
+                    "NT$250",
+                    new Uri("http://www.nargo.com.tw/image/data/0725/t1.jpg"),
+                    new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1564"),
+                    "嚴選煎焙台灣非基改黃豆、青仁黑豆、全果粒蔓越莓(糖、蔓越莓、葵花籽油)、南瓜子完美比例,讓人一口接一口停不下來",
                     itemContent,
                     group1));
             group1.Items.Add(
                 new SampleDataItem(
                     "Group-1-Item-1",
-                    "Item Title: 6",
-                    "Item Subtitle: 6",
-                    new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1576"),
-                    new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1576"),
-                    "Item Description: Pellentesque porta, mauris quis interdum vehicula, urna sapien ultrices velit, nec venenatis dui odio in augue. Cras posuere, enim a cursus convallis, neque turpis malesuada erat, ut adipiscing neque tortor ac erat.",
+                    "【尤多拉】紅藜穀物棒",
+                    "NT$ 200",
+                    new Uri("http://www.nargo.com.tw/image/data/0725/123.jpg"),
+                    new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1556"),
+                    "「德朱利斯」，音譯自DJULIS，為「台灣紅藜」的原住民發音。是大自然給予台東農民的恩賜。「紅藜」被稱為「穀類界的紅寶石」，然而，一顆顆紅寶石若無人聞問，也只能落地歸還給大自然。看見紅藜的光芒，我們捧起紅藜，牽起台東農民的手，創造出專屬於台東的特色伴手禮，將在地化產品推向國際。紅 藜 穀 物 棒紅藜香氣及酥餅的香酥脆，非常涮嘴，包您一口接著一口！",
                     itemContent,
                     group1));
             group1.Items.Add(
                 new SampleDataItem(
                     "Group-1-Item-1",
-                    "Item Title: 6",
-                    "Item Subtitle: 6",
-                    new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1576"),
-                    new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1576"),
-                    "Item Description: Pellentesque porta, mauris quis interdum vehicula, urna sapien ultrices velit, nec venenatis dui odio in augue. Cras posuere, enim a cursus convallis, neque turpis malesuada erat, ut adipiscing neque tortor ac erat.",
+                    "【尤多拉】巧克彩虹卷系列-15入",
+                    "NT$ 240",
+                    new Uri("http://www.nargo.com.tw/image/data/0725/_MG_2187.jpg"),
+                    new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1559"),
+                    "以日本老師傅技藝將厚實的手工日式蛋捲與香濃巧克力合而為一，傳統元素結合創新工法，為您的味覺開啟彩虹般的奇幻旅程繽粉華麗的手工日式蛋捲！有香蕉巧克力草莓巧克力黑巧克力三種口味除了視覺上的享受更讓您可一次品嚐三種不同蛋捲的獨特風味。",
                     itemContent,
                     group1));
             group1.Items.Add(
                 new SampleDataItem(
                     "Group-1-Item-1",
-                    "Item Title: 6",
-                    "Item Subtitle: 6",
-                    new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1576"),
-                    new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1576"),
-                    "Item Description: Pellentesque porta, mauris quis interdum vehicula, urna sapien ultrices velit, nec venenatis dui odio in augue. Cras posuere, enim a cursus convallis, neque turpis malesuada erat, ut adipiscing neque tortor ac erat.",
+                    "【尤多拉】心有所屬芥末",
+                    "NT$ 130",
+                    new Uri("http://www.nargo.com.tw/image/data/0725/7813.jpg"),
+                    new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1542"),
+                    "【尤多拉】心有所屬芥末",
                     itemContent,
                     group1));
             group1.Items.Add(
                 new SampleDataItem(
                     "Group-1-Item-1",
-                    "Item Title: 6",
-                    "Item Subtitle: 6",
-                    new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1576"),
-                    new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1576"),
-                    "Item Description: Pellentesque porta, mauris quis interdum vehicula, urna sapien ultrices velit, nec venenatis dui odio in augue. Cras posuere, enim a cursus convallis, neque turpis malesuada erat, ut adipiscing neque tortor ac erat.",
+                    "《南投拌手禮》冬筍餅禮盒",
+                    "NT$ 150",
+                    new Uri("http://www.nargo.com.tw/image/data/0725/n5.jpg"),
+                    new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1504"),
+                    "到南投竹山遊玩，除了品嚐當地名產之外，當地人一定不忘推薦您嚐嚐當地有名的「日香食品」冬筍餅，它是陪伴許多五年級生度過繽紛的童年回憶的零嘴，深受許許多多忠實粉絲的喜愛與支持！",
                     itemContent,
                     group1));
             group1.Items.Add(
                 new SampleDataItem(
                     "Group-1-Item-1",
-                    "Item Title: 6",
-                    "Item Subtitle: 6",
-                    new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1576"),
-                    new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1576"),
-                    "Item Description: Pellentesque porta, mauris quis interdum vehicula, urna sapien ultrices velit, nec venenatis dui odio in augue. Cras posuere, enim a cursus convallis, neque turpis malesuada erat, ut adipiscing neque tortor ac erat.",
+                    "【尤多拉】幸福煎餅禮盒 (六入)",
+                    "NT$ 120",
+                    new Uri("http://www.nargo.com.tw/image/data/0725/_MG_1928.JPG"),
+                    new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1409"),
+                    "【尤多拉】幸福煎餅禮盒 (六入)",
                     itemContent,
                     group1));
             group1.Items.Add(
                 new SampleDataItem(
                     "Group-1-Item-1",
-                    "Item Title: 6",
-                    "Item Subtitle: 6",
-                    new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1576"),
-                    new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1576"),
-                    "Item Description: Pellentesque porta, mauris quis interdum vehicula, urna sapien ultrices velit, nec venenatis dui odio in augue. Cras posuere, enim a cursus convallis, neque turpis malesuada erat, ut adipiscing neque tortor ac erat.",
+                    "【尤多拉】不淍花保濕補水幸福面膜",
+                    "NT$ 320",
+                    new Uri("http://www.nargo.com.tw/image/data/A010048.JPG"),
+                    new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1355"),
+                    "日本高滲透親肌保水膜，全天侯補水、鎖水 深入肌膚深層提升保濕，產品完全不含Paraben(苯鉀酸脂類)防腐劑、人工色素、無酒精添加",
                     itemContent,
                     group1));
 
             group1.Items.Add(
                 new SampleDataItem(
                     "Group-1-Item-1",
-                    "Item Title: 6",
-                    "Item Subtitle: 6",
-                    new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1576"),
-                    new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1576"),
-                    "Item Description: Pellentesque porta, mauris quis interdum vehicula, urna sapien ultrices velit, nec venenatis dui odio in augue. Cras posuere, enim a cursus convallis, neque turpis malesuada erat, ut adipiscing neque tortor ac erat.",
+                    "【躉泰】芋頭酥(12入)",
+                    "NT$ 360",
+                    new Uri("http://www.nargo.com.tw/image/data/A13002.JPG"),
+                    new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-869"),
+                    "新鮮的芋頭加上手工麻糬，芋頭的香甜以及麻糬的Q嫩，宜人的口感，在簡單的外表下，蘊藏著絕對的美味，絕對是佐茶伴友，聊天說地的最佳茶點。",
                     itemContent,
                     group1));
 
             group1.Items.Add(
                 new SampleDataItem(
                     "Group-1-Item-1",
-                    "Item Title: 6",
-                    "Item Subtitle: 6",
-                    new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1576"),
-                    new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1576"),
-                    "Item Description: Pellentesque porta, mauris quis interdum vehicula, urna sapien ultrices velit, nec venenatis dui odio in augue. Cras posuere, enim a cursus convallis, neque turpis malesuada erat, ut adipiscing neque tortor ac erat.",
+                    "【綠誠】爽很大",
+                    "NT$ 150",
+                    new Uri("http://www.nargo.com.tw/image/cache/data/66-228x228.jpg"),
+                    new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-862"),
+                    "輕鬆、自然、獨特的新包裝、新口味，一袋12包，芥末、麻辣、鹽酥雞、原味等四種口味，新鮮蔬菜精製而成的休閒點心，最適合郊遊、聊天、看電視、早餐、宵夜、茶點，隨手一包、百吃不厭，絕妙好搭配，片片好滋味。一推出，就造成熱賣。",
                     itemContent,
                     group1));
-
-            group1.Items.Add(
-                new SampleDataItem(
-                    "Group-1-Item-1",
-                    "Item Title: 6",
-                    "Item Subtitle: 6",
-                    new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1576"),
-                    new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1576"),
-                    "Item Description: Pellentesque porta, mauris quis interdum vehicula, urna sapien ultrices velit, nec venenatis dui odio in augue. Cras posuere, enim a cursus convallis, neque turpis malesuada erat, ut adipiscing neque tortor ac erat.",
-                    itemContent,
-                    group1));
-
-            group1.Items.Add(
-                new SampleDataItem(
-                    "Group-1-Item-1",
-                    "Item Title: 6",
-                    "Item Subtitle: 6",
-                    new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1576"),
-                    new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1576"),
-                    "Item Description: Pellentesque porta, mauris quis interdum vehicula, urna sapien ultrices velit, nec venenatis dui odio in augue. Cras posuere, enim a cursus convallis, neque turpis malesuada erat, ut adipiscing neque tortor ac erat.",
-                    itemContent,
-                    group1));
-
-            group1.Items.Add(
-                new SampleDataItem(
-                    "Group-1-Item-1",
-                    "Item Title: 6",
-                    "Item Subtitle: 6",
-                    new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1576"),
-                    new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1576"),
-                    "Item Description: Pellentesque porta, mauris quis interdum vehicula, urna sapien ultrices velit, nec venenatis dui odio in augue. Cras posuere, enim a cursus convallis, neque turpis malesuada erat, ut adipiscing neque tortor ac erat.",
-                    itemContent,
-                    group1));
-
-            group1.Items.Add(
-                    new SampleDataItem(
-                        "Group-1-Item-1",
-                        "Item Title: 6",
-                        "Item Subtitle: 6",
-                        new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1576"),
-                        new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1576"),
-                        "Item Description: Pellentesque porta, mauris quis interdum vehicula, urna sapien ultrices velit, nec venenatis dui odio in augue. Cras posuere, enim a cursus convallis, neque turpis malesuada erat, ut adipiscing neque tortor ac erat.",
-                        itemContent,
-                        group1));
 
             this.AllGroups.Add(group1);
         }
