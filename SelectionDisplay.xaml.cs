@@ -33,20 +33,22 @@ namespace Microsoft.Samples.Kinect.FaceBasics
         }
 
         /// <summary>
-        /// Called when the OnLoaded storyboard completes.
+        /// Called when the Close storyboard completes.
         /// </summary>
         /// <param name="sender">Event sender</param>
         /// <param name="e">Event arguments</param>
-        private void OnLoadedStoryboardCompleted(object sender, System.EventArgs e)
+        private void CloseStoryboardCompleted(object sender, System.EventArgs e)
         {
             var parent = (Panel)this.Parent;
             parent.Children.Remove(this);
         }
 
-        private void GoBack(object sender, RoutedEventArgs e)
-        {
-            //backButton.Visibility = System.Windows.Visibility.Hidden;
-            //navigationRegion.Content = this.kinectRegionGrid;
-        }
+        //private void GoBack(object sender, RoutedEventArgs e)
+        //{
+        //    //backButton.Visibility = System.Windows.Visibility.Hidden;
+        //    //navigationRegion.Content = this.kinectRegionGrid;
+        //    var parent = (Panel)this.Parent;
+        //    parent.Children.Remove(this);
+        //}
     }
 }

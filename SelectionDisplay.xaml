@@ -11,34 +11,53 @@
              FontSize="30"
              Focusable="True">
     <UserControl.Resources>
-        <Storyboard x:Key="OnLoadedStoryboard" Completed="OnLoadedStoryboardCompleted">
+        <Storyboard x:Key="OnLoadedStoryboard" >
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="grid">
                 <EasingDoubleKeyFrame KeyTime="0" Value="0.1"/>
                 <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:2.2" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:2.4" Value="0.1"/>
+                <!--<EasingDoubleKeyFrame KeyTime="0:0:2.2" Value="1"/>-->
+                <!--<EasingDoubleKeyFrame KeyTime="0:0:2.4" Value="0.1"/>-->
             </DoubleAnimationUsingKeyFrames>
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="grid">
                 <EasingDoubleKeyFrame KeyTime="0" Value="0.1"/>
                 <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:2.2" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:2.4" Value="0.1"/>
+                <!--<EasingDoubleKeyFrame KeyTime="0:0:2.2" Value="1"/>-->
+                <!--<EasingDoubleKeyFrame KeyTime="0:0:2.4" Value="0.1"/>-->
             </DoubleAnimationUsingKeyFrames>
             <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="grid">
-                <DiscreteObjectKeyFrame KeyTime="0:0:2.4" Value="{x:Static Visibility.Hidden}"/>
+                <!--<DiscreteObjectKeyFrame KeyTime="0:0:2.4" Value="{x:Static Visibility.Hidden}"/>-->
             </ObjectAnimationUsingKeyFrames>
         </Storyboard>
+        
+        <Storyboard x:Key="CloseStoryboard" Completed="CloseStoryboardCompleted">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="grid">
+                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="grid">
+                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="grid">
+                <!--<DiscreteObjectKeyFrame KeyTime="0:0:2.4" Value="{x:Static Visibility.Hidden}"/>-->
+            </ObjectAnimationUsingKeyFrames>
+        </Storyboard>
+
     </UserControl.Resources>
     <UserControl.Triggers>
-        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+        <EventTrigger RoutedEvent="FrameworkElement.Loaded" >
             <BeginStoryboard x:Name="OnLoadedStoryboard_BeginStoryboard" Storyboard="{StaticResource OnLoadedStoryboard}"/>
         </EventTrigger>
+        <EventTrigger RoutedEvent="Button.Click">
+            <BeginStoryboard x:Name="GoBack" Storyboard="{StaticResource CloseStoryboard}"/>
+        </EventTrigger>
+
     </UserControl.Triggers>
     <Grid x:Name="layoutRoot">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Grid x:Name="grid" Background="{StaticResource BlueBrush}" RenderTransformOrigin="0.5,0.5">
+        <Grid x:Name="grid" Background="White" RenderTransformOrigin="0.5,0.5">
             <Grid.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -63,13 +82,13 @@
                     <ColumnDefinition Width="74*"/>
                     <ColumnDefinition Width="51*"/>
                 </Grid.ColumnDefinitions>
-                <Button x:Name="backButton" Visibility="Visible" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource BackButtonStyle}" Click="GoBack" Height="132" Width="126" Grid.RowSpan="3" Grid.ColumnSpan="2" FontSize="100"/>
+                <Button x:Name="backButton" Visibility="Visible" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource BackButtonStyle}"  Height="191" Width="173" Grid.RowSpan="4" Grid.ColumnSpan="2" FontSize="100"/>
 
-                <Image x:Name="imageProduct" Source="C:/r.png" Stretch="Uniform" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2"/>
+                <Image x:Name="imageProduct" HorizontalAlignment="Left" Source="C:/r.png" Stretch="Uniform" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2"/>
                 <TextBlock x:Name="title" Text="title" Grid.Column="2" Grid.Row="1"/>
                 <TextBlock x:Name="price" Text="price" Grid.Column="2" Grid.Row="2"/>
-                <TextBlock x:Name="description" Text="description" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="3"/>
-                <Image x:Name="imageQRcode" Source="C:/t.jpg" Margin="0,117,0,0" Grid.Row="3" RenderTransformOrigin="3.652,2.25" Grid.Column="3" />
+                <TextBlock x:Name="description" Grid.Row="3" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="276" Text="TextBlockTextBlockTextBlockTextBlockTextBlock" Grid.ColumnSpan="2" Grid.Column="1" Height="125"/>
+                <Image x:Name="imageQRcode" Source="C:/t.jpg" Margin="0,117,22,0" Grid.Row="3" RenderTransformOrigin="3.652,2.25" Grid.Column="3" />
             </Grid>
 
 

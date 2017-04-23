@@ -1165,8 +1165,8 @@
     for HandPointers
     -->
     <Style x:Key="BackButtonStyle" TargetType="Button">
-        <Setter Property="Width" Value="148"/>
-        <Setter Property="Height" Value="148"/>
+        <Setter Property="MinWidth" Value="48"/>
+        <Setter Property="MinHeight" Value="48"/>
         <Setter Property="Padding" Value="36,36,36,36" />
         <Setter Property="k:KinectRegion.KinectPressInset" Value="36,36,36,36" />
         <Setter Property="VerticalAlignment" Value="Bottom"/>
@@ -1180,9 +1180,9 @@
                     <Grid x:Name="RootGrid">
                         <Border Padding="{TemplateBinding Padding}" Background="Transparent">
                             <Grid Margin="-1,-16,0,0">
-                                <TextBlock x:Name="BackgroundGlyph" Text="&#xE0A8;" Foreground="Black" Opacity="0" FontFamily="Segoe UI Symbol" FontSize="56" />
-                                <TextBlock x:Name="NormalGlyph" Text="&#xE071;" Foreground="Black" FontFamily="Segoe UI Symbol" FontSize="56" />
-                                <TextBlock x:Name="ArrowGlyph" Text="&#xE0A6;" Foreground="White" Opacity="0" FontFamily="Segoe UI Symbol" FontSize="56"/>
+                                <TextBlock x:Name="BackgroundGlyph" Text="&#xE0A8;" Foreground="Black" Opacity="0" FontFamily="Segoe UI Symbol" FontSize="100" />
+                                <TextBlock x:Name="NormalGlyph" Text="&#xE071;" Foreground="Black" FontFamily="Segoe UI Symbol" FontSize="100" />
+                                <TextBlock x:Name="ArrowGlyph" Text="&#xE0A6;" Foreground="White" Opacity="0" FontFamily="Segoe UI Symbol" FontSize="100"/>
                             </Grid>
                         </Border>
                         <Rectangle
