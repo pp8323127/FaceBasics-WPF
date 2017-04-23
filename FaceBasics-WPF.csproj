@@ -70,6 +70,7 @@
     <Reference Include="Microsoft.Kinect.Face">
       <HintPath>$(KINECTSDK20_DIR)Redist\Face\$(Platform)\Microsoft.Kinect.Face.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Kinect.Wpf.Controls, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.ProjectOxford.Face, Version=1.2.1.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.ProjectOxford.Face.1.2.1.2\lib\portable-net45+wp80+win8+wpa81+aspnetcore50\Microsoft.ProjectOxford.Face.dll</HintPath>
       <Private>True</Private>
@@ -98,6 +99,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="SelectionDisplay.xaml.cs">
+      <DependentUpon>SelectionDisplay.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Common\StandardStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="HandPointers\HandPointerStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -106,10 +118,16 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Common\BindableBase.cs" />
+    <Compile Include="DataModel\SampleDataSource.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="SelectionDisplay.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -154,6 +172,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\qr.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="HandPointers\HighlightRectangle.png" />
+    <Resource Include="Images\nargo_logo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

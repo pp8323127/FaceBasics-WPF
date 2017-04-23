@@ -31,6 +31,9 @@ namespace Microsoft.Samples.Kinect.FaceBasics
     using System.Windows.Media.Animation;
     using System.Windows.Controls;
 
+    using Microsoft.Kinect.Wpf.Controls;
+    using Microsoft.Samples.Kinect.ControlsBasics.DataModel;
+
     /// <summary>
     /// Interaction logic for MainWindow
     /// </summary>
@@ -303,12 +306,17 @@ namespace Microsoft.Samples.Kinect.FaceBasics
         private int nowBody = 0;
         private ulong[] saveTrackingID = null;
         private string[] DetectAgeGenderResult;
+        private string[] DetectAgeResult;
+        private string[] DetectGenderResult;
+
         private bool doClothes = false;
         private bool trackID = false;
         int nowTrackIndex = 0;
         ulong? nowTrackID = null;
         private string clothes_keyword_result = null;
         private string clothes_fileName = null;
+        bool doDetect = true;
+        private BitmapImage clothesBitmap = null;
 
 
         Body[] Prebody = new Body[6];
@@ -363,6 +371,8 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
             // 建立儲存辨識結果的地方(依faceIndex)
             this.DetectAgeGenderResult = new string[this.bodyCount];
+            this.DetectGenderResult = new string[this.bodyCount];
+            this.DetectAgeResult = new string[this.bodyCount];
 
             // specify the required face frame results
             FaceFrameFeatures faceFrameFeatures =
@@ -538,6 +548,12 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             this.bitmapBackBufferSize = (uint)((this.bitmap.BackBufferStride * (this.bitmap.PixelHeight - 1)) + (this.bitmap.PixelWidth * this.bytesPerPixel));
 
 
+            // showClothes BitmampImage
+            BitmapImage bi = new BitmapImage();
+            this.clothesBitmap = new BitmapImage();
+
+
+
 
 
 
@@ -545,7 +561,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             Process[] MyProcess = Process.GetProcessesByName("MicroHttpServer");
             if (MyProcess.Length == 0)
             {
-                //Process.Start(@"D:\Documents\Visual Studio 2015\Projects\MicroHttpServer\MicroHttpServer\bin\Debug\MicroHttpServer.exe");
+                //Process.Start(@"MicroHttpServer.exe");
             }
 
 
@@ -563,9 +579,15 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             }
 
 
-
             // initialize the components (controls) of the window
             this.InitializeComponent();
+
+
+
+            // Add in display content
+            var sampleDataSource = SampleDataSource.GetGroup("Group-1");
+            this.itemsControl.ItemsSource = sampleDataSource;
+
         }
 
         /// <summary>
@@ -595,6 +617,16 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                 return this.bitmap;
             }
         }
+
+        // Get the bitmap to display clothes
+        public ImageSource clothesSource
+        {
+            get
+            {
+                return this.clothesBitmap;
+            }
+        }
+
 
 
         /// <summary>
@@ -1009,37 +1041,10 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                                     //    //doClothes = true;
                                     //}
                                     //else 
-                                    if (nowTrackID == faceFrameResults[i].TrackingId)
-                                    {
-                                        textBox.Text = nowTrackID + " " + nowTrackIndex + " ";
-                                        // draw face frame results                                        
-                                        this.DrawFaceFrameResults(i, this.faceFrameResults[i], dc);
-                                    }
-
-                                    if (!drawFaceResult)
-                                    {
-                                        drawFaceResult = true;
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                // check if the corresponding body is tracked 
-                                if (this.bodies[i].IsTracked)
-                                {
-                                    ////nowTrackID = bodies[i].TrackingId;
-                                    ////nowTrackIndex = i;
-                                    //doClothes = true;
-                                    //// hidden the gender image result when new body detect
-                                    //img_gender_girl.Visibility = Visibility.Hidden;
-                                    //img_gender_boy.Visibility = Visibility.Hidden;
-                                    //// empty the searchClothes Result
-                                    //clothes_label.Content = "";
-                                    //// update the face frame source to track this body
-                                    ////this.faceFrameSources[i].TrackingId = this.bodies[i].TrackingId;
 
 
 
+                                    // 雙手舉超過頭部，才會被追蹤
                                     // 顯示手部頭部座標
                                     //textBox3.Text = "HandRight: " + bodies[nowTrackIndex].Joints[JointType.HandRight].Position.Y + "\nHandLeft: " + bodies[nowTrackIndex].Joints[JointType.HandLeft].Position.Y + "\nHead: " + bodies[nowTrackIndex].Joints[JointType.Head].Position.Y;
 
@@ -1065,6 +1070,37 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                                     }
 
 
+
+
+
+                                    if (nowTrackID == faceFrameResults[i].TrackingId)
+                                    {
+                                        textBox.Text = nowTrackID + " " + nowTrackIndex + " ";
+                                        // draw face frame results                                        
+                                        this.DrawFaceFrameResults(nowTrackIndex, this.faceFrameResults[nowTrackIndex], dc);
+                                    }
+
+                                    if (!drawFaceResult)
+                                    {
+                                        drawFaceResult = true;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                // check if the corresponding body is tracked 
+                                if (this.bodies[i].IsTracked)
+                                {
+                                    ////nowTrackID = bodies[i].TrackingId;
+                                    ////nowTrackIndex = i;
+                                    //doClothes = true;
+                                    //// hidden the gender image result when new body detect
+                                    //img_gender_girl.Visibility = Visibility.Hidden;
+                                    //img_gender_boy.Visibility = Visibility.Hidden;
+                                    //// empty the searchClothes Result
+                                    //clothes_label.Content = "";
+                                    //// update the face frame source to track this body
+                                    this.faceFrameSources[i].TrackingId = this.bodies[i].TrackingId;
 
                                 }
                             }
@@ -1243,47 +1279,53 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                 clothes_fileName = nowTrackID + "-00000.jpg";
                 //textBox.Text += fileName+"11111111";
                 textBox1.Text = clothes_fileName;
-                using (FileStream saveImage = new FileStream(clothes_fileName, FileMode.OpenOrCreate, FileAccess.Write))
+                if (!File.Exists(clothes_fileName))
                 {
-                    //從ColorImage.Source處取出一張影像，轉為BitmapSource格式
-                    //儲存到imageSource
-                    BitmapSource imageSourceAPI = (BitmapSource)colorBitmap;
-                    //挑選Joint Photographic Experts Group(JPEG)影像編碼器
-                    JpegBitmapEncoder encoder = new JpegBitmapEncoder();
 
-                    //將BitmapSource裁切成衣服大小，並add frames
-                    if ((int)clothesOrigin.Y + clothes_height > 1080)
+
+                    using (FileStream saveImage = new FileStream(clothes_fileName, FileMode.Create, FileAccess.Write))
                     {
-                        clothes_height = 1080 - (int)clothesOrigin.Y;
+                        //從ColorImage.Source處取出一張影像，轉為BitmapSource格式
+                        //儲存到imageSource
+                        BitmapSource imageSourceAPI = (BitmapSource)colorBitmap;
+                        //挑選Joint Photographic Experts Group(JPEG)影像編碼器
+                        JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+
+                        //將BitmapSource裁切成衣服大小，並add frames
+                        if ((int)clothesOrigin.Y + clothes_height > 1080)
+                        {
+                            clothes_height = 1080 - (int)clothesOrigin.Y;
+                        }
+                        else if ((int)clothesOrigin.X + clothes_width > 1920)
+                        {
+                            clothes_width = 1920 - (int)clothesOrigin.X;
+                        }
+
+                        Int32Rect int32faceBox2 = new Int32Rect((int)clothesOrigin.X, (int)clothesOrigin.Y, clothes_width, clothes_height);
+                        CroppedBitmap crop = new CroppedBitmap(this.colorBitmap, int32faceBox2);
+                        encoder.Frames.Add(BitmapFrame.Create(crop));
+
+                        //儲存影像與後續影像清除工作
+                        encoder.Save(saveImage);
+                        saveImage.Flush();
+                        saveImage.Close();
+                        saveImage.Dispose();
+
+                        uploadClothes(clothes_fileName);
+                        //searchClothes(clothes_fileName);
+
+                        //showClothes();
+
+                        ////顯示衣服圖檔
+                        //string currentpath = Directory.GetCurrentDirectory() + "\\00000.jpg";
+                        //BitmapImage bitmapSource2;
+                        //Uri fileUri = new Uri(currentpath);
+                        //bitmapSource2 = new BitmapImage();
+                        //bitmapSource2.BeginInit();
+                        //bitmapSource2.UriSource = fileUri;
+                        //bitmapSource2.EndInit();
+                        //clothesIMG.Source = bitmapSource2;
                     }
-                    else if ((int)clothesOrigin.X + clothes_width > 1920)
-                    {
-                        clothes_width = 1920 - (int)clothesOrigin.X;
-                    }
-
-                    Int32Rect int32faceBox2 = new Int32Rect((int)clothesOrigin.X, (int)clothesOrigin.Y, clothes_width, clothes_height);
-                    CroppedBitmap crop = new CroppedBitmap(this.colorBitmap, int32faceBox2);
-                    encoder.Frames.Add(BitmapFrame.Create(crop));
-
-                    //儲存影像與後續影像清除工作
-                    encoder.Save(saveImage);
-                    saveImage.Flush();
-                    saveImage.Close();
-                    saveImage.Dispose();
-
-                    //searchClothes(fileName);
-
-                    //showClothes();
-
-                    ////顯示衣服圖檔
-                    //string currentpath = Directory.GetCurrentDirectory() + "\\00000.jpg";
-                    //BitmapImage bitmapSource2;
-                    //Uri fileUri = new Uri(currentpath);
-                    //bitmapSource2 = new BitmapImage();
-                    //bitmapSource2.BeginInit();
-                    //bitmapSource2.UriSource = fileUri;
-                    //bitmapSource2.EndInit();
-                    //clothesIMG.Source = bitmapSource2;
                 }
             }
             catch (Exception e)
@@ -1292,24 +1334,36 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             }
         }
 
+
         private void showClothes()
         {
 
-            string currentpath = Directory.GetCurrentDirectory() + "\\" + clothes_fileName;
+            string currentpath = Directory.GetCurrentDirectory() + "\\" + nowTrackID + "-00000.jpg";
 
             // Create the image element.
             //Image simpleImage = new Image();
             //simpleImage.Width = 200;
             //simpleImage.Margin = new Thickness(5);
+            try
+            {
+                if (File.Exists(currentpath))
+                {
+                    // Create source.
+                    BitmapImage bi = new BitmapImage();
+                    // BitmapImage.UriSource must be in a BeginInit/EndInit block.
+                    bi.BeginInit();
+                    bi.UriSource = new Uri(currentpath, UriKind.RelativeOrAbsolute);
+                    bi.EndInit();
+                    // Set the image source.
+                    clothesIMG.Source = bi;
 
-            // Create source.
-            BitmapImage bi = new BitmapImage();
-            // BitmapImage.UriSource must be in a BeginInit/EndInit block.
-            bi.BeginInit();
-            bi.UriSource = new Uri(currentpath, UriKind.RelativeOrAbsolute);
-            bi.EndInit();
-            // Set the image source.
-            clothesIMG.Source = bi;
+                    //this.clothesBitmap = new BitmapImage(new Uri(currentpath, UriKind.RelativeOrAbsolute));
+                    //this.clothesBitmap.UriSource = new Uri(currentpath, UriKind.RelativeOrAbsolute);
+                }
+            }
+            finally
+            {
+            }
 
             //try
             //{
@@ -1348,19 +1402,40 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             //    //clothesIMG.Source = src;
 
             //}
-
-
-
-
-
+            
 
         }
 
-        private void showClothesFlush()
+        private void uploadClothes(string url)
         {
+            string path = Directory.GetCurrentDirectory() + "\\" + url;
+            //MessageBox.Show(path);
+            System.Net.WebClient Client = new System.Net.WebClient();
+            Client.Headers.Add("Content-Type", "binary/octet-stream");
+            byte[] result = Client.UploadFile("http://163.18.42.141/KinectFace/upload4.php", "POST", path);
 
+            searchClothes(url);
+
+            //string s = System.Text.Encoding.UTF8.GetString(result, 0, result.Length);
+            //MessageBox.Show(s);
         }
 
+
+        private void uploadClothes2(string url)
+        {
+            string path = Directory.GetCurrentDirectory() + "\\" + url;
+            //MessageBox.Show(path);
+            System.Net.WebClient Client = new System.Net.WebClient();
+            Client.Headers.Add("Content-Type", "binary/octet-stream");
+            //Client.UploadFile("http://163.18.42.141/KinectFace/upload4.php", "POST", path);
+
+            Client.UploadFileAsync(new Uri("http://163.18.42.141/KinectFace/upload4.php"), "POST", path);
+
+            searchClothes(url);
+
+            //string s = System.Text.Encoding.UTF8.GetString(result, 0, result.Length);
+            //MessageBox.Show(s);
+        }
 
 
         // 把圖片丟到Google以圖搜圖，回傳結果_async
@@ -1368,7 +1443,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
         {
             //postData = "My Data To Post";
 
-            var webRequest = WebRequest.Create(String.Format("http://www.google.com/searchbyimage?hl=zh-TW&site=search&image_url=http://163.18.42.211:1688/" + url)) as HttpWebRequest;
+            var webRequest = WebRequest.Create(String.Format("http://www.google.com/searchbyimage?hl=zh-TW&site=search&image_url=http://163.18.42.141/KinectFace/file/" + url)) as HttpWebRequest;
 
 
             webRequest.Method = "GET";
@@ -1404,7 +1479,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                         //MessageBox.Show(clothes_keyword[0]);
                         //MessageBox.Show(keyword);
                         //File.WriteAllText("tmp2.txt", keyword);
-                        clothes_label.Content = "上衣關鍵字：" + clothes_keyword[0];
+                        clothes_label.Content = "上衣(關鍵字)：" + clothes_keyword[0];
                         clothes_keyword_result = clothes_keyword[0];
                     }
                 }
@@ -1741,6 +1816,10 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
                 }
 
+            } else
+            {
+                showFaceImg(saveTrackingID[faceIndex]);
+                showClothes();
             }
 
 
@@ -1799,8 +1878,14 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
                 //增加顯示tracking id
                 //faceText += "faceIndex：" + faceIndexShow + "\n" + "TrackingID=" + this.bodies[faceIndex].TrackingId + "\n" + DetectAgeGenderResult[faceIndex] + "\n\n" + EyePosition;
-                faceText += "faceIndex：" + faceIndexShow + "\n" + "TrackingID=" + this.bodies[faceIndex].TrackingId + "\n" + DetectAgeGenderResult[faceIndex];
+                faceText += "faceIndex：" + faceIndexShow + "\n" + "TrackingID=" + this.bodies[faceIndex].TrackingId + "\n" + DetectGenderResult[faceIndex] + ", " + DetectAgeResult[faceIndex];
                 //labelText += faceText + "\n\n" + EyePosition;
+
+                // 顯示性別圖示 show Gender img
+                if (DetectGenderResult[faceIndex] != null)
+                {
+                    showGenderImg(DetectGenderResult[faceIndex]);
+                }
                 labelText += faceText + "\n\n";
 
                 //// 臉部表情狀態(happy, engery)
@@ -1988,12 +2073,12 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                     if (attribute.Gender == "male")
                     {
                         gender = "男性";
-                        img_gender_boy.Visibility = Visibility.Visible;
+                        //img_gender_boy.Visibility = Visibility.Visible;
                     }
                     else
                     {
                         gender = "女性";
-                        img_gender_girl.Visibility = Visibility.Visible;
+                        //img_gender_girl.Visibility = Visibility.Visible;
                     }
 
                     //var gender = attribute.Gender;
@@ -2020,7 +2105,12 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
 
                     //MessageBox.Show(attribute.Gender + "  " + attribute.Age);
-                    DetectAgeGenderResult[faceIndex] = gender + ", " + attribute.Age;
+                    //DetectAgeGenderResult[faceIndex] = gender + ", " + attribute.Age;
+                    DetectAgeResult[faceIndex] = attribute.Age.ToString();
+                    DetectGenderResult[faceIndex] = gender;
+
+
+
                     //MessageBox.Show(DetectAgeGenderResult[faceIndex]);
                     //textBox.Text = textBox.Text + "\n" + DetectAgeGenderResult;
 
@@ -2031,8 +2121,14 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                     // 把辨識結果儲存到tmp.txt
                     DateTime mNow = DateTime.Now;
                     string path = @"tmp.txt";
-                    File.AppendAllText(path, mNow.ToString("yyyy-MM-dd HH:mm:ss") + ", FaceIndex: " + faceIndex + ", TrackingID: " + saveTrackingID[faceIndex].ToString() + ", " + DetectAgeGenderResult[faceIndex] + ", " + ", " + faceRotate + Environment.NewLine);
-                    showClothes();
+                    File.AppendAllText(path, mNow.ToString("yyyy-MM-dd HH:mm:ss") + ", FaceIndex: " + faceIndex + ", TrackingID: " + saveTrackingID[faceIndex].ToString() + ", " + DetectGenderResult[faceIndex] + ", " + DetectAgeResult[faceIndex] + ", " + faceRotate + Environment.NewLine);
+
+                    // 顯示人臉截圖
+                    showFaceImg(nowTrackID);
+
+                    //showClothes();
+
+
                 }
             }
             catch (Exception e)
@@ -2044,7 +2140,48 @@ namespace Microsoft.Samples.Kinect.FaceBasics
         }
 
 
+        private void showFaceImg(ulong? sender)
+        {
+            string currentpath = Directory.GetCurrentDirectory() + "\\" + sender + "-" + nowTrackIndex + ".jpg";
 
+            // Create the image element.
+            //Image simpleImage = new Image();
+            //simpleImage.Width = 200;
+            //simpleImage.Margin = new Thickness(5);
+            try
+            {
+                if (File.Exists(currentpath))
+                {
+                    // Create source.
+                    BitmapImage bi = new BitmapImage();
+                    // BitmapImage.UriSource must be in a BeginInit/EndInit block.
+                    bi.BeginInit();
+                    bi.UriSource = new Uri(currentpath, UriKind.RelativeOrAbsolute);
+                    bi.EndInit();
+                    // Set the image source.
+                    faceIMG.Source = bi;
+                    face_label.Content = "人臉辨識截圖：";
+                }
+            }
+            catch
+            {
+            }
+        }
+
+
+        private void showGenderImg(string gender)
+        {
+            if (gender == "男性")
+            {
+                img_gender_boy.Visibility = Visibility.Visible;
+                img_gender_girl.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                img_gender_boy.Visibility = Visibility.Hidden;
+                img_gender_girl.Visibility = Visibility.Visible;
+            }
+        }
 
 
 
@@ -2265,10 +2402,11 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             doubleAnimation.AccelerationRatio = ar;//动画加速
             doubleAnimation.DecelerationRatio = dr;//动画减速
             doubleAnimation.FillBehavior = FillBehavior.HoldEnd;//设置动画完成后执行的操作
-            grdTransfer.BeginAnimation(dp, doubleAnimation);//设置动画应用的属性并启动动画
+            //grdTransfer.BeginAnimation(dp, doubleAnimation);//设置动画应用的属性并启动动画
         }
 
         int to = -4400;
+
         private void button5_Click(object sender, RoutedEventArgs e)
         {
             to -= 1100;
@@ -2277,22 +2415,30 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
         private void hand_right()
         {
-            if (to != 0)
-            {
-                to += 1100;
-                DoMove(Canvas.LeftProperty, to, 0.1, 0.5, 0.5);
-                textBox3.Text = to.ToString();
-            }
+            //if (to != 0)
+            //{
+            //    to += 1100;
+            //    DoMove(Canvas.LeftProperty, to, 0.1, 0.5, 0.5);
+            //    textBox3.Text = to.ToString();
+            //}
+
+            // Add in display content
+            var sampleDataSource = SampleDataSource.GetGroup("Group-2");
+            this.itemsControl.ItemsSource = sampleDataSource;
         }
 
         private void hand_left()
         {
-            if (to != -9900)
-            {
-                to -= 1100;
-                DoMove(Canvas.LeftProperty, to, 0.1, 0.5, 0.5);
-                textBox3.Text = to.ToString();
-            }
+            //if (to != -9900)
+            //{
+            //    to -= 1100;
+            //    DoMove(Canvas.LeftProperty, to, 0.1, 0.5, 0.5);
+            //    textBox3.Text = to.ToString();
+            //}
+
+            // Add in display content
+            var sampleDataSource = SampleDataSource.GetGroup("Group-1");
+            this.itemsControl.ItemsSource = sampleDataSource;
         }
 
         private void delete_file()
@@ -2332,6 +2478,28 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             {
             }
 
+        }
+
+        private void ButtonClick(object sender, RoutedEventArgs e)
+        {
+            var button = (Button)e.OriginalSource;
+            SampleDataItem sampleDataItem = button.DataContext as SampleDataItem;
+
+            var selectionDisplay = new SelectionDisplay(sampleDataItem.Title, sampleDataItem.Subtitle, sampleDataItem.Description, sampleDataItem.Image, sampleDataItem.Image2);
+
+            this.kinectRegionGrid.Children.Add(selectionDisplay);
+
+            // Selection dialog covers the entire interact-able area, so the current press interaction
+            // should be completed. Otherwise hover capture will allow the button to be clicked again within
+            // the same interaction (even whilst no longer visible).
+            selectionDisplay.Focus();
+
+            // Since the selection dialog covers the entire interact-able area, we should also complete
+            // the current interaction of all other pointers.  This prevents other users interacting with elements
+            // that are no longer visible.
+            this.kinectRegion.InputPointerManager.CompleteGestures();
+
+            e.Handled = true;
         }
 
     }
