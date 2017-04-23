@@ -50,10 +50,10 @@
         <Setter Property="VerticalAlignment" Value="Center" />
     </Style>-->
 
-    <SolidColorBrush x:Key="ListViewItemPlaceholderBackgroundThemeBrush" Color="Black"/>
-    <SolidColorBrush x:Key="ListViewItemOverlayBackgroundThemeBrush" Color="DarkGray" />
-    <SolidColorBrush x:Key="ListViewItemOverlayForegroundThemeBrush" Color="Yellow" />
-    <SolidColorBrush x:Key="ListViewItemOverlaySecondaryForegroundThemeBrush" Color="Aqua"/>
+    <SolidColorBrush x:Key="ListViewItemPlaceholderBackgroundThemeBrush" Color="White"/>
+    <SolidColorBrush x:Key="ListViewItemOverlayBackgroundThemeBrush" Color="#eeeeee" />
+    <SolidColorBrush x:Key="ListViewItemOverlayForegroundThemeBrush" Color="Black" />
+    <SolidColorBrush x:Key="ListViewItemOverlaySecondaryForegroundThemeBrush" Color="Black"/>
 
     <Style x:Key="KinectTileButton" TargetType="Button">
         <Setter Property="Template">
@@ -86,19 +86,19 @@
     </Style>
 
     <DataTemplate x:Key="Kinect250x250ItemTemplate">
-        <Button Margin="20" Style="{StaticResource KinectTileButton}">
+        <Button Margin="10" Style="{StaticResource KinectTileButton}">
             <Grid HorizontalAlignment="Left" Width="250" Height="250">
-                
-                <Border Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}">
-                    <Grid>
-                        <Image Source="{Binding Image}" Stretch="Uniform" AutomationProperties.Name="{Binding Title}" Width="100" Height="100" HorizontalAlignment="Right"/>
-                        <Image Source="{Binding Image2}" Stretch="Uniform" AutomationProperties.Name="{Binding Title}" Width="100" Height="100" HorizontalAlignment="Left"/>
+
+                <Border Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}" BorderThickness="1" BorderBrush="#eeeeee">
+                    <Grid Margin="15 20 15 0">
+                        <Image Source="{Binding Image}" Stretch="Uniform" AutomationProperties.Name="{Binding Title}"  Height="100" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        <Image Source="{Binding Image2}" Stretch="Uniform" AutomationProperties.Name="{Binding Title}" Height="100" HorizontalAlignment="Right" VerticalAlignment="Top"/>
                     </Grid>
                 </Border>
                 
                 <StackPanel Orientation="Vertical" VerticalAlignment="Bottom" Background="{StaticResource ListViewItemOverlayBackgroundThemeBrush}">
-                    <TextBlock Text="{Binding Title}" Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}" FontSize="20" Style="{StaticResource TitleTextStyle}" Height="60" Margin="15,0,15,0"/>
-                    <TextBlock Text="{Binding Subtitle}" Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}" FontSize="16" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap" Margin="15,0,15,10"/>
+                    <TextBlock Text="{Binding Title}" Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}" FontSize="20" Style="{StaticResource TitleTextStyle}" Height="60" Margin="15,15,15,0"/>
+                    <TextBlock Text="{Binding Subtitle}" Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}" FontSize="18" HorizontalAlignment="Right" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap" Margin="15,0,15,15"/>
                 </StackPanel>
                 
             </Grid>

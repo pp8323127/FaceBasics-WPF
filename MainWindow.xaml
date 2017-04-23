@@ -72,7 +72,7 @@
 
 
                     <ContentControl Grid.Row="1" x:Name="navigationRegion">
-                        <Grid x:Name="kinectRegionGrid" Margin="10,20,10,20">
+                        <Grid x:Name="kinectRegionGrid" Margin="30,20,10,20">
                             <ScrollViewer Grid.Row="0" Name="scrollViewer" 
                                   HorizontalScrollBarVisibility="Auto"
                                   VerticalScrollBarVisibility="Disabled" 

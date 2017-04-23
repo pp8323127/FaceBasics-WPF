@@ -2354,22 +2354,30 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
         private void hand_right()
         {
-            if (to != 0)
-            {
-                to += 1100;
-                DoMove(Canvas.LeftProperty, to, 0.1, 0.5, 0.5);
-                textBox3.Text = to.ToString();
-            }
+            //if (to != 0)
+            //{
+            //    to += 1100;
+            //    DoMove(Canvas.LeftProperty, to, 0.1, 0.5, 0.5);
+            //    textBox3.Text = to.ToString();
+            //}
+            
+            // Add in display content
+            var sampleDataSource = SampleDataSource.GetGroup("Group-2");
+            this.itemsControl.ItemsSource = sampleDataSource;
         }
 
         private void hand_left()
         {
-            if (to != -9900)
-            {
-                to -= 1100;
-                DoMove(Canvas.LeftProperty, to, 0.1, 0.5, 0.5);
-                textBox3.Text = to.ToString();
-            }
+            //if (to != -9900)
+            //{
+            //    to -= 1100;
+            //    DoMove(Canvas.LeftProperty, to, 0.1, 0.5, 0.5);
+            //    textBox3.Text = to.ToString();
+            //}
+
+            // Add in display content
+            var sampleDataSource = SampleDataSource.GetGroup("Group-1");
+            this.itemsControl.ItemsSource = sampleDataSource;
         }
 
         private void delete_file()

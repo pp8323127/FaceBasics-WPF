@@ -245,6 +245,25 @@ namespace Microsoft.Samples.Kinect.ControlsBasics.DataModel
                     group1));
 
             this.AllGroups.Add(group1);
+
+            var group2 = new SampleDataCollection(
+                "Group-2",
+                "Group Title: 3",
+                "Group Subtitle: 3",
+                SampleDataSource.mediumGrayImage,
+                SampleDataSource.mediumGrayImage,
+                "Group Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tempor scelerisque lorem in vehicula. Aliquam tincidunt, lacus ut sagittis tristique, turpis massa volutpat augue, eu rutrum ligula ante a ante");
+            group2.Items.Add(
+                new SampleDataItem(
+                    "Group-2-Item-1",
+                    "【太陽堂】太陽餅(6入)",
+                    "NT$ 140",
+                    new Uri("http://www.nargo.com.tw/image/cache/data/DSC06460-228x228.JPG"),
+                    new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=nargo-1122"),
+                    "台中著名傳統糕餅點心，皮酥內軟，麥芽淡淡香氣，搭配熱茶最適合。",
+                    itemContent,
+                    group2));
+            this.AllGroups.Add(group2);
         }
 
         public ObservableCollection<SampleDataCollection> AllGroups
