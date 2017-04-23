@@ -561,7 +561,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             Process[] MyProcess = Process.GetProcessesByName("MicroHttpServer");
             if (MyProcess.Length == 0)
             {
-                Process.Start(@"MicroHttpServer.exe");
+                //Process.Start(@"MicroHttpServer.exe");
             }
 
 
