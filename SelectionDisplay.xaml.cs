@@ -7,6 +7,7 @@
 namespace Microsoft.Samples.Kinect.FaceBasics
 {
     using System.Globalization;
+    using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Media;
 
@@ -23,7 +24,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
         {
             this.InitializeComponent();
 
-            this.messageTextBlock.Text = string.Format(CultureInfo.CurrentCulture, Properties.Resources.SelectedMessage, title);
+            //this.messageTextBlock.Text = string.Format(CultureInfo.CurrentCulture, Properties.Resources.SelectedMessage, title);
             this.title.Text = title;
             this.price.Text = price;
             this.description.Text = description;
@@ -40,6 +41,12 @@ namespace Microsoft.Samples.Kinect.FaceBasics
         {
             var parent = (Panel)this.Parent;
             parent.Children.Remove(this);
+        }
+
+        private void GoBack(object sender, RoutedEventArgs e)
+        {
+            //backButton.Visibility = System.Windows.Visibility.Hidden;
+            //navigationRegion.Content = this.kinectRegionGrid;
         }
     }
 }

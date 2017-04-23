@@ -1165,8 +1165,8 @@
     for HandPointers
     -->
     <Style x:Key="BackButtonStyle" TargetType="Button">
-        <Setter Property="MinWidth" Value="48"/>
-        <Setter Property="MinHeight" Value="48"/>
+        <Setter Property="Width" Value="148"/>
+        <Setter Property="Height" Value="148"/>
         <Setter Property="Padding" Value="36,36,36,36" />
         <Setter Property="k:KinectRegion.KinectPressInset" Value="36,36,36,36" />
         <Setter Property="VerticalAlignment" Value="Bottom"/>

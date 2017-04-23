@@ -5,9 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="300"
-             d:DesignWidth="300"
+             d:DesignWidth="500"
              Background="Transparent"
-             FontFamily="Segoe UI"
+             FontFamily="Microsoft JhengHei"
              FontSize="30"
              Focusable="True">
     <UserControl.Resources>
@@ -35,6 +35,9 @@
         </EventTrigger>
     </UserControl.Triggers>
     <Grid x:Name="layoutRoot">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
         <Grid x:Name="grid" Background="{StaticResource BlueBrush}" RenderTransformOrigin="0.5,0.5">
             <Grid.RenderTransform>
                 <TransformGroup>
@@ -44,12 +47,33 @@
                     <TranslateTransform/>
                 </TransformGroup>
             </Grid.RenderTransform>
-            <TextBlock x:Name="title"></TextBlock>
-            <TextBlock x:Name="price"></TextBlock>
-            <TextBlock x:Name="description"></TextBlock>
-            <TextBlock x:Name="messageTextBlock" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center">You selected item #14</TextBlock>
-            <Image x:Name="imageProduct" VerticalAlignment="Bottom" Height="100" Width="100"></Image>
-            <Image x:Name="imageQRcode" VerticalAlignment="Bottom" Height="100" Width="100"></Image>
+
+            <Grid>
+                <Grid.RowDefinitions>
+
+                    <RowDefinition Height="68*"/>
+                    <RowDefinition Height="47*"/>
+                    <RowDefinition Height="40*"/>
+                    <RowDefinition Height="145*"/>
+
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="51*"/>
+                    <ColumnDefinition Width="74*"/>
+                    <ColumnDefinition Width="74*"/>
+                    <ColumnDefinition Width="51*"/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="backButton" Visibility="Visible" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource BackButtonStyle}" Click="GoBack" Height="132" Width="126" Grid.RowSpan="3" Grid.ColumnSpan="2" FontSize="100"/>
+
+                <Image x:Name="imageProduct" Source="C:/r.png" Stretch="Uniform" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2"/>
+                <TextBlock x:Name="title" Text="title" Grid.Column="2" Grid.Row="1"/>
+                <TextBlock x:Name="price" Text="price" Grid.Column="2" Grid.Row="2"/>
+                <TextBlock x:Name="description" Text="description" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="3"/>
+                <Image x:Name="imageQRcode" Source="C:/t.jpg" Margin="0,117,0,0" Grid.Row="3" RenderTransformOrigin="3.652,2.25" Grid.Column="3" />
+            </Grid>
+
+
+
         </Grid>
     </Grid>
 </UserControl>
