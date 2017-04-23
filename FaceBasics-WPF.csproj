@@ -175,6 +175,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="HandPointers\HighlightRectangle.png" />
+    <Resource Include="Images\nargo_logo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
