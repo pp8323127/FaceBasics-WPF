@@ -44,7 +44,7 @@
                     <!--<Image Source="Images/qr.png" Stretch="Uniform" Margin="0 0 0 0"/>-->
 
 
-                    
+                    <!--old demo Canvas_use image to display-->
                     <!--<Canvas x:Name="cvsGround" Height="500">
                         <StackPanel Width="11000" Height="550" x:Name="grdTransfer" Canvas.Left="-4400" Background="White" Orientation="Horizontal">
                             --><!--<Image Source="Images/qr.png" Stretch="Uniform" Margin="0,0,0,0" Width="1100" HorizontalAlignment="Left" />
@@ -67,9 +67,6 @@
                                 </ItemsControl>
                             </ContentControl>--><!--
                         </StackPanel>
-
-
-
                         <Button x:Name="button5" Content="Button" Width="75" Click="button5_Click"/>
                     </Canvas>-->
 
@@ -151,7 +148,7 @@
 
             <Grid Grid.Row="3" VerticalAlignment="Bottom">
                 <Label x:Name="clothes_label" Margin="100,0,0,100" Content="" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="16" FontFamily="Microsoft JhengHei"/>
-                <Image x:Name="clothesIMG" Stretch="Uniform" Width="100" Height="100" VerticalAlignment="Bottom" Margin="0" />
+                <Image x:Name="clothesIMG" Source="{Binding clothesSource}" Stretch="Uniform" Width="100" Height="100" VerticalAlignment="Bottom" Margin="0" />
             </Grid>
 
         </Grid>

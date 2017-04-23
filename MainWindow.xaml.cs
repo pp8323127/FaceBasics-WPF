@@ -316,6 +316,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
         private string clothes_keyword_result = null;
         private string clothes_fileName = null;
         bool doDetect = true;
+        private BitmapImage clothesBitmap = null;
 
 
         Body[] Prebody = new Body[6];
@@ -549,6 +550,9 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
             // showClothes BitmampImage
             BitmapImage bi = new BitmapImage();
+            this.clothesBitmap = new BitmapImage();
+
+
 
 
 
@@ -613,6 +617,16 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                 return this.bitmap;
             }
         }
+
+        // Get the bitmap to display clothes
+        public ImageSource clothesSource
+        {
+            get
+            {
+                return this.clothesBitmap;
+            }
+        }
+
 
 
         /// <summary>
@@ -1319,6 +1333,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             }
         }
 
+
         private void showClothes()
         {
 
@@ -1340,6 +1355,9 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                     bi.EndInit();
                     // Set the image source.
                     clothesIMG.Source = bi;
+
+                    //this.clothesBitmap = new BitmapImage(new Uri(currentpath, UriKind.RelativeOrAbsolute));
+                    //this.clothesBitmap.UriSource = new Uri(currentpath, UriKind.RelativeOrAbsolute);
                 }
             }
             finally
