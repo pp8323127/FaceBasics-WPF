@@ -24,7 +24,11 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             this.InitializeComponent();
 
             this.messageTextBlock.Text = string.Format(CultureInfo.CurrentCulture, Properties.Resources.SelectedMessage, title);
+            this.title.Text = title;
+            this.price.Text = price;
+            this.description.Text = description;
             this.imageProduct.Source = imageProduct;
+            this.imageQRcode.Source = imageQRcode;
         }
 
         /// <summary>

@@ -44,8 +44,12 @@
                     <TranslateTransform/>
                 </TransformGroup>
             </Grid.RenderTransform>
+            <TextBlock x:Name="title"></TextBlock>
+            <TextBlock x:Name="price"></TextBlock>
+            <TextBlock x:Name="description"></TextBlock>
             <TextBlock x:Name="messageTextBlock" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center">You selected item #14</TextBlock>
             <Image x:Name="imageProduct" VerticalAlignment="Bottom" Height="100" Width="100"></Image>
+            <Image x:Name="imageQRcode" VerticalAlignment="Bottom" Height="100" Width="100"></Image>
         </Grid>
     </Grid>
 </UserControl>
