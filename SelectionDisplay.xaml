@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Microsoft.Samples.Kinect.ControlsBasics.SelectionDisplay"
+﻿<UserControl x:Class="Microsoft.Samples.Kinect.FaceBasics.SelectionDisplay"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -45,6 +45,7 @@
                 </TransformGroup>
             </Grid.RenderTransform>
             <TextBlock x:Name="messageTextBlock" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center">You selected item #14</TextBlock>
+            <Image x:Name="imageProduct" VerticalAlignment="Bottom" Height="100" Width="100"></Image>
         </Grid>
     </Grid>
 </UserControl>

@@ -578,7 +578,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                 HandRightMotion[i] = new List<CameraSpacePoint>();
             }
 
-            
+
             // initialize the components (controls) of the window
             this.InitializeComponent();
 
@@ -587,7 +587,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             // Add in display content
             var sampleDataSource = SampleDataSource.GetGroup("Group-1");
             this.itemsControl.ItemsSource = sampleDataSource;
-            
+
         }
 
         /// <summary>
@@ -2413,7 +2413,25 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
         private void ButtonClick(object sender, RoutedEventArgs e)
         {
+            var button = (Button)e.OriginalSource;
+            SampleDataItem sampleDataItem = button.DataContext as SampleDataItem;
+
+            var selectionDisplay = new SelectionDisplay(sampleDataItem.Title, sampleDataItem.Subtitle, sampleDataItem.Description, sampleDataItem.Image, sampleDataItem.Image2);
+
+            this.kinectRegionGrid.Children.Add(selectionDisplay);
+
+            // Selection dialog covers the entire interact-able area, so the current press interaction
+            // should be completed. Otherwise hover capture will allow the button to be clicked again within
+            // the same interaction (even whilst no longer visible).
+            selectionDisplay.Focus();
+
+            // Since the selection dialog covers the entire interact-able area, we should also complete
+            // the current interaction of all other pointers.  This prevents other users interacting with elements
+            // that are no longer visible.
+            this.kinectRegion.InputPointerManager.CompleteGestures();
+
+            e.Handled = true;
         }
 
-        }
     }
+}

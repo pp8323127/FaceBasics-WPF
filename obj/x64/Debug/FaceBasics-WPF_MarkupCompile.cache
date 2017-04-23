@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE;TFS2013
 C:\MO\KinectFace\App.xaml
-3-1324343976
+4372721510
 12141465912
-7107846043
+81557123577
 68-1092139715
-Common\StandardStyles.xaml;HandPointers\HandPointerStyles.xaml;MainWindow.xaml;
+Common\StandardStyles.xaml;HandPointers\HandPointerStyles.xaml;MainWindow.xaml;SelectionDisplay.xaml;
 
 False
 

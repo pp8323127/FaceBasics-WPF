@@ -61,3 +61,5 @@ C:\MO\KinectFace\obj\x64\Debug\Common\StandardStyles.baml
 C:\MO\KinectFace\obj\x64\Debug\HandPointers\HandPointerStyles.baml
 C:\MO\KinectFace\obj\x64\Debug\App.baml
 C:\MO\KinectFace\obj\x64\Debug\FaceBasics-WPF_Content.g.cs
+C:\MO\KinectFace\obj\x64\Debug\SelectionDisplay.baml
+C:\MO\KinectFace\obj\x64\Debug\SelectionDisplay.g.cs

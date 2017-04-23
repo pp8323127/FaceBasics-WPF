@@ -4,10 +4,11 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-namespace Microsoft.Samples.Kinect.ControlsBasics
+namespace Microsoft.Samples.Kinect.FaceBasics
 {
     using System.Globalization;
     using System.Windows.Controls;
+    using System.Windows.Media;
 
     /// <summary>
     /// Interaction logic
@@ -18,11 +19,12 @@ namespace Microsoft.Samples.Kinect.ControlsBasics
         /// Initializes a new instance of the <see cref="SelectionDisplay"/> class. 
         /// </summary>
         /// <param name="itemId">ID of the item that was selected</param>
-        public SelectionDisplay(string itemId)
+        public SelectionDisplay(string title, string price, string description, ImageSource imageProduct, ImageSource imageQRcode)
         {
             this.InitializeComponent();
 
-            this.messageTextBlock.Text = string.Format(CultureInfo.CurrentCulture, Properties.Resources.SelectedMessage, itemId);
+            this.messageTextBlock.Text = string.Format(CultureInfo.CurrentCulture, Properties.Resources.SelectedMessage, title);
+            this.imageProduct.Source = imageProduct;
         }
 
         /// <summary>
