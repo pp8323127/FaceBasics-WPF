@@ -141,12 +141,12 @@
                 </Grid>
 
                 <Grid Grid.Column="1">
-                    <Label x:Name="label" Content="LabelLabel" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" FontFamily="Microsoft JhengHei"/>
+                    <Label x:Name="label" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" FontFamily="Microsoft JhengHei"/>
                 </Grid>
             </Grid>
 
             <Grid Grid.Row="2">
-                <Label x:Name="label3" Content="推薦" FontSize="16" FontFamily="Microsoft JhengHei" />
+                <Label x:Name="label3" Content="" FontSize="16" FontFamily="Microsoft JhengHei" />
             </Grid>
 
             <Grid Grid.Row="3" VerticalAlignment="Bottom">
