@@ -1311,7 +1311,8 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                         saveImage.Close();
                         saveImage.Dispose();
 
-                        searchClothes(clothes_fileName);
+                        uploadClothes(clothes_fileName);
+                        //searchClothes(clothes_fileName);
 
                         //showClothes();
 
@@ -1401,19 +1402,40 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             //    //clothesIMG.Source = src;
 
             //}
-
-
-
-
-
+            
 
         }
 
-        private void showClothesFlush()
+        private void uploadClothes(string url)
         {
+            string path = Directory.GetCurrentDirectory() + "\\" + url;
+            //MessageBox.Show(path);
+            System.Net.WebClient Client = new System.Net.WebClient();
+            Client.Headers.Add("Content-Type", "binary/octet-stream");
+            byte[] result = Client.UploadFile("http://163.18.42.141/KinectFace/upload4.php", "POST", path);
 
+            searchClothes(url);
+
+            //string s = System.Text.Encoding.UTF8.GetString(result, 0, result.Length);
+            //MessageBox.Show(s);
         }
 
+
+        private void uploadClothes2(string url)
+        {
+            string path = Directory.GetCurrentDirectory() + "\\" + url;
+            //MessageBox.Show(path);
+            System.Net.WebClient Client = new System.Net.WebClient();
+            Client.Headers.Add("Content-Type", "binary/octet-stream");
+            //Client.UploadFile("http://163.18.42.141/KinectFace/upload4.php", "POST", path);
+
+            Client.UploadFileAsync(new Uri("http://163.18.42.141/KinectFace/upload4.php"), "POST", path);
+
+            searchClothes(url);
+
+            //string s = System.Text.Encoding.UTF8.GetString(result, 0, result.Length);
+            //MessageBox.Show(s);
+        }
 
 
         // 把圖片丟到Google以圖搜圖，回傳結果_async
@@ -1421,7 +1443,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
         {
             //postData = "My Data To Post";
 
-            var webRequest = WebRequest.Create(String.Format("http://www.google.com/searchbyimage?hl=zh-TW&site=search&image_url=http://163.18.42.205:1688/" + url)) as HttpWebRequest;
+            var webRequest = WebRequest.Create(String.Format("http://www.google.com/searchbyimage?hl=zh-TW&site=search&image_url=http://163.18.42.141/KinectFace/file/" + url)) as HttpWebRequest;
 
 
             webRequest.Method = "GET";
