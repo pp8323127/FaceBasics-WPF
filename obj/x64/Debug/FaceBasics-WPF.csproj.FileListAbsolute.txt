@@ -63,3 +63,11 @@ C:\MO\KinectFace\obj\x64\Debug\App.baml
 C:\MO\KinectFace\obj\x64\Debug\FaceBasics-WPF_Content.g.cs
 C:\MO\KinectFace\obj\x64\Debug\SelectionDisplay.baml
 C:\MO\KinectFace\obj\x64\Debug\SelectionDisplay.g.cs
+D:\Documents\Visual Studio 2015\Projects\KinectFace\bin\x64\Debug\Microsoft.Kinect.Wpf.Controls.dll
+D:\Documents\Visual Studio 2015\Projects\KinectFace\bin\x64\Debug\Microsoft.Kinect.Wpf.Controls.xml
+D:\Documents\Visual Studio 2015\Projects\KinectFace\obj\x64\Debug\Common\StandardStyles.baml
+D:\Documents\Visual Studio 2015\Projects\KinectFace\obj\x64\Debug\HandPointers\HandPointerStyles.baml
+D:\Documents\Visual Studio 2015\Projects\KinectFace\obj\x64\Debug\SelectionDisplay.baml
+D:\Documents\Visual Studio 2015\Projects\KinectFace\obj\x64\Debug\App.baml
+D:\Documents\Visual Studio 2015\Projects\KinectFace\obj\x64\Debug\SelectionDisplay.g.cs
+D:\Documents\Visual Studio 2015\Projects\KinectFace\obj\x64\Debug\FaceBasics-WPF_Content.g.cs
