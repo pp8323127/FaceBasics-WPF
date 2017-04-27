@@ -2216,7 +2216,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
         private void showProductGroup(string groupID)
         {
             string group = "Group-" + groupID;
-            MessageBox.Show(group);
+            //MessageBox.Show(group);
             // Add in display content
             var sampleDataSource = SampleDataSource.GetGroup(group);
             this.itemsControl.ItemsSource = sampleDataSource;
