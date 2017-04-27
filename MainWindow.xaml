@@ -104,7 +104,7 @@
                     <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="92" Margin="83,527,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="720" FontSize="20" Visibility="Hidden" />
                     <TextBox x:Name="textBox2" HorizontalAlignment="Left" Height="92" Margin="198,435,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="720" FontSize="20" Visibility="Hidden" />
                     <TextBox x:Name="textBox3" HorizontalAlignment="Left" Height="92" Margin="346,619,-66,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="720" FontSize="20" Visibility="Hidden" />
-                    <TextBox x:Name="textBox5" HorizontalAlignment="Left" Height="92" Margin="198,435,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="720" FontSize="20" Visibility="Visible" />
+                    <TextBox x:Name="textBox5" HorizontalAlignment="Left" Height="92" Margin="198,435,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="720" FontSize="20" Visibility="Hidden" />
                     <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="843,628,0,0" VerticalAlignment="Top" Width="75" Click="button_Click" Visibility="Hidden" />
                     <Button x:Name="button1" Content="Button" HorizontalAlignment="Left" Margin="728,670,0,0" VerticalAlignment="Top" Width="75" Click="button1_Click" Visibility="Hidden" />
                     <Button x:Name="resetID" Content="ResetTrackID" HorizontalAlignment="Left" Margin="843,670,0,0" VerticalAlignment="Top" Width="108" Height="28" Click="resetID_Click" Visibility="Hidden" />
@@ -143,7 +143,7 @@
                 </Grid>
 
                 <Grid Grid.Column="1">
-                    <Label x:Name="label" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" FontFamily="Microsoft JhengHei"/>
+                    <Label x:Name="label" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" FontFamily="Microsoft JhengHei"/>
                 </Grid>
             </Grid>
 

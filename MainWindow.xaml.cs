@@ -308,6 +308,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
         private string[] DetectAgeGenderResult;
         private string[] DetectAgeResult;
         private string[] DetectGenderResult;
+        private string[] DetectSmileResult;
 
         private bool doClothes = false;
         private bool trackID = false;
@@ -374,6 +375,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             this.DetectAgeGenderResult = new string[this.bodyCount];
             this.DetectGenderResult = new string[this.bodyCount];
             this.DetectAgeResult = new string[this.bodyCount];
+            this.DetectSmileResult = new string[this.bodyCount];
 
             // specify the required face frame results
             FaceFrameFeatures faceFrameFeatures =
@@ -1881,7 +1883,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
                 //增加顯示tracking id
                 //faceText += "faceIndex：" + faceIndexShow + "\n" + "TrackingID=" + this.bodies[faceIndex].TrackingId + "\n" + DetectAgeGenderResult[faceIndex] + "\n\n" + EyePosition;
-                faceText += "faceIndex：" + faceIndexShow + "\n" + "TrackingID=" + this.bodies[faceIndex].TrackingId + "\n" + DetectGenderResult[faceIndex] + ", " + DetectAgeResult[faceIndex];
+                faceText += "faceIndex：" + faceIndexShow + "\n" + "TrackingID=" + this.bodies[faceIndex].TrackingId + "\n" + DetectGenderResult[faceIndex] + ",  " + DetectAgeResult[faceIndex] + ",  微笑值: " + DetectSmileResult[faceIndex] + "%";
                 //labelText += faceText + "\n\n" + EyePosition;
 
                 // 顯示性別圖示 show Gender img
@@ -1889,24 +1891,43 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                 {
                     showGenderImg(DetectGenderResult[faceIndex]);
                 }
-                labelText += faceText + "\n\n";
+                labelText += faceText + "\n";
 
-                //// 臉部表情狀態(happy, engery)
-                //foreach (var item in faceResult.FaceProperties)
-                //{
-                //    faceText += item.Key.ToString() + " : ";
+                // 臉部表情狀態(happy, engery)
+                foreach (var item in faceResult.FaceProperties)
+                {
+                    if (item.Key.ToString() == "WearingGlasses")
+                    {
+                        labelText += "眼鏡: ";
+                        // consider a "maybe" as a "no" to restrict 
+                        // the detection result refresh rate
+                        if (item.Value == DetectionResult.Maybe)
+                        {
+                            labelText += DetectionResult.No;
+                        }
+                        else
+                        {
+                            labelText += item.Value.ToString();
+                        }
+                    }
 
-                //    // consider a "maybe" as a "no" to restrict 
-                //    // the detection result refresh rate
-                //    if (item.Value == DetectionResult.Maybe)
-                //    {
-                //        faceText += DetectionResult.No + "\n";
-                //    }
-                //    else
-                //    {
-                //        faceText += item.Value.ToString() + "\n";
-                //    }
-                //}
+                    if (item.Key.ToString() == "LookingAway")
+                    {
+                        labelText += ",  關注: ";
+                        // consider a "maybe" as a "no" to restrict 
+                        // the detection result refresh rate
+                        if (item.Value == DetectionResult.No || item.Value == DetectionResult.Maybe)
+                        {
+                            labelText += "Yes\n";
+                        }
+                        else
+                        {
+                            labelText += "No\n";
+                        }
+                    }
+
+
+                }
             }
 
             // 頭部擺動角度
@@ -2134,8 +2155,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                     //DetectAgeGenderResult[faceIndex] = gender + ", " + attribute.Age;
                     //DetectAgeResult[faceIndex] = attribute.Age.ToString();
                     DetectGenderResult[faceIndex] = gender;
-
-
+                    DetectSmileResult[faceIndex] = (attribute.Smile * 100).ToString();
 
                     //MessageBox.Show(DetectAgeGenderResult[faceIndex]);
                     //textBox.Text = textBox.Text + "\n" + DetectAgeGenderResult;
