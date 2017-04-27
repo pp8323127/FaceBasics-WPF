@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-D:\Documents\Visual Studio 2015\Projects\KinectFace\obj\x64\Debug\
+C:\MO\KinectFace\obj\x64\Debug\
 Microsoft.Samples.Kinect.FaceBasics
 none
 false
 DEBUG;TRACE;TFS2013
-D:\Documents\Visual Studio 2015\Projects\KinectFace\App.xaml
+C:\MO\KinectFace\App.xaml
 4372721510
 12141465912
 81557123577
-681237259305
+68-1092139715
 Common\StandardStyles.xaml;HandPointers\HandPointerStyles.xaml;MainWindow.xaml;SelectionDisplay.xaml;
 
 False

@@ -931,10 +931,10 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                                     double subY = (HandRightMotion[nowTrackIndex][0].Y - HandRightMotion[nowTrackIndex][1].Y) * 100;
 
 
-                                    if (subX > 16 && subY < 8 && subY > -8)
+                                    if (subX > 9 && subY < 8 && subY > -8)
                                     {
                                         //SendKeys.SendWait("{LEFT}");
-                                        textBox2.Text = "LEFT";
+                                        textBox2.Text = "toLEFT";
                                         hand_TOleft();
                                     }
                                     else if (subX < -18 && subY < 8 && subY > -8)
@@ -976,7 +976,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                                     else if (subX < -9 && subY < 8 && subY > -8)
                                     {
                                         //SendKeys.SendWait("{RIGHT}");
-                                        textBox2.Text = "RIGHT";
+                                        textBox2.Text = "toRIGHT";
                                         hand_TOright();
                                     }
 
@@ -2465,12 +2465,14 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             //var sampleDataSource = SampleDataSource.GetGroup("Group-2");
             //this.itemsControl.ItemsSource = sampleDataSource;
 
-            groupID++;
-            if (groupID > 6)
+            groupID--;
+            if (groupID < 1)
             {
-                groupID = 0;
+                groupID = 6;
                 showProductGroup(groupID.ToString());
             }
+            else { showProductGroup(groupID.ToString()); }
+            textBox5.Text = groupID.ToString();
         }
 
         private void hand_TOleft()
@@ -2485,13 +2487,15 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             // Add in display content
             //var sampleDataSource = SampleDataSource.GetGroup("Group-1");
             //this.itemsControl.ItemsSource = sampleDataSource;
-
-            groupID--;
-            if (groupID < 1)
+            
+            groupID++;
+            if (groupID > 6)
             {
-                groupID = 6;
+                groupID = 0;
                 showProductGroup(groupID.ToString());
             }
+            else { showProductGroup(groupID.ToString()); }
+            textBox5.Text = groupID.ToString();
         }
 
         private void delete_file()
