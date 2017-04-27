@@ -51,7 +51,7 @@ namespace Microsoft.Samples.Kinect.ControlsBasics.DataModel
 
 //========================
             var group0 = new SampleDataCollection(
-                    "Group-0",
+                    "group-0",
                     "Group Title: 3",
                     "Group Subtitle: 3",
                     SampleDataSource.mediumGrayImage,
