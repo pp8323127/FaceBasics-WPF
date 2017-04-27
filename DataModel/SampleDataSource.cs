@@ -49,9 +49,16 @@ namespace Microsoft.Samples.Kinect.ControlsBasics.DataModel
                                     "Curabitur class aliquam vestibulum nam curae maecenas sed integer cras phasellus suspendisse quisque donec dis praesent accumsan bibendum pellentesque condimentum adipiscing etiam consequat vivamus dictumst aliquam duis convallis scelerisque est parturient ullamcorper aliquet fusce suspendisse nunc hac eleifend amet blandit facilisi condimentum commodo scelerisque faucibus aenean ullamcorper ante mauris dignissim consectetuer nullam lorem vestibulum habitant conubia elementum pellentesque morbi facilisis arcu sollicitudin diam cubilia aptent vestibulum auctor eget dapibus pellentesque inceptos leo egestas interdum nulla consectetuer suspendisse adipiscing pellentesque proin lobortis sollicitudin augue elit mus congue fermentum parturient fringilla euismod feugiat");
 
 
-//========================
+            //男少 group1
+            //男中 group2
+            //男老 group3
+            //女少 group4
+            //女中 group5
+            //女老 group6
+
+            //========================
             var group0 = new SampleDataCollection(
-                    "group-0",
+                    "Group-0",
                     "Group Title: 3",
                     "Group Subtitle: 3",
                     SampleDataSource.mediumGrayImage,

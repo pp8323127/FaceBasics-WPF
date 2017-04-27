@@ -317,6 +317,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
         private string clothes_fileName = null;
         bool doDetect = true;
         private BitmapImage clothesBitmap = null;
+        int groupID = 0;
 
 
         Body[] Prebody = new Body[6];
@@ -585,8 +586,9 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
 
             // Add in display content
-            var sampleDataSource = SampleDataSource.GetGroup("group-0");
-            this.itemsControl.ItemsSource = sampleDataSource;
+            //var sampleDataSource = SampleDataSource.GetGroup("group-0");
+            //this.itemsControl.ItemsSource = sampleDataSource;
+            showProductGroup("0");
 
         }
 
@@ -933,13 +935,13 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                                     {
                                         //SendKeys.SendWait("{LEFT}");
                                         textBox2.Text = "LEFT";
-                                        hand_left();
+                                        hand_TOleft();
                                     }
                                     else if (subX < -18 && subY < 8 && subY > -8)
                                     {
                                         //SendKeys.SendWait("{RIGHT}");
                                         //textBox2.Text = "RIGHT";
-                                        //hand_right();
+                                        //hand_TOright();
                                     }
 
                                     HandRightMotion[nowTrackIndex].Clear();
@@ -969,13 +971,13 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                                     {
                                         //SendKeys.SendWait("{LEFT}");
                                         //textBox2.Text = "LEFT";
-                                        //hand_left();
+                                        //hand_TOleft();
                                     }
                                     else if (subX < -9 && subY < 8 && subY > -8)
                                     {
                                         //SendKeys.SendWait("{RIGHT}");
                                         textBox2.Text = "RIGHT";
-                                        hand_right();
+                                        hand_TOright();
                                     }
 
                                     HandLeftMotion[nowTrackIndex].Clear();
@@ -1402,7 +1404,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             //    //clothesIMG.Source = src;
 
             //}
-            
+
 
         }
 
@@ -1816,7 +1818,8 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
                 }
 
-            } else
+            }
+            else
             {
                 showFaceImg(saveTrackingID[faceIndex]);
                 showClothes();
@@ -2068,16 +2071,21 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                 double youngest = 120, oldest = 0, smilest = 0;
                 string gender = null;
 
+
+                int i = 0;
+                int j = 0;
                 foreach (var attribute in attributes)
                 {
                     if (attribute.Gender == "male")
                     {
                         gender = "男性";
+                        j = 1;
                         //img_gender_boy.Visibility = Visibility.Visible;
                     }
                     else
                     {
                         gender = "女性";
+                        j = 2;
                         //img_gender_girl.Visibility = Visibility.Visible;
                     }
 
@@ -2102,11 +2110,29 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                     //if (smile > smilest)
                     //    smilest = smile;
 
+                    //0 - 3 嬰幼兒
+                    //4 - 7 幼兒
+                    //8 - 14 幼童
+                    //15 - 22 青少年
+                    //23 - 35 青壯年
+                    //36 - 45 壯年
+                    //46 - 60 中壯年
+                    //60 + 老年
 
+
+                    int age = (int)attribute.Age;
+                    if (age <= 3) { DetectAgeResult[faceIndex] = "0 ~ 3 歲"; i = 0; }
+                    else if (age <= 7) { DetectAgeResult[faceIndex] = "4 ~ 7 歲"; i = 0; }
+                    else if (age <= 14) { DetectAgeResult[faceIndex] = "8 ~ 14 歲"; i = 0; }
+                    else if (age <= 22) { DetectAgeResult[faceIndex] = "15 ~ 22 歲"; i = 0; }
+                    else if (age <= 35) { DetectAgeResult[faceIndex] = "23 ~ 35 歲"; i = 1; }
+                    else if (age <= 45) { DetectAgeResult[faceIndex] = "36 ~ 45 歲"; i = 1; }
+                    else if (age <= 60) { DetectAgeResult[faceIndex] = "46 ~ 60 歲"; i = 2; }
+                    else if (age > 60) { DetectAgeResult[faceIndex] = "60+ 歲"; i = 2; }
 
                     //MessageBox.Show(attribute.Gender + "  " + attribute.Age);
                     //DetectAgeGenderResult[faceIndex] = gender + ", " + attribute.Age;
-                    DetectAgeResult[faceIndex] = attribute.Age.ToString();
+                    //DetectAgeResult[faceIndex] = attribute.Age.ToString();
                     DetectGenderResult[faceIndex] = gender;
 
 
@@ -2128,6 +2154,9 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
                     //showClothes();
 
+                    // 顯示推薦商品清單
+                    groupID = i + j;
+                    showProductGroup(groupID.ToString());
 
                 }
             }
@@ -2181,6 +2210,16 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                 img_gender_boy.Visibility = Visibility.Hidden;
                 img_gender_girl.Visibility = Visibility.Visible;
             }
+        }
+
+
+        private void showProductGroup(string groupID)
+        {
+            string group = "Group-" + groupID;
+            MessageBox.Show(group);
+            // Add in display content
+            var sampleDataSource = SampleDataSource.GetGroup(group);
+            this.itemsControl.ItemsSource = sampleDataSource;
         }
 
 
@@ -2413,7 +2452,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             DoMove(Canvas.LeftProperty, to, 0.1, 0.5, 0.5);
         }
 
-        private void hand_right()
+        private void hand_TOright()
         {
             //if (to != 0)
             //{
@@ -2423,11 +2462,18 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             //}
 
             // Add in display content
-            var sampleDataSource = SampleDataSource.GetGroup("Group-2");
-            this.itemsControl.ItemsSource = sampleDataSource;
+            //var sampleDataSource = SampleDataSource.GetGroup("Group-2");
+            //this.itemsControl.ItemsSource = sampleDataSource;
+
+            groupID++;
+            if (groupID > 6)
+            {
+                groupID = 0;
+                showProductGroup(groupID.ToString());
+            }
         }
 
-        private void hand_left()
+        private void hand_TOleft()
         {
             //if (to != -9900)
             //{
@@ -2437,8 +2483,15 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             //}
 
             // Add in display content
-            var sampleDataSource = SampleDataSource.GetGroup("Group-1");
-            this.itemsControl.ItemsSource = sampleDataSource;
+            //var sampleDataSource = SampleDataSource.GetGroup("Group-1");
+            //this.itemsControl.ItemsSource = sampleDataSource;
+
+            groupID--;
+            if (groupID < 1)
+            {
+                groupID = 6;
+                showProductGroup(groupID.ToString());
+            }
         }
 
         private void delete_file()
