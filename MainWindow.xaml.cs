@@ -585,7 +585,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
 
             // Add in display content
-            var sampleDataSource = SampleDataSource.GetGroup("Group-1");
+            var sampleDataSource = SampleDataSource.GetGroup("Group-0");
             this.itemsControl.ItemsSource = sampleDataSource;
 
         }
