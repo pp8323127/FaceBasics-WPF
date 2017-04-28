@@ -3,11 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:k="http://schemas.microsoft.com/kinect/2014"
         Title="KinectFace" 
-        Height="768" Width="1366" 
+        Height="1024" Width="1280" 
         Loaded="MainWindow_Loaded"
         Closing="MainWindow_Closing"
         FontFamily="Microsoft JhengHei"
-        WindowState="Maximized"
+        
         >
     <Window.Resources>
         <SolidColorBrush x:Key="MediumGreyBrush" Color="#ff6e6e6e" />
@@ -123,7 +123,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
-                <RowDefinition Height="*" />
+                <RowDefinition Height="2*" />
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
 
@@ -148,14 +148,14 @@
             </Grid>
 
 
-            <Grid Grid.Row="2" VerticalAlignment="Bottom" Margin="0 0 0 0">
+            <Grid Grid.Row="2" VerticalAlignment="Top" Margin="0">
                 <Grid HorizontalAlignment="Left" Margin="30">
                     <Label x:Name="face_label" Margin="0 -30 0 0" Content=""  HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="18" FontFamily="Microsoft JhengHei"/>
-                    <Image x:Name="faceIMG" Stretch="Uniform" Width="150" Height="150" VerticalAlignment="Bottom" Margin="0" />
+                    <Image x:Name="faceIMG" Stretch="Uniform" Width="100" Height="100" VerticalAlignment="Bottom" Margin="0" />
                 </Grid>
                 <Grid HorizontalAlignment="Right" Margin="30">
-                    <Label x:Name="clothes_label" Margin="0 -30 0 0" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="18" FontFamily="Microsoft JhengHei"/>
-                    <Image x:Name="clothesIMG" Source="{Binding clothesSource}" Stretch="Uniform" Width="150" Height="150" VerticalAlignment="Bottom" Margin="0" />
+                    <Label x:Name="clothes_label" Margin="0 -30 0 0" Content="" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="18" FontFamily="Microsoft JhengHei"/>
+                    <Image x:Name="clothesIMG" Source="{Binding clothesSource}" Stretch="Uniform" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0" />
                 </Grid>
             </Grid>
 
