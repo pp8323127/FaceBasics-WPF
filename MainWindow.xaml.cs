@@ -933,7 +933,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                                     double subY = (HandRightMotion[nowTrackIndex][0].Y - HandRightMotion[nowTrackIndex][1].Y) * 100;
 
 
-                                    if (subX > 9 && subY < 8 && subY > -8)
+                                    if (subX > 11 && subY < 8 && subY > -8)
                                     {
                                         //SendKeys.SendWait("{LEFT}");
                                         textBox2.Text = "toLEFT";
@@ -975,7 +975,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                                         //textBox2.Text = "LEFT";
                                         //hand_TOleft();
                                     }
-                                    else if (subX < -9 && subY < 8 && subY > -8)
+                                    else if (subX < -11 && subY < 8 && subY > -8)
                                     {
                                         //SendKeys.SendWait("{RIGHT}");
                                         textBox2.Text = "toRIGHT";
