@@ -1913,7 +1913,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
                     if (item.Key.ToString() == "LookingAway")
                     {
-                        labelText += ",  關注: ";
+                        labelText += "\n關注: ";
                         // consider a "maybe" as a "no" to restrict 
                         // the detection result refresh rate
                         if (item.Value == DetectionResult.No || item.Value == DetectionResult.Maybe)
@@ -1943,6 +1943,10 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                 //labelText += "FaceYaw : " + yaw + "\n" +
                 //            "FacePitch : " + pitch + "\n" +
                 //            "FacenRoll : " + roll + "\n";
+                labelText += "轉動角 : " + yaw + "\n" +
+                             "俯仰角 : " + pitch + "\n" +
+                             "滾動角 : " + roll + "\n";
+
             }
 
             // render the face property and face rotation information
