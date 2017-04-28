@@ -792,7 +792,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             }
 
             // 結束程式後，刪除jpg跟txt檔
-            delete_file();
+            //delete_file();
 
         }
 
