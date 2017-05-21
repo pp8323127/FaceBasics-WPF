@@ -819,10 +819,10 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                                     jointPoints[jointType] = new Point(jointPointsInColor.X, jointPointsInColor.Y);
                                 }
 
-                                this.DrawBody(joints, jointPoints, dc, drawPen);
+                                //this.DrawBody(joints, jointPoints, dc, drawPen);
 
-                                this.DrawHand(body.HandLeftState, jointPoints[JointType.HandLeft], dc);
-                                this.DrawHand(body.HandRightState, jointPoints[JointType.HandRight], dc);
+                                //this.DrawHand(body.HandLeftState, jointPoints[JointType.HandLeft], dc);
+                                //this.DrawHand(body.HandRightState, jointPoints[JointType.HandRight], dc);
                             }
                         }
 
@@ -1176,15 +1176,15 @@ namespace Microsoft.Samples.Kinect.FaceBasics
             // dc2.DrawRectangle(Brushes.White, null, faceBox2);
             // DrawingContext drawingContext2 = new DrawingContext;
 
-            if (faceResult.FacePointsInColorSpace != null)
-            {
-                // draw each face point
-                foreach (PointF pointF in faceResult.FacePointsInColorSpace.Values)
-                {
-                    // 臉部五官焦點標示
-                    drawingContext.DrawEllipse(null, drawingPen, new Point(pointF.X, pointF.Y), FacePointRadius, FacePointRadius);
-                }
-            }
+            //if (faceResult.FacePointsInColorSpace != null)
+            //{
+            //    // draw each face point
+            //    foreach (PointF pointF in faceResult.FacePointsInColorSpace.Values)
+            //    {
+            //        // 臉部五官焦點標示
+            //        drawingContext.DrawEllipse(null, drawingPen, new Point(pointF.X, pointF.Y), FacePointRadius, FacePointRadius);
+            //    }
+            //}
 
             string faceText = string.Empty;
 
@@ -1216,16 +1216,16 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                 //}
             }
 
-            // 頭部擺動角度
-            // extract face rotation in degrees as Euler angles
-            if (faceResult.FaceRotationQuaternion != null)
-            {
-                int pitch, yaw, roll;
-                ExtractFaceRotationInDegrees(faceResult.FaceRotationQuaternion, out pitch, out yaw, out roll);
-                faceText += "FaceYaw : " + yaw + "\n" +
-                            "FacePitch : " + pitch + "\n" +
-                            "FacenRoll : " + roll + "\n";
-            }
+            //// 頭部擺動角度
+            //// extract face rotation in degrees as Euler angles
+            //if (faceResult.FaceRotationQuaternion != null)
+            //{
+            //    int pitch, yaw, roll;
+            //    ExtractFaceRotationInDegrees(faceResult.FaceRotationQuaternion, out pitch, out yaw, out roll);
+            //    faceText += "FaceYaw : " + yaw + "\n" +
+            //                "FacePitch : " + pitch + "\n" +
+            //                "FacenRoll : " + roll + "\n";
+            //}
 
             // render the face property and face rotation information
             Point faceTextLayout;
