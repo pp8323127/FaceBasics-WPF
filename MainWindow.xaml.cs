@@ -1196,7 +1196,8 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                 int faceIndexShow = faceIndex;
 
                 //增加顯示tracking id
-                faceText += "faceIndex：" + faceIndexShow + "\n" + "TrackingID=" + this.bodies[faceIndex].TrackingId + "\n" + DetectAgeGenderResult[faceIndex] + "\n\n" ;
+                //faceText += "faceIndex：" + faceIndexShow + "\n" + "TrackingID=" + this.bodies[faceIndex].TrackingId + "\n" + DetectAgeGenderResult[faceIndex] + "\n\n" ;
+                faceText += "\n" + DetectAgeGenderResult[faceIndex] + "\n";
 
                 // 臉部表情狀態(happy, engery)
                 //foreach (var item in faceResult.FaceProperties)

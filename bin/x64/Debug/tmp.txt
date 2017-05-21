@@ -51,3 +51,8 @@
 2017-04-02 15:14:53, FaceIndex: 2, TrackingID: 72057594037947157, male, 19.4, pitch: -10, yaw: 0, roll: -10
 2017-04-02 15:15:38, FaceIndex: 3, TrackingID: 72057594037947386, male, 19.6, pitch: -30, yaw: 40, roll: -5
 2017-04-02 15:16:18, FaceIndex: 2, TrackingID: 72057594037947721, male, 16.1, pitch: -20, yaw: 5, roll: 0
+2017-05-21 11:22:02, FaceIndex: 3, TrackingID: 0, male, 21, pitch: 15, yaw: -10, roll: 5
+2017-05-21 11:22:05, FaceIndex: 5, TrackingID: 72057594037928128, male, 21.4, pitch: 5, yaw: -10, roll: 0
+2017-05-21 11:22:57, FaceIndex: 1, TrackingID: 72057594037928286, male, 20.9, pitch: 10, yaw: -10, roll: 0
+2017-05-21 11:23:45, FaceIndex: 1, TrackingID: 72057594037928316, male, 21.2, pitch: 10, yaw: 0, roll: 0
+2017-05-21 11:24:00, FaceIndex: 0, TrackingID: 72057594037928321, male, 20.4, pitch: 15, yaw: 0, roll: -15
