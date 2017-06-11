@@ -819,7 +819,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                                     jointPoints[jointType] = new Point(jointPointsInColor.X, jointPointsInColor.Y);
                                 }
 
-                                //this.DrawBody(joints, jointPoints, dc, drawPen);
+                                this.DrawBody(joints, jointPoints, dc, drawPen);
 
                                 //this.DrawHand(body.HandLeftState, jointPoints[JointType.HandLeft], dc);
                                 //this.DrawHand(body.HandRightState, jointPoints[JointType.HandRight], dc);
@@ -1237,18 +1237,18 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                 SolidColorBrush faceTextRectShading = new SolidColorBrush(Color.FromArgb(100, 0, 0, 0));
                 // 網底位置
                 Rect faceTextRect = new Rect(faceTextLayout.X, faceTextLayout.Y, 250, 150);
-                drawingContext.DrawRectangle(faceTextRectShading, null, faceTextRect);
+                //drawingContext.DrawRectangle(faceTextRectShading, null, faceTextRect);
                 
                 // 顯示人臉偵測結果，說明文字
-                drawingContext.DrawText(
-                        new FormattedText(
-                            faceText,
-                            CultureInfo.GetCultureInfo("en-us"),
-                            FlowDirection.LeftToRight,
-                            new Typeface("Georgia"),
-                            DrawTextFontSize,
-                            drawingBrush),
-                        faceTextLayout);
+                //drawingContext.DrawText(
+                //        new FormattedText(
+                //            faceText,
+                //            CultureInfo.GetCultureInfo("en-us"),
+                //            FlowDirection.LeftToRight,
+                //            new Typeface("Georgia"),
+                //            DrawTextFontSize,
+                //            drawingBrush),
+                //        faceTextLayout);
             }
         }
 
