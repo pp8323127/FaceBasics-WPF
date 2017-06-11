@@ -28,8 +28,8 @@
         <!--<Image Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Source="Images\Status.png" Stretch="None" HorizontalAlignment="Center" Margin="0 0 0 5" />-->
 
         <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Source="Images\olives_logo-01.png" HorizontalAlignment="Left" Stretch="Uniform" Height="75" Width="75" Margin="20,20,0,0" VerticalAlignment="Top"  />
-        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="0 10 0 0" HorizontalAlignment="Center" VerticalAlignment="Bottom" Foreground="{StaticResource MediumGreyBrush}" FontFamily="Segoe UI" FontSize="18">利用深度影像感測技術於智慧購物牆之研究</TextBlock>
-        <TextBlock Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" Margin="0 30 0 0" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="{StaticResource MediumGreyBrush}" FontFamily="Segoe UI" FontSize="12">A Study of Smart Shopping Wall Using Depth Image Sensor and Recommendation Techniques.</TextBlock>
+        <TextBlock Visibility="Hidden" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="0 10 0 0" HorizontalAlignment="Center" VerticalAlignment="Bottom" Foreground="{StaticResource MediumGreyBrush}" FontFamily="Segoe UI" FontSize="18">利用深度影像感測技術於智慧購物牆之研究</TextBlock>
+        <TextBlock Visibility="Hidden" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" Margin="0 30 0 0" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="{StaticResource MediumGreyBrush}" FontFamily="Segoe UI" FontSize="12">A Study of Smart Shopping Wall Using Depth Image Sensor and Recommendation Techniques.</TextBlock>
         <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="0 0 -1 0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Foreground="{StaticResource MediumGreyBrush}" FontFamily="Segoe UI" FontSize="18">NKFUST E508Lab</TextBlock>
 
         <Viewbox Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left">
@@ -53,16 +53,16 @@
                         <Image Source="Images/qr.png" Stretch="Uniform" Margin="0 0 0 0" Width="1100" HorizontalAlignment="Left"/>
                         <Image Source="Images/qr.png" Stretch="Uniform" Margin="0 0 0 0" Width="1100" HorizontalAlignment="Left"/>
                     </StackPanel>
-                    <Button x:Name="button5" Content="Button" Width="75" Click="button5_Click"/>
+                    <Button x:Name="button5" Content="Button" Width="75" Click="button5_Click" Canvas.Left="2" Canvas.Top="-24"/>
                 </Canvas>
 
-                <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="102" Margin="10,619,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="976" FontSize="20"/>
-                <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="92" Margin="83,527,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="720" FontSize="20"/>
-                <TextBox x:Name="textBox2" HorizontalAlignment="Left" Height="92" Margin="198,435,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="720" FontSize="20"/>
-                <TextBox x:Name="textBox3" HorizontalAlignment="Left" Height="92" Margin="346,619,-66,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="720" FontSize="20"/>
-                <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="843,628,0,0" VerticalAlignment="Top" Width="75" Click="button_Click"/>
-                <Button x:Name="button1" Content="Button" HorizontalAlignment="Left" Margin="728,670,0,0" VerticalAlignment="Top" Width="75" Click="button1_Click"/>
-                <Button x:Name="resetID" Content="ResetTrackID" HorizontalAlignment="Left" Margin="843,670,0,0" VerticalAlignment="Top" Width="108" Height="28" Click="resetID_Click" />
+                <TextBox Visibility="Hidden" x:Name="textBox" HorizontalAlignment="Left" Height="102" Margin="10,619,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="976" FontSize="20"/>
+                <TextBox Visibility="Hidden" x:Name="textBox1" HorizontalAlignment="Left" Height="92" Margin="83,527,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="720" FontSize="20"/>
+                <TextBox Visibility="Hidden" x:Name="textBox2" HorizontalAlignment="Left" Height="92" Margin="198,435,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="720" FontSize="20"/>
+                <TextBox Visibility="Hidden" x:Name="textBox3" HorizontalAlignment="Left" Height="92" Margin="346,619,-66,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="720" FontSize="20"/>
+                <Button Visibility="Hidden" x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="843,628,0,0" VerticalAlignment="Top" Width="75" Click="button_Click"/>
+                <Button Visibility="Hidden" x:Name="button1" Content="Button" HorizontalAlignment="Left" Margin="728,670,0,0" VerticalAlignment="Top" Width="75" Click="button1_Click"/>
+                <Button Visibility="Hidden" x:Name="resetID" Content="ResetTrackID" HorizontalAlignment="Left" Margin="843,670,0,0" VerticalAlignment="Top" Width="108" Height="28" Click="resetID_Click" />
 
             </Grid>
         </Viewbox>
@@ -92,12 +92,12 @@
                 </Grid>
 
                 <Grid Grid.Column="1">
-                    <Label x:Name="label" Content="LabelLabel" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" FontFamily="Microsoft JhengHei"/>
+                    <Label Visibility="Hidden" x:Name="label" Content="LabelLabel" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" FontFamily="Microsoft JhengHei"/>
                 </Grid>
             </Grid>
 
             <Grid Grid.Row="2">
-                <Label x:Name="label3" Content="推薦" FontSize="16" FontFamily="Microsoft JhengHei" />
+                <Label Visibility="Hidden" x:Name="label3" Content="推薦" FontSize="16" FontFamily="Microsoft JhengHei" />
             </Grid>
             
             <Grid Grid.Row="3" VerticalAlignment="Bottom">
