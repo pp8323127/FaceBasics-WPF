@@ -732,6 +732,133 @@ namespace Microsoft.Samples.Kinect.ControlsBasics.DataModel
             group6));
 
             this.AllGroups.Add(group6);
+
+
+
+//=============================
+            var group7 = new SampleDataCollection(
+                "Group-7",
+                "Group Title: 3",
+                "Group Subtitle: 3",
+                SampleDataSource.mediumGrayImage,
+                SampleDataSource.mediumGrayImage,
+                "");
+
+            group7.Items.Add(
+            new SampleDataItem(
+            "group7-Item-1",
+            "【躉泰】紫晶酥(12入)",
+            "NT$360",
+            new Uri("http://www.nargo.com.tw/image/cache/data/7896-228x228.jpg"),
+            new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=inargo-869"),
+            "新鮮的芋頭加上手工麻糬，芋頭的香甜以及麻糬的Q嫩，宜人的口感，在簡單的外表下，蘊藏著絕對的美味，絕對是佐茶伴友，聊天說地的最佳茶點。",
+            itemContent,
+            group7));
+
+            group7.Items.Add(
+            new SampleDataItem(
+            "group7-Item-2",
+            "【躉泰】芋頭酥(6入)",
+            "NT$180",
+            new Uri("http://www.nargo.com.tw/image/cache/data/A13002-228x228.JPG"),
+            new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=inargo-165"),
+            "芋頭的香甜，濃濃的香氣，絕對是佐茶小點的勝選。",
+            itemContent,
+            group7));
+
+            group7.Items.Add(
+            new SampleDataItem(
+            "group7-Item-3",
+            "【綠誠】爽很大",
+            "NT$150",
+            new Uri("http://www.nargo.com.tw/image/cache/data/66-500x500.jpg"),
+            new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=inargo-862"),
+            "輕鬆、自然、獨特的新包裝、新口味，一袋12包，芥末、麻辣、鹽酥雞、原味等四種口味，新鮮蔬菜精製而成的休閒點心，最適合郊遊、聊天、看電視、早餐、宵夜、茶點，隨手一包、百吃不厭，絕妙好搭配，片片好滋味。一推出，就造成熱賣。",
+            itemContent,
+            group7));
+
+            group7.Items.Add(
+            new SampleDataItem(
+            "group7-Item-4",
+            "《南投拌手禮》美人腿湯麵(肉燥)",
+            "NT$30",
+            new Uri("http://www.nargo.com.tw/image/cache/data/0725/n4-228x228.jpg"),
+            new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=inargo-1502"),
+            "《南投拌手禮》美人腿湯麵(肉燥)",
+            itemContent,
+            group7));
+
+            group7.Items.Add(
+            new SampleDataItem(
+            "group7-Item-5",
+            "【小林煎餅】瓦煎燒禮盒(1盒)",
+            "NT$150",
+            new Uri("http://www.nargo.com.tw/image/cache/data/A01004-228x228.JPG"),
+            new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=inargo-92"),
+            "瓦片自古以來即為富貴吉祥之象徵。小瓦片口感較大瓦片稍扎實些，帶有濃郁牛奶香，餅紋依時令節慶變化，單獨小包裝最適合獨享。",
+            itemContent,
+            group7));
+
+            group7.Items.Add(
+            new SampleDataItem(
+            "group7-Item-6",
+            "【小林煎餅】林桑手燒超值分享包*1包(300g / 包)",
+            "NT$120",
+            new Uri("http://www.nargo.com.tw/image/cache/data/3-228x228.jpg"),
+            new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=inargo-93"),
+            "第一次接觸煎餅的最佳選擇。集合七種口味的煎餅，獨立小包裝加上保鮮夾鏈袋，人氣No.1。",
+            itemContent,
+            group7));
+
+            this.AllGroups.Add(group7);
+
+
+
+            //=============================
+
+
+            var group8 = new SampleDataCollection(
+                "Group-8",
+                "Group Title: 3",
+                "Group Subtitle: 3",
+                SampleDataSource.mediumGrayImage,
+                SampleDataSource.mediumGrayImage,
+                "");
+
+            group8.Items.Add(
+            new SampleDataItem(
+            "group8-Item-1",
+            "【尤多拉】小黑糖-日月潭紅茶(1罐)",
+            "NT$120",
+            new Uri("http://www.nargo.com.tw/image/cache/data/A010011-228x228.JPG"),
+            new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=inargo-1300"),
+            "一口香味四溢的紅茶黑糖， 綿密的口感可以吃的到每一口真材實料，嚴選台灣新竹黑糖、台灣日月潭紅茶",
+            itemContent,
+            group8));
+
+            group8.Items.Add(
+            new SampleDataItem(
+            "group8-Item-2",
+            "【福瑄食品】傳統古味─芝麻餅",
+            "NT$120",
+            new Uri("http://www.nargo.com.tw/image/cache/data/DSC06494-228x228.JPG"),
+            new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=inargo-1099"),
+            "秉持天然養生及簡單，自然健康的概念。",
+            itemContent,
+            group8));
+
+            group8.Items.Add(
+            new SampleDataItem(
+            "group8-Item-3",
+            "【福瑄食品】傳統古味─青仁花生(1罐)",
+            "NT$150",
+            new Uri("http://www.nargo.com.tw/image/cache/data/A11007-228x228.JPG"),
+            new Uri("http://www.nargo.com.tw/qr_print.php?level=L&size=20&data=inargo-141"),
+            "嚴選頂級青仁花生，獨特花生酥脆的口感，甜而不膩，又不黏牙，讓您吃了還想再吃！",
+            itemContent,
+            group8));
+
+            this.AllGroups.Add(group8);
         }
 
         public ObservableCollection<SampleDataCollection> AllGroups

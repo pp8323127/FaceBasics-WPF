@@ -2181,6 +2181,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                     // 顯示推薦商品清單
                     groupID = i + j;
                     showProductGroup(groupID.ToString());
+                    //showProductGroup(8.ToString());
 
                 }
             }
