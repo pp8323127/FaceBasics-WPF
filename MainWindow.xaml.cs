@@ -252,10 +252,15 @@ namespace Microsoft.Samples.Kinect.FaceBasics
         private readonly IFaceServiceClient faceServiceClent =
             new FaceServiceClient("4b84a43021ee4799bb07ef07a1fe91f5");
 
+
+        // custome
         private int numFace = 0;
         private int nowBody = 0;
         private ulong[] saveTrackingID = null;
         private string[] DetectAgeGenderResult;
+        private string[] DetectAgeResult;
+        private string[] DetectGenderResult;
+        private string[] DetectSmileResult;
 
 
 
@@ -297,6 +302,9 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
             // 建立儲存辨識結果的地方(依faceIndex)
             this.DetectAgeGenderResult = new string[this.bodyCount];
+            this.DetectGenderResult = new string[this.bodyCount];
+            this.DetectAgeResult = new string[this.bodyCount];
+            this.DetectSmileResult = new string[this.bodyCount];
 
             // specify the required face frame results
             FaceFrameFeatures faceFrameFeatures =
@@ -819,10 +827,10 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                                     jointPoints[jointType] = new Point(jointPointsInColor.X, jointPointsInColor.Y);
                                 }
 
-                                this.DrawBody(joints, jointPoints, dc, drawPen);
+                                //this.DrawBody(joints, jointPoints, dc, drawPen);
 
-                                this.DrawHand(body.HandLeftState, jointPoints[JointType.HandLeft], dc);
-                                this.DrawHand(body.HandRightState, jointPoints[JointType.HandRight], dc);
+                                //this.DrawHand(body.HandLeftState, jointPoints[JointType.HandLeft], dc);
+                                //this.DrawHand(body.HandRightState, jointPoints[JointType.HandRight], dc);
                             }
                         }
 
@@ -1162,6 +1170,8 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                     // 進行辨識
                     DetectAgeGender(fileName, faceIndex, faceRotate);
 
+                    //上傳圖檔
+                    uploadIMG(saveTrackingID[faceIndex].ToString(), faceIndex.ToString());
                 }
                 
             }
@@ -1182,7 +1192,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                 foreach (PointF pointF in faceResult.FacePointsInColorSpace.Values)
                 {
                     // 臉部五官焦點標示
-                    drawingContext.DrawEllipse(null, drawingPen, new Point(pointF.X, pointF.Y), FacePointRadius, FacePointRadius);
+                    //drawingContext.DrawEllipse(null, drawingPen, new Point(pointF.X, pointF.Y), FacePointRadius, FacePointRadius);
                 }
             }
 
@@ -1196,7 +1206,8 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                 int faceIndexShow = faceIndex;
 
                 //增加顯示tracking id
-                faceText += "faceIndex：" + faceIndexShow + "\n" + "TrackingID=" + this.bodies[faceIndex].TrackingId + "\n" + DetectAgeGenderResult[faceIndex] + "\n\n" ;
+                //faceText += "faceIndex：" + faceIndexShow + "\n" + "TrackingID=" + this.bodies[faceIndex].TrackingId + "\n" + DetectAgeGenderResult[faceIndex] + "\n\n" ;
+                faceText += DetectGenderResult[faceIndex] + " " + DetectAgeResult[faceIndex] ;
 
                 // 臉部表情狀態(happy, engery)
                 //foreach (var item in faceResult.FaceProperties)
@@ -1216,26 +1227,30 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                 //}
             }
 
-            // 頭部擺動角度
-            // extract face rotation in degrees as Euler angles
-            if (faceResult.FaceRotationQuaternion != null)
-            {
-                int pitch, yaw, roll;
-                ExtractFaceRotationInDegrees(faceResult.FaceRotationQuaternion, out pitch, out yaw, out roll);
-                faceText += "FaceYaw : " + yaw + "\n" +
-                            "FacePitch : " + pitch + "\n" +
-                            "FacenRoll : " + roll + "\n";
-            }
+            //// 頭部擺動角度
+            //// extract face rotation in degrees as Euler angles
+            //if (faceResult.FaceRotationQuaternion != null)
+            //{
+            //    int pitch, yaw, roll;
+            //    ExtractFaceRotationInDegrees(faceResult.FaceRotationQuaternion, out pitch, out yaw, out roll);
+            //    faceText += "FaceYaw : " + yaw + "\n" +
+            //                "FacePitch : " + pitch + "\n" +
+            //                "FacenRoll : " + roll + "\n";
+            //}
 
             // render the face property and face rotation information
             Point faceTextLayout;
+            Point faceTextLocate = new Point(faceBoxSource.Left, faceBoxSource.Top - 70);
+
             if (this.GetFaceTextPositionInColorSpace(faceIndex, out faceTextLayout))
             {
                 // 畫文字網底
                 // 網底顏色FromArgb
-                SolidColorBrush faceTextRectShading = new SolidColorBrush(Color.FromArgb(100, 0, 0, 0));
+                SolidColorBrush faceTextRectShading = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0));
                 // 網底位置
-                Rect faceTextRect = new Rect(faceTextLayout.X, faceTextLayout.Y, 250, 150);
+                //Rect faceTextRect = new Rect(faceTextLayout.X, faceTextLayout.Y, 250, 150);
+                Rect faceTextRect = new Rect(faceBoxSource.Left, faceBoxSource.Top - 70, 300, 70);
+
                 drawingContext.DrawRectangle(faceTextRectShading, null, faceTextRect);
                 
                 // 顯示人臉偵測結果，說明文字
@@ -1247,7 +1262,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                             new Typeface("Georgia"),
                             DrawTextFontSize,
                             drawingBrush),
-                        faceTextLayout);
+                        faceTextLocate);
             }
         }
 
@@ -1364,56 +1379,62 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                     attributes = faces.Select(Face => Face.FaceAttributes).ToArray();
                 }
 
-            //MessageBox.Show(attributes.ToString(), "1", MessageBoxButton.OK);
 
-            //接收傳回資料後，加工處理年齡、性別、微笑值資料
-            int female = 0, male = 0, adult = 0, child = 0;
-            double youngest = 120, oldest = 0, smilest = 0;
-            foreach (var attribute in attributes)
-            {
-                var gender = attribute.Gender;
-                if (gender == "male")
-                    male++;
-                else if (gender == "female")
-                    female++;
-                else
-                    MessageBox.Show("Unknown Gender!");
+                //接收傳回資料後，加工處理年齡、性別、微笑值資料
+                string gender = null;
 
-                var age = attribute.Age;
-                if (age >= 20)
-                    adult++;
-                else
-                    child++;
-                if (age < youngest)
-                    youngest = age;
-                if (age > oldest)
-                    oldest = age;
-                var smile = attribute.Smile;
-                if (smile > smilest)
-                    smilest = smile;
+                int i = 0;
+                int j = 0;
+                foreach (var attribute in attributes)
+                {
+                    if (attribute.Gender == "male")
+                    {
+                        gender = "男性";
+                    }
+                    else
+                    {
+                        gender = "女性";
+                    }
+
+                    //0 - 3 嬰幼兒
+                    //4 - 7 幼兒
+                    //8 - 14 幼童
+                    //15 - 22 青少年
+                    //23 - 35 青壯年
+                    //36 - 45 壯年
+                    //46 - 60 中壯年
+                    //60 + 老年
 
 
+                    int age = (int)attribute.Age;
+                    if (age <= 3) { DetectAgeResult[faceIndex] = "0 ~ 3 歲"; i = 0; }
+                    else if (age <= 7) { DetectAgeResult[faceIndex] = "4 ~ 7 歲"; i = 0; }
+                    else if (age <= 14) { DetectAgeResult[faceIndex] = "8 ~ 14 歲"; i = 0; }
+                    else if (age <= 22) { DetectAgeResult[faceIndex] = "15 ~ 22 歲"; i = 0; }
+                    else if (age <= 35) { DetectAgeResult[faceIndex] = "23 ~ 35 歲"; i = 1; }
+                    else if (age <= 45) { DetectAgeResult[faceIndex] = "36 ~ 45 歲"; i = 1; }
+                    else if (age <= 60) { DetectAgeResult[faceIndex] = "46 ~ 60 歲"; i = 2; }
+                    else if (age > 60) { DetectAgeResult[faceIndex] = "60+ 歲"; i = 2; }
 
-                //MessageBox.Show(attribute.Gender + "  " + attribute.Age);
-                DetectAgeGenderResult[faceIndex] = attribute.Gender + ", " + attribute.Age;
-                //MessageBox.Show(DetectAgeGenderResult[faceIndex]);
-                //textBox.Text = textBox.Text + "\n" + DetectAgeGenderResult;
+                    //MessageBox.Show(attribute.Gender + "  " + attribute.Age);
+                    //DetectAgeGenderResult[faceIndex] = gender + ", " + attribute.Age;
+                    //DetectAgeResult[faceIndex] = attribute.Age.ToString();
+                    DetectGenderResult[faceIndex] = gender;
+                    DetectSmileResult[faceIndex] = (attribute.Smile * 100).ToString();
+
+                    //MessageBox.Show(DetectAgeGenderResult[faceIndex]);
+                    //textBox.Text = textBox.Text + "\n" + DetectAgeGenderResult;
 
 
-                // textBox顯示
-                textBox.Text = textBox.Text + "\nFaceIndex: " + faceIndex + "\nTrackingID: " + saveTrackingID[faceIndex].ToString() + "\n" + DetectAgeGenderResult[faceIndex] + ", " + faceRotate;
+                    // textBox顯示
+                    //textBox.Text = textBox.Text + "\nFaceIndex: " + faceIndex + "\nTrackingID: " + saveTrackingID[faceIndex].ToString() + "\n" + DetectAgeGenderResult[faceIndex] + ", " + faceRotate;
 
-                // 把辨識結果儲存到tmp.txt
-                DateTime mNow = DateTime.Now;
-                string path = @"tmp.txt";
-                File.AppendAllText(path, mNow.ToString("yyyy-MM-dd HH:mm:ss") + ", FaceIndex: " + faceIndex + ", TrackingID: " + saveTrackingID[faceIndex].ToString() + ", " + DetectAgeGenderResult[faceIndex] + ", " + faceRotate + Environment.NewLine);
+                    // 把辨識結果儲存到tmp.txt
+                    DateTime mNow = DateTime.Now;
+                    string path = @"tmp.txt";
+                    File.AppendAllText(path, mNow.ToString("yyyy-MM-dd HH:mm:ss") + ", FaceIndex: " + faceIndex + ", TrackingID: " + saveTrackingID[faceIndex].ToString() + ", " + DetectGenderResult[faceIndex] + ", " + DetectAgeResult[faceIndex] + ", " + faceRotate + Environment.NewLine);
 
-
-            }
-
-
-
-
+                }
             }
             catch (Exception e)
             {
@@ -1424,12 +1445,17 @@ namespace Microsoft.Samples.Kinect.FaceBasics
         }
 
 
-
-        private string DetectAgeGenderResult1(object sender, object faceIndex)
+        private void uploadIMG(string url, string faceindex)
         {
+            string path = Directory.GetCurrentDirectory() + "\\" + url + "-All-" + faceindex + ".jpg";
+            textBox.Text = path;
+            System.Net.WebClient Client = new System.Net.WebClient();
+            Client.Headers.Add("Content-Type", "binary/octet-stream");
+            byte[] result = Client.UploadFile("http://163.18.42.141/KinectFace/c117.php", "POST", path);
 
-            return("");
         }
+
+
 
 
         /// <summary>

@@ -2,9 +2,11 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Face Basics" 
-        Height="768" Width="1024" 
+        Height="1080" Width="1920" 
         Loaded="MainWindow_Loaded"
-        Closing="MainWindow_Closing">
+        Closing="MainWindow_Closing"
+        WindowState="Maximized"
+        >
     <Window.Resources>
         <SolidColorBrush x:Key="MediumGreyBrush" Color="#ff6e6e6e" />
         <SolidColorBrush x:Key="KinectPurpleBrush" Color="#ff52318f" />
@@ -20,13 +22,15 @@
         <!--<Image Grid.Row="0" Source="Images\Logo.png" HorizontalAlignment="Left" Stretch="Fill" Height="32" Width="81" Margin="0 10 0 5" />-->
         <!--<TextBlock Grid.Row="0" Margin="0 0 -1 0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Foreground="{StaticResource MediumGreyBrush}" FontFamily="Segoe UI" FontSize="18">Face Basics</TextBlock>-->
         <!--<Image Grid.Row="0" Source="Images\Status.png" Stretch="None" HorizontalAlignment="Center" Margin="0 0 0 5" />-->
+        <Image Grid.Row="0" Margin="5" Width="500" HorizontalAlignment="Left" Source="Images/IM_logo-01.png" />
+        <TextBlock Grid.Row="0" Margin="20" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontFamily="Microsoft JhengHei" FontSize="24" Foreground="{StaticResource MediumGreyBrush}">NKFUST E508 Multimedia Lab.</TextBlock>
 
         <Viewbox Grid.Row="1" HorizontalAlignment="Center">
             <Image Source="{Binding ImageSource}" Stretch="UniformToFill" />
         </Viewbox>
 
         <StatusBar Grid.Row="2" HorizontalAlignment="Stretch" Name="statusBar" VerticalAlignment="Bottom" Background="White" Foreground="{StaticResource MediumGreyBrush}">
-            <StatusBarItem Content="{Binding StatusText}" />
+            <!--<StatusBarItem Content="{Binding StatusText}" />-->
         </StatusBar>
         <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="102" Margin="10,619,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="976"/>
     </Grid>
