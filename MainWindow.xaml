@@ -26,6 +26,7 @@
         <!--<Image Grid.Row="0" Source="Images\Status.png" Stretch="None" HorizontalAlignment="Center" Margin="0 0 0 5" />-->
         <Image Grid.Row="0" Margin="5" Width="500" HorizontalAlignment="Left" Source="Images/IM_logo-01.png" />
         <TextBlock Grid.Row="0" Margin="20" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontFamily="Microsoft JhengHei" FontSize="24" Foreground="{StaticResource MediumGreyBrush}">NKFUST E508 Multimedia Lab.</TextBlock>
+        <TextBlock Grid.Row="0" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontFamily="Microsoft JhengHei" FontSize="38" Foreground="{StaticResource MediumGreyBrush}" FontWeight="Bold">人臉特徵分析系統</TextBlock>
 
         <Viewbox Grid.Row="1" HorizontalAlignment="Center" Stretch="UniformToFill">
             <Image Source="{Binding ImageSource}" />
