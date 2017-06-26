@@ -68,3 +68,5 @@
 2017-06-26 13:02:50, FaceIndex: 3, TrackingID: 72057594037929164, 男性, 8 ~ 14 歲, pitch: 20, yaw: 0, roll: -15
 2017-06-26 13:06:56, FaceIndex: 1, TrackingID: 72057594037929210, 男性, 15 ~ 22 歲, pitch: 5, yaw: -10, roll: 10
 2017-06-26 13:12:34, FaceIndex: 0, TrackingID: 72057594037929587, 男性, 15 ~ 22 歲, pitch: -5, yaw: -10, roll: -5
+2017-06-26 13:18:55, FaceIndex: 0, TrackingID: 0, 男性, 23 ~ 35 歲, pitch: 5, yaw: -15, roll: -15
+2017-06-26 13:18:55, FaceIndex: 0, TrackingID: 0, 男性, 23 ~ 35 歲, pitch: 5, yaw: -15, roll: -15

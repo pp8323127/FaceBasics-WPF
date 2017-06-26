@@ -32,6 +32,6 @@
         <StatusBar Grid.Row="2" HorizontalAlignment="Stretch" Name="statusBar" VerticalAlignment="Bottom" Background="White" Foreground="{StaticResource MediumGreyBrush}">
             <!--<StatusBarItem Content="{Binding StatusText}" />-->
         </StatusBar>
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="102" Margin="10,619,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="976"/>
+        <TextBox x:Name="textBox" Visibility="Hidden" HorizontalAlignment="Left" Height="102" Margin="10,619,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="976"/>
     </Grid>
 </Window>
