@@ -1447,12 +1447,15 @@ namespace Microsoft.Samples.Kinect.FaceBasics
 
         private void uploadIMG(string url, string faceindex)
         {
-            string path = Directory.GetCurrentDirectory() + "\\" + url + "-All-" + faceindex + ".jpg";
-            textBox.Text = path;
-            System.Net.WebClient Client = new System.Net.WebClient();
-            Client.Headers.Add("Content-Type", "binary/octet-stream");
-            byte[] result = Client.UploadFile("http://163.18.42.141/KinectFace/c117.php", "POST", path);
-
+            try
+            {
+                string path = Directory.GetCurrentDirectory() + "\\" + url + "-All-" + faceindex + ".jpg";
+                textBox.Text = path;
+                System.Net.WebClient Client = new System.Net.WebClient();
+                Client.Headers.Add("Content-Type", "binary/octet-stream");
+                byte[] result = Client.UploadFile("http://163.18.42.141/KinectFace/c117.php", "POST", path);
+            }
+            catch { }
         }
 
 
