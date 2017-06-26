@@ -617,6 +617,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                 this.kinectSensor = null;
             }
 
+            delete_file();
         }
 
 
@@ -1362,6 +1363,44 @@ namespace Microsoft.Samples.Kinect.FaceBasics
         }
 
 
+        private void delete_file()
+        {
+            string sourceDir = Directory.GetCurrentDirectory() + @"\";
+
+            try
+            {
+                string[] txtList = Directory.GetFiles(sourceDir, @"*.txt");
+                string[] imgList = Directory.GetFiles(sourceDir, @"*.jpg");
+
+                foreach (string f in imgList)
+                {
+                    try
+                    {
+                        File.Delete(f);
+                    }
+                    // Catch exception if the file was already copied.
+                    catch (IOException ex)
+                    {
+                    }
+                }
+
+                //foreach (string f in txtList)
+                //{
+                //    try
+                //    {
+                //        File.Delete(f);
+                //    }
+                //    // Catch exception if the file was already copied.
+                //    catch (IOException ex)
+                //    {
+                //    }
+                //}
+            }
+            catch (Exception ex)
+            {
+            }
+
+        }
 
 
         /// <summary>
