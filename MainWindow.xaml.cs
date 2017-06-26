@@ -774,16 +774,6 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                             }
                         }
 
-                        if (!drawFaceResult)
-                        {
-                            // if no faces were drawn then this indicates one of the following:
-                            // a body was not tracked 
-                            // a body was tracked but the corresponding face was not tracked
-                            // a body and the corresponding face was tracked though the face box or the face points were not valid
-                            dc.DrawText(
-                                this.textFaceNotTracked, 
-                                this.textLayoutFaceNotTracked);
-                        }
 
                         this.drawingGroup.ClipGeometry = new RectangleGeometry(this.displayRect);
 
@@ -1008,94 +998,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                 //textBox.Text = this.faceFrameSources[faceIndex].TrackingId.ToString() + "\n" + saveTrackingID[faceIndex].ToString();
 
 
-
-             //---------Microsoft Face Api----------// 
-                //if(this.bodies[faceIndex].TrackingId != saveTrackingID[faceIndex])
-                //{
-                //    saveTrackingID[faceIndex] = this.bodies[faceIndex].TrackingId;
-                //    textBox.Text = this.faceFrameSources[faceIndex].TrackingId.ToString() + "\n" + saveTrackingID[faceIndex].ToString();
-
-                //    string fileName = "tmp.jpg";
-                //    using (FileStream saveImage = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.Write))
-                //    {
-                //        //從ColorImage.Source處取出一張影像，轉為BitmapSource格式
-                //        //儲存到imageSource
-                //        BitmapSource imageSourceAPI = (BitmapSource)colorBitmap;
-                //        //挑選Joint Photographic Experts Group(JPEG)影像編碼器
-                //        JpegBitmapEncoder encoder = new JpegBitmapEncoder();
-                //        //將取出的影像加到編碼器的影像集
-                //        encoder.Frames.Add(BitmapFrame.Create(imageSourceAPI.CopyPixels(faceBox,));
-                //        //儲存影像與後續影像清除工作
-                //        encoder.Save(saveImage);
-                //        saveImage.Flush();
-                //        saveImage.Close();
-                //        saveImage.Dispose();
-
-                //        DetectAgeGender(fileName);
-                //    }
-
-                //}
-
-
-
-
-
-
-                //numFace = 6 - numFace;
-
-
-
-
-
-                //string strr = this.faceFrameSources[faceIndex].TrackingId.ToString();
-                string strr = numFace.ToString();
-                FormattedText ft = new FormattedText(
-                    strr,
-                    CultureInfo.GetCultureInfo("en-us"),
-                            FlowDirection.LeftToRight,
-                            new Typeface("Georgia"),
-                            DrawTextFontSize,
-                            Brushes.Red);
-
-                drawingContext.DrawText(ft, this.textLayoutFaceNotTracked);
-
-
-
-
-
-                //MessageBox.Show(this.bodyCount.ToString(), "1", MessageBoxButton.OK);
-                if (nowBody != numFace)
-                {
-                    /*
-                    string fileName = "tmp.jpg";
-                    using (FileStream saveImage = new FileStream(fileName, FileMode.Open, FileAccess.Write))
-                    {
-                        //從ColorImage.Source處取出一張影像，轉為BitmapSource格式
-                        //儲存到imageSource
-                        BitmapSource imageSourceAPI = (BitmapSource)colorBitmap;
-                        //挑選Joint Photographic Experts Group(JPEG)影像編碼器
-                        JpegBitmapEncoder encoder = new JpegBitmapEncoder();
-                        //將取出的影像加到編碼器的影像集
-                        encoder.Frames.Add(BitmapFrame.Create(imageSourceAPI));
-                        //儲存影像與後續影像清除工作
-                        encoder.Save(saveImage);
-                        saveImage.Flush();
-                        saveImage.Close();
-                        saveImage.Dispose();
-
-                        nowBody = numFace;
-                    }*/
-                    ////辨識
-                    ////DetectAgeGender(fileName);
-                }
-
-                numFace = 0;
-
-
-
-
-
-
+       
             }
 
             Pen drawingPen = new Pen(drawingBrush, DrawFaceShapeThickness);

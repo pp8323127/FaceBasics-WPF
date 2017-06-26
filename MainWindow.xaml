@@ -14,7 +14,7 @@
         <SolidColorBrush x:Key="KinectPurpleBrush" Color="#ff52318f" />
         <SolidColorBrush x:Key="KinectBlueBrush" Color="#ff00BCF2" />
     </Window.Resources>
-    <Grid Margin="10 0 10 0">
+    <Grid Margin="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -27,8 +27,8 @@
         <Image Grid.Row="0" Margin="5" Width="500" HorizontalAlignment="Left" Source="Images/IM_logo-01.png" />
         <TextBlock Grid.Row="0" Margin="20" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontFamily="Microsoft JhengHei" FontSize="24" Foreground="{StaticResource MediumGreyBrush}">NKFUST E508 Multimedia Lab.</TextBlock>
 
-        <Viewbox Grid.Row="1" HorizontalAlignment="Center">
-            <Image Source="{Binding ImageSource}" Stretch="UniformToFill" />
+        <Viewbox Grid.Row="1" HorizontalAlignment="Center" Stretch="UniformToFill">
+            <Image Source="{Binding ImageSource}" />
         </Viewbox>
 
         <StatusBar Grid.Row="2" HorizontalAlignment="Stretch" Name="statusBar" VerticalAlignment="Bottom" Background="White" Foreground="{StaticResource MediumGreyBrush}">
