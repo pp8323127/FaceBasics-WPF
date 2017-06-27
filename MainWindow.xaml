@@ -5,6 +5,7 @@
         Height="1080" Width="1920" 
         Loaded="MainWindow_Loaded"
         Closing="MainWindow_Closing"
+        FontFamily="Microsoft JhengHei"
         WindowState="Maximized"
         WindowStyle="None"
         Topmost="True"
@@ -24,9 +25,9 @@
         <!--<Image Grid.Row="0" Source="Images\Logo.png" HorizontalAlignment="Left" Stretch="Fill" Height="32" Width="81" Margin="0 10 0 5" />-->
         <!--<TextBlock Grid.Row="0" Margin="0 0 -1 0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Foreground="{StaticResource MediumGreyBrush}" FontFamily="Segoe UI" FontSize="18">Face Basics</TextBlock>-->
         <!--<Image Grid.Row="0" Source="Images\Status.png" Stretch="None" HorizontalAlignment="Center" Margin="0 0 0 5" />-->
-        <Image Grid.Row="0" Margin="5" Width="500" HorizontalAlignment="Left" Source="Images/IM_logo-01.png" />
+        <Image Grid.Row="0" Visibility="Visible" Margin="5" Width="500" HorizontalAlignment="Left" Source="Images/IM_logo-01.png" />
         <TextBlock Grid.Row="0" Margin="20" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontFamily="Microsoft JhengHei" FontSize="24" Foreground="{StaticResource MediumGreyBrush}">NKFUST E508 Multimedia Lab.</TextBlock>
-        <TextBlock Grid.Row="0" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontFamily="Microsoft JhengHei" FontSize="38" Foreground="{StaticResource MediumGreyBrush}" FontWeight="Bold">人臉特徵分析系統</TextBlock>
+        <TextBlock Grid.Row="0" Visibility="Visible" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontFamily="Microsoft JhengHei" FontSize="38" Foreground="{StaticResource MediumGreyBrush}" FontWeight="Bold">人臉特徵分析系統</TextBlock>
 
         <Viewbox Grid.Row="1" HorizontalAlignment="Center" Stretch="UniformToFill">
             <Image Source="{Binding ImageSource}" />
