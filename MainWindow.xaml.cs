@@ -1153,7 +1153,7 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                 SolidColorBrush faceTextRectShading = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0));
                 // 網底位置
                 //Rect faceTextRect = new Rect(faceTextLayout.X, faceTextLayout.Y, 250, 150);
-                Rect faceTextRect = new Rect(faceBoxSource.Left, faceBoxSource.Top - 80, 300, 50);
+                Rect faceTextRect = new Rect(faceBoxSource.Left, faceBoxSource.Top - 70, 300, 55);
 
                 drawingContext.DrawRectangle(faceTextRectShading, null, faceTextRect);
                 
