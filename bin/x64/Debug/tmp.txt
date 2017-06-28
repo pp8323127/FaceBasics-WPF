@@ -28,3 +28,8 @@
 2017-06-27 12:49:13, FaceIndex: 0, TrackingID: 72057594037929113, 男性, 15 ~ 22 歲, pitch: -10, yaw: 5, roll: 10
 2017-06-27 12:49:13, FaceIndex: 1, TrackingID: 72057594037929114, 男性, 15 ~ 22 歲, pitch: -10, yaw: -5, roll: -10
 2017-06-27 12:49:24, FaceIndex: 2, TrackingID: 72057594037929125, 男性, 23 ~ 35 歲, pitch: -15, yaw: -25, roll: 0
+2017-06-28 10:00:41, FaceIndex: 0, TrackingID: 0, 男性, 15 ~ 22 歲, pitch: 5, yaw: -5, roll: -5
+2017-06-28 10:00:42, FaceIndex: 1, TrackingID: 72057594037927968, 男性, 15 ~ 22 歲, pitch: 15, yaw: -10, roll: 0
+2017-06-28 10:01:08, FaceIndex: 5, TrackingID: 72057594037927978, 男性, 23 ~ 35 歲, pitch: 15, yaw: -5, roll: 15
+2017-06-28 10:02:28, FaceIndex: 2, TrackingID: 72057594037927993, 男性, 23 ~ 35 歲, pitch: 5, yaw: -10, roll: -5
+2017-06-28 10:04:33, FaceIndex: 1, TrackingID: 72057594037928088, 男性, 15 ~ 22 歲, pitch: 10, yaw: -10, roll: -5

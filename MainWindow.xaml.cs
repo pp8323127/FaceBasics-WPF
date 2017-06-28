@@ -1338,6 +1338,8 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                     string path = @"tmp.txt";
                     File.AppendAllText(path, mNow.ToString("yyyy-MM-dd HH:mm:ss") + ", FaceIndex: " + faceIndex + ", TrackingID: " + saveTrackingID[faceIndex].ToString() + ", " + DetectGenderResult[faceIndex] + ", " + DetectAgeResult[faceIndex] + ", " + faceRotate + Environment.NewLine);
 
+                    // 把tmp.txt上傳
+                    uploadTMP();
                 }
             }
             catch (Exception e)
@@ -1358,6 +1360,19 @@ namespace Microsoft.Samples.Kinect.FaceBasics
                 System.Net.WebClient Client = new System.Net.WebClient();
                 Client.Headers.Add("Content-Type", "binary/octet-stream");
                 byte[] result = Client.UploadFile("http://163.18.42.141/KinectFace/c117.php", "POST", path);
+
+            }
+            catch { }
+        }
+
+        private void uploadTMP()
+        {
+            try
+            {
+                string tmptxt = Directory.GetCurrentDirectory() + "\\tmp.txt";
+                System.Net.WebClient Client = new System.Net.WebClient();
+                Client.Headers.Add("Content-Type", "binary/octet-stream");
+                byte[] result = Client.UploadFile("http://163.18.42.141/KinectFace/c117.php", "POST", tmptxt);
             }
             catch { }
         }
