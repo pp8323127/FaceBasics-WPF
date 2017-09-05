@@ -75,3 +75,21 @@ D:\KinectFace\obj\x64\Debug\Microsoft.Samples.Kinect.FaceBasics.Properties.Resou
 D:\KinectFace\obj\x64\Debug\FaceBasics-WPF.csproj.GenerateResource.Cache
 D:\KinectFace\obj\x64\Debug\FaceBasics-WPF.exe
 D:\KinectFace\obj\x64\Debug\FaceBasics-WPF.pdb
+C:\Users\MO\Documents\Visual Studio 2015\Projects\KinectFace\bin\x64\Debug\FaceBasics-WPF.exe.config
+C:\Users\MO\Documents\Visual Studio 2015\Projects\KinectFace\bin\x64\Debug\FaceBasics-WPF.exe
+C:\Users\MO\Documents\Visual Studio 2015\Projects\KinectFace\bin\x64\Debug\FaceBasics-WPF.pdb
+C:\Users\MO\Documents\Visual Studio 2015\Projects\KinectFace\bin\x64\Debug\Microsoft.ProjectOxford.Face.dll
+C:\Users\MO\Documents\Visual Studio 2015\Projects\KinectFace\bin\x64\Debug\Newtonsoft.Json.dll
+C:\Users\MO\Documents\Visual Studio 2015\Projects\KinectFace\bin\x64\Debug\Microsoft.Kinect.xml
+C:\Users\MO\Documents\Visual Studio 2015\Projects\KinectFace\bin\x64\Debug\Microsoft.Kinect.Face.xml
+C:\Users\MO\Documents\Visual Studio 2015\Projects\KinectFace\bin\x64\Debug\Newtonsoft.Json.xml
+C:\Users\MO\Documents\Visual Studio 2015\Projects\KinectFace\obj\x64\Debug\FaceBasics-WPF.csprojResolveAssemblyReference.cache
+C:\Users\MO\Documents\Visual Studio 2015\Projects\KinectFace\obj\x64\Debug\MainWindow.baml
+C:\Users\MO\Documents\Visual Studio 2015\Projects\KinectFace\obj\x64\Debug\MainWindow.g.cs
+C:\Users\MO\Documents\Visual Studio 2015\Projects\KinectFace\obj\x64\Debug\App.g.cs
+C:\Users\MO\Documents\Visual Studio 2015\Projects\KinectFace\obj\x64\Debug\FaceBasics-WPF_MarkupCompile.cache
+C:\Users\MO\Documents\Visual Studio 2015\Projects\KinectFace\obj\x64\Debug\FaceBasics-WPF.g.resources
+C:\Users\MO\Documents\Visual Studio 2015\Projects\KinectFace\obj\x64\Debug\Microsoft.Samples.Kinect.FaceBasics.Properties.Resources.resources
+C:\Users\MO\Documents\Visual Studio 2015\Projects\KinectFace\obj\x64\Debug\FaceBasics-WPF.csproj.GenerateResource.Cache
+C:\Users\MO\Documents\Visual Studio 2015\Projects\KinectFace\obj\x64\Debug\FaceBasics-WPF.exe
+C:\Users\MO\Documents\Visual Studio 2015\Projects\KinectFace\obj\x64\Debug\FaceBasics-WPF.pdb
